@@ -10,9 +10,8 @@ spec:
       chart: sealed-secrets
       sourceRef:
         kind: HelmRepository
-        name: bitnami
+        name: sealed-secrets
         namespace: flux-system
-#      version: 2.x.x
   values:
     fullnameOverride: sealed-secrets-controller
     commandArgs:
