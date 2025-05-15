@@ -3,9 +3,4 @@ kind: Kustomization
 resources:
   - helmrepository.yaml
   - helmrelease.yaml
-configMapGenerator:
-  - name: cilium-values
-    files:
-      - values.yaml
-generatorOptions:
-  disableNameSuffixHash: true
+
