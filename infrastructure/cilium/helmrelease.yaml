@@ -13,3 +13,7 @@ spec:
         kind: HelmRepository
         name: cilium
         namespace: flux-system
+  valuesFrom:
+    - kind: ConfigMap
+      name: cilium-values
+      namespace: flux-system
