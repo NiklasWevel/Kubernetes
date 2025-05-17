@@ -4,3 +4,4 @@ resources:
   - cilium
   - traefik
   - sealed-secrets
+  - external secrets operator
