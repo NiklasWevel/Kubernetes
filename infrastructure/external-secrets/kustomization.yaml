@@ -4,5 +4,3 @@ resources:
   - namespace.yaml
   - helmrepository.yaml
   - helmrelease.yaml
-  - secret.yaml
-  - cluster-secret-store.yaml
