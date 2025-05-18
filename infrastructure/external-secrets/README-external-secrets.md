@@ -29,3 +29,7 @@ And only after that, the custom resources like `cluster-secret-store.yaml` are a
 ```yaml
 infrastructure/external-secrets/crs/
 ```
+
+### Source
+
+[Link to external secrets documentation](https://external-secrets.io/v0.17.0/examples/gitops-using-fluxcd/)
