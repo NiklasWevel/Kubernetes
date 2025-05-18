@@ -6,5 +6,5 @@ resources:
   - secret.yaml
   - helmrepository.yaml
   - deployment-crds.yaml
-  - deployment.yaml
+  - helmrelease.yaml
   - deployment-crs.yaml
