@@ -3,8 +3,8 @@ kind: Kustomization
 resources:
   - flux-system/
   - infrastructure-cilium.yaml
-#  - infrastructure-traefik.yaml  
-#  - infrastructure-sealed-secrets.yaml
-#  - infrastructure-external-secrets.yaml
-#  - test-testhashisecret.yaml
+  - infrastructure-traefik.yaml  
+  - infrastructure-sealed-secrets.yaml
+  - infrastructure-external-secrets.yaml
+  - test-hashisecret.yaml
 #  - apps-homepage.yaml
