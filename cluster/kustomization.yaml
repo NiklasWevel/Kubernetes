@@ -3,5 +3,12 @@ kind: Kustomization
 resources:
   - flux-system/
   - infrastructure.yaml  
-  - apps.yaml
-  - testing.yaml
+#  - apps.yaml
+#  - testing.yaml
+#
+#  - infrastructure-cilium.yaml
+#  - infrastructure-traefik.yaml  
+#  - infrastructure-sealed-secrets.yaml
+#  - infrastructure-external-secrets.yaml
+#  - test-testhashisecret.yaml
+#  - apps-homepage.yaml
