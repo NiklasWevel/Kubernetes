@@ -13,8 +13,8 @@ spec:
         kind: HelmRepository
         name: cert-manager
         namespace: flux-system
-    values:
-      installCRDs: true
-      extraArgs:
-        - --dns01-recursive-nameservers-only
-        - --dns01-recursive-nameservers=1.1.1.1:53,1.0.0.1:53
+  values:
+    installCRDs: true
+    extraArgs:
+      - --dns01-recursive-nameservers-only
+      - --dns01-recursive-nameservers=1.1.1.1:53,1.0.0.1:53
