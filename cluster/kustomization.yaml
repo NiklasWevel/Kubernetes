@@ -6,5 +6,6 @@ resources:
   - infrastructure-traefik.yaml  
   - infrastructure-sealed-secrets.yaml
   - infrastructure-external-secrets.yaml
+  - infrastructure-cert-manager.yaml
   - test-hashisecret.yaml
 #  - apps-homepage.yaml
