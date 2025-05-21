@@ -34,7 +34,7 @@ spec:
       dashboard:
         enabled: true
 
-     tlsStore:
-       default:
-         defaultCertificate:
-           secretName: wildcard-cert
+    tlsStore:
+      default:
+        defaultCertificate:
+          secretName: wildcard-cert
