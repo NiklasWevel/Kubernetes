@@ -6,7 +6,7 @@ metadata:
 spec:
   secretName: wildcard-cert
   issuerRef:
-    name: letsencrypt-dns
+    name: cloudflare-clusterissuer
     kind: ClusterIssuer
   dnsNames:
     - "wevelsiep.com"
