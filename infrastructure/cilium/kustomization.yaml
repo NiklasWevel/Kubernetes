@@ -4,3 +4,4 @@ resources:
   - helmrepository.yaml
   - helmrelease.yaml
   - ip-pool.yaml
+  - l2announcement.yaml
