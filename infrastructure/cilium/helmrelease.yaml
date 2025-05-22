@@ -35,7 +35,11 @@ spec:
       enabled: true     
       
     l2announcements:
-      enabled: true    
+      enabled: true
+
+    loadBalancer:
+      mode: "l2"
+   
       
     k8sClientRateLimit:
       qps: 50
