@@ -9,5 +9,3 @@ resources:
   - infrastructure-cert-manager.yaml
   - test-hashisecret.yaml
   - apps-homepage.yaml
-  dependsOn:
-    - name: infrastructure-traefik
