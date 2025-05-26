@@ -16,11 +16,30 @@ spec:
       labels:
         app: homepage
     spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000        
       containers:
         - name: homepage
           image: ghcr.io/gethomepage/homepage:v1.2.0
           ports:
             - containerPort: 3000
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            seccompProfile:
+              type: "RuntimeDefault"
+            capabilities:
+              drop:
+                - ALL
+          envFrom:
+            - configMapRef:
+                name: homepage
+          volumeMounts:
+            - name: homepage
+              mountPath: /app/config
           readinessProbe:
             httpGet:
               path: /
@@ -34,12 +53,6 @@ spec:
             initialDelaySeconds: 15
             periodSeconds: 10
             failureThreshold: 3
-          envFrom:
-            - configMapRef:
-                name: homepage
-          volumeMounts:
-            - name: homepage
-              mountPath: /app/config
       volumes:
         - name: homepage
           persistentVolumeClaim:
