@@ -31,7 +31,7 @@ spec:
           securityContext:
             runAsNonRoot: true
             allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: no
+            readOnlyRootFilesystem: false
             seccompProfile:
               type: "RuntimeDefault"
             capabilities:
