@@ -1,0 +1,97 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: linkwarden
+  namespace: linkwarden
+  labels:
+    app: linkwarden
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: linkwarden
+  template:
+    metadata:
+      labels:
+        app: linkwarden
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: linkwarden
+          image: ghcr.io/linkwarden/linkwarden:v2.10.2
+          envFrom:
+            - secretRef:
+                name: linkwarden-secret          
+          ports:
+            - containerPort: 3000
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: no
+            seccompProfile:
+              type: "RuntimeDefault"
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: linkwarden-data
+              mountPath: /app/config
+              subPath: linkwarden_data
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 3
+      volumes:
+        - name: linkwarden-data
+          persistentVolumeClaim:
+            claimName: linkwarden-pvc
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: linkwarden-postgres
+  namespace: linkwarden
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: linkwarden-postgres
+  template:
+    metadata:
+      labels:
+        app: linkwarden-postgres
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: linkwarden-postgres
+          image: postgres:16
+          envFrom:
+            - secretRef:
+                name: linkwarden-secret
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: linkwarden-pgdata
+              subPath: postgres
+      volumes:
+        - name: linkwarden-pgdata
+          persistentVolumeClaim:
+            claimName: linkwarden-pvc
