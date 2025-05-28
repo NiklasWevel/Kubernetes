@@ -9,3 +9,4 @@ resources:
   - infrastructure-cert-manager.yaml
   - test-hashisecret.yaml
   - apps-homepage.yaml
+  - apps-linkwarden.yaml
