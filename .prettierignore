@@ -1,0 +1,6 @@
+cluster/flux-system/
+.github/
+.prettierignore
+.yamllint
+.prettierrc.yaml
+.gitignore
