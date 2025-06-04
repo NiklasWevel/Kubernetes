@@ -18,7 +18,7 @@ spec:
     kubeProxyReplacement: true
 
     operator:
-#     replicas: 1
+    #     replicas: 1
     rollOutPods: true
     rollOutCiliumPods: true
 
