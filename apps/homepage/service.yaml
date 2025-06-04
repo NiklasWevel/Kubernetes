@@ -11,5 +11,4 @@ spec:
       targetPort: 3000
 #      nodePort: 30001
 #  type: NodePort
-  
 

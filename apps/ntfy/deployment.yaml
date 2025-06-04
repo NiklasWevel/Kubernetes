@@ -43,7 +43,7 @@ spec:
 
             - name: ntfy-data
               mountPath: /etc/ntfy
-              subPath: ntfy_data  
+              subPath: ntfy_data
           readinessProbe:
             httpGet:
               path: /v1/health
