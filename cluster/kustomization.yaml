@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - flux-system/
   - infrastructure-cilium.yaml
-  - infrastructure-traefik.yaml  
+  - infrastructure-traefik.yaml
   - infrastructure-sealed-secrets.yaml
   - infrastructure-external-secrets.yaml
   - infrastructure-cert-manager.yaml
