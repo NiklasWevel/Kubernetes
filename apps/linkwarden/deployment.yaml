@@ -25,7 +25,7 @@ spec:
           image: ghcr.io/linkwarden/linkwarden:v2.10.2
           envFrom:
             - secretRef:
-                name: linkwarden-secret          
+                name: linkwarden-secret
           ports:
             - containerPort: 3000
           securityContext:
