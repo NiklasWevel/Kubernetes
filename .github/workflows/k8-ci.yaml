@@ -1,25 +1,43 @@
-name: CI - Kubernetes Manifests
+name: CI - Kubernetes YAML Checks
 
 on:
   push:
     branches:
-      - '**'
-    paths:
-      - '**.yaml'
-      - '**.yml'
-      - '**/kustomization*'
+      - ci
   pull_request:
     branches:
-      - '**'
-    paths:
-      - '**.yaml'
-      - '**.yml'
-      - '**/kustomization*'
+      - master
 
 jobs:
-  lint-yaml:
-    name: Lint YAML files
+  fix-yaml:
+    name: Auto-format YAML with Prettier
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: Install Prettier
+        run: npm install -g prettier
+
+      - name: Format YAML files
+        run: prettier --write "**/*.yaml"
+
+      - name: Commit & push changes (if needed)
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git diff --quiet || (git add . && git commit -m "style(yaml): auto-format via CI" && git push https://x-access-token:${{ secrets.GIT_TOKEN }}@github.com/${{ github.repository }}.git HEAD:ci)
+
+  yamllint:
+    name: Yamllint
+    runs-on: ubuntu-latest
+    needs: fix-yaml
     steps:
       - uses: actions/checkout@v3
 
@@ -30,9 +48,9 @@ jobs:
         run: yamllint . --format github
 
   kustomize-build:
-    name: Validate Kustomize
+    name: Validate Kustomize build
     runs-on: ubuntu-latest
-    needs: lint-yaml
+    needs: yamllint
     steps:
       - uses: actions/checkout@v3
 
@@ -41,5 +59,5 @@ jobs:
           curl -s https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh | bash
           mv kustomize /usr/local/bin/
 
-      - name: Run Kustomize on cluster/
+      - name: Run kustomize build on cluster/
         run: kustomize build ./cluster | tee kustomized.yaml
