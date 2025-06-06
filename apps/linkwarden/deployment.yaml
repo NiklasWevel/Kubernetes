@@ -29,7 +29,7 @@ spec:
           ports:
             - containerPort: 3000
           securityContext:
-            runAsNonRoot: true
+            runAsNonRoot: false
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: false
             seccompProfile:
