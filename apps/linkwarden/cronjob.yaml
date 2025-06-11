@@ -1,0 +1,42 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: linkwarden-postgres-backup
+  namespace: linkwarden
+spec:
+  schedule: "0 12 * * *"
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 86400
+      template:
+        spec:
+          containers:
+            - name: postgres-backup
+              image: postgres:16
+              env:
+                - name: PGPASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: linkwarden-secret
+                      key: POSTGRES_PASSWORD
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  pg_dump -h linkwarden-postgres.linkwarden.svc.cluster.local \
+                          -U $POSTGRES_USER \
+                          -d $POSTGRES_DB \
+                          -F c \
+                          -f /backup/linkwarden_$(date +%F).dump
+              envFrom:
+                - secretRef:
+                    name: linkwarden-secret
+              volumeMounts:
+                - name: linkwarden-pgbackup
+                  mountPath: /backup
+                  subPath: backup
+          restartPolicy: OnFailure
+          volumes:
+            - name: linkwarden-pgbackup
+              persistentVolumeClaim:
+                claimName: linkwarden-pvc
