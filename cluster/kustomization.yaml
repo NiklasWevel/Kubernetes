@@ -10,3 +10,5 @@ resources:
   - test-hashisecret.yaml
   - apps-homepage.yaml
   - apps-linkwarden.yaml
+  - monitoring-uptimekuma.yaml
+  - monitoring-ntfy.yaml
