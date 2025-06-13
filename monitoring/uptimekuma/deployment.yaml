@@ -6,7 +6,7 @@ metadata:
   labels:
     app: uptimekuma
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: uptimekuma
@@ -21,13 +21,13 @@ spec:
         fsGroup: 1000
       containers:
         - name: uptimekuma
-          image: louislam/uptime-kuma:1
+          image: louislam/uptime-kuma:2.0.0-beta-rootless.3
           ports:
             - containerPort: 3001
           securityContext:
             runAsNonRoot: true
             allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
+            readOnlyRootFilesystem: false
             seccompProfile:
               type: "RuntimeDefault"
             capabilities:
