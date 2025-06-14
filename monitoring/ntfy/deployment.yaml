@@ -40,11 +40,11 @@ spec:
           volumeMounts:
             - name: ntfy-data
               mountPath: /var/cache/ntfy
-              subPath: ntfy_cache
+              subPath: cache
 
             - name: ntfy-data
               mountPath: /etc/ntfy
-              subPath: ntfy_data
+              subPath: data
           readinessProbe:
             httpGet:
               path: /v1/health
