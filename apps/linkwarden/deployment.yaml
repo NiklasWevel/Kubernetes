@@ -40,7 +40,7 @@ spec:
           volumeMounts:
             - name: linkwarden-data
               mountPath: /app/config
-              subPath: linkwarden_data
+              subPath: data
           readinessProbe:
             httpGet:
               path: /
