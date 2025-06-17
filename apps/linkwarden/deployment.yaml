@@ -28,6 +28,13 @@ spec:
                 name: linkwarden-secret
           ports:
             - containerPort: 3000
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "1Gi"  
           securityContext:
             runAsNonRoot: false
             allowPrivilegeEscalation: false
@@ -37,6 +44,7 @@ spec:
             capabilities:
               drop:
                 - ALL
+                
           volumeMounts:
             - name: linkwarden-data
               mountPath: /app/config
@@ -87,6 +95,13 @@ spec:
                 name: linkwarden-secret
           ports:
             - containerPort: 5432
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              cpu: "1"
+              memory: "1Gi"              
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: linkwarden-pgdata
