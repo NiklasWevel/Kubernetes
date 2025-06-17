@@ -44,6 +44,10 @@ spec:
             capabilities:
               drop:
                 - ALL
+<<<<<<< HEAD
+=======
+
+>>>>>>> 91264334e2034c8f58381be2a6542f5bfef2e70a
           volumeMounts:
             - name: linkwarden-data
               mountPath: /app/config
