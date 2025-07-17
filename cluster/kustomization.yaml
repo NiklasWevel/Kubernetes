@@ -15,4 +15,3 @@ resources:
   - monitoring-grafana.yaml
   - monitoring-prometheus.yaml
   - monitoring-kube-state-metrics.yaml
-
