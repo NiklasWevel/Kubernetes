@@ -45,8 +45,8 @@ spec:
                 - ALL
           volumeMounts:
             - name: prometheus
-              mountPath: /etc/prometheus/
-              subPath: prometheus-config
+              mountPath: /etc/prometheus/prometheus.yml
+              subPath: prometheus-config/prometheus.yml
 
             - name: prometheus
               mountPath: /prometheus
