@@ -12,6 +12,8 @@ jobs:
   fix-yaml:
     name: Auto-format YAML with Prettier
     runs-on: ubuntu-latest
+    outputs:
+      prettier_changed: ${{ steps.check.outputs.changed }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -28,16 +30,35 @@ jobs:
       - name: Format YAML files
         run: prettier --write "**/*.yaml"
 
-      - name: Commit & push changes (if needed)
+      - name: Check for changes
+        id: check
+        run: |
+          if git diff --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit & push changes if needed
+        if: steps.check.outputs.changed == 'true'
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git diff --quiet || (git add . && git commit -m "style(yaml): auto-format via CI" && git push https://x-access-token:${{ secrets.GIT_TOKEN }}@github.com/${{ github.repository }}.git HEAD:ci)
+          git add .
+          git commit -m "style(yaml): auto-format via CI"
+          git push https://x-access-token:${{ secrets.GIT_TOKEN }}@github.com/${{ github.repository }}.git HEAD:ci
+
+      - name: Exit early if changes were made
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          echo "Prettier has made changes. Exiting early..."
+          exit 0
 
   yamllint:
     name: Yamllint
     runs-on: ubuntu-latest
     needs: fix-yaml
+    if: needs.fix-yaml.outputs.prettier_changed == 'false'
     steps:
       - uses: actions/checkout@v3
 
@@ -51,6 +72,7 @@ jobs:
     name: Validate Kustomize build
     runs-on: ubuntu-latest
     needs: yamllint
+    if: needs.fix-yaml.outputs.prettier_changed == 'false'
     steps:
       - uses: actions/checkout@v3
 
