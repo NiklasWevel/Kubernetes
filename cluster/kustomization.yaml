@@ -16,4 +16,3 @@ resources:
   - monitoring-prometheus.yaml
   - monitoring-kube-state-metrics.yaml
   - test-hashisecret.yaml
-  - test-nvidia-pod.yaml
