@@ -21,7 +21,8 @@ spec:
         fsGroup: 1000
       containers:
         - name: homepage
-          image: ghcr.io/gethomepage/homepage:v1.2.0
+          image: docker.wevelsiep.com/gethomepage/homepage:v1.2.0
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
           securityContext:
