@@ -22,7 +22,8 @@ spec:
         fsGroup: 1000
       containers:
         - name: grafana
-          image: grafana/grafana:12.0.2
+          image: docker.wevelsiep.com/grafana/grafana:12.0.2
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
           envFrom:

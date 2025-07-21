@@ -21,7 +21,8 @@ spec:
         fsGroup: 1000
       containers:
         - name: ntfy
-          image: binwiederhier/ntfy:v2.11.0
+          image: docker.wevelsiep.com/binwiederhier/ntfy:v2.11.0
+          imagePullPolicy: IfNotPresent
           args: ["serve"]
           envFrom:
             - configMapRef:
