@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: comfyui
+  namespace: comfyui
+  labels:
+    app: comfyui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: comfyui
+  template:
+    metadata:
+      labels:
+        app: comfyui
+    spec:
+      nodeSelector:
+        comfyui: "true"
+        nvidia.com/gpu.present: "true"
+      runtimeClassName: nvidia
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 1000
+      containers:
+        - name: comfyui
+          image: docker.wevelsiep.com/yanwk/comfyui-boot:cu124-slim
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8188
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "16Gi"
+            limits:
+              cpu: "1"
+              memory: "16Gi"
+              nvidia.com/gpu: "1"
+          securityContext:
+            runAsNonRoot: false
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+            seccompProfile:
+              type: "RuntimeDefault"
+#            capabilities:
+#              drop:
+#                - ALL
+          volumeMounts:
+            - name: comfyui
+              mountPath: /root
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8188
+            initialDelaySeconds: 60
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8188
+            initialDelaySeconds: 90
+            periodSeconds: 10
+            failureThreshold: 3
+      volumes:
+        - name: comfyui
+          persistentVolumeClaim:
+            claimName: comfyui-pvc
