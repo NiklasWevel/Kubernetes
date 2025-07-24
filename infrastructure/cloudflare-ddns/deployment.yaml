@@ -25,9 +25,9 @@ spec:
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
-                name: cloudflare-ddns         
+                name: cloudflare-ddns
             - secretRef:
-                name: cloudflare-ddns-secret          
+                name: cloudflare-ddns-secret
           resources:
             requests:
               cpu: "50m"

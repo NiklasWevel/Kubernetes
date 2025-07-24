@@ -6,5 +6,5 @@ metadata:
 data:
   TZ: Europe/Berlin
   IP4_DOMAINS: wevelsiep.com
-  PROXIED: 'true'
+  PROXIED: "true"
   CACHE_EXPIRATION: 15m
