@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cloudflare-ddns
+  namespace: cloudflare-ddns
+data:
+  TZ: Europe/Berlin
+  IP4_DOMAINS: wevelsiep.com
+  PROXIED: "true"
+  CACHE_EXPIRATION: 15m
