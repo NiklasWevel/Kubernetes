@@ -43,9 +43,9 @@ spec:
             readOnlyRootFilesystem: false
             seccompProfile:
               type: "RuntimeDefault"
-#            capabilities:
-#              drop:
-#                - ALL
+          #            capabilities:
+          #              drop:
+          #                - ALL
           volumeMounts:
             - name: comfyui
               mountPath: /root
