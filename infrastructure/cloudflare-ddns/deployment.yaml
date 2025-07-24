@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudflare-ddns
+  namespace: cloudflare-ddns
+  labels:
+    app: cloudflare-ddns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cloudflare-ddns
+  template:
+    metadata:
+      labels:
+        app: cloudflare-ddns
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: cloudflare-ddns
+          image: docker.wevelsiep.com/favonia/cloudflare-ddns:1.15.1
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: cloudflare-ddns         
+            - secretRef:
+                name: cloudflare-ddns-secret          
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "50Mi"
+            limits:
+              cpu: "250m"
+              memory: "250Mi"
+          securityContext:
+            runAsNonRoot: false
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+            seccompProfile:
+              type: "RuntimeDefault"
+            capabilities:
+              add:
+                - SETUID
+                - SETGID
+              drop:
+                - ALL
