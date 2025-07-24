@@ -26,7 +26,7 @@ spec:
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
-                name: prometheus           
+                name: prometheus
           ports:
             - containerPort: 9090
           args:
