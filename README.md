@@ -4,14 +4,14 @@ This is my personal Kubernetes learning project.
 
 > ⚠️ This repository is **rapidly changing** and also used for testing new ideas and configurations.
 
-## 🎯 Goals
+## Goals
 
 - [ ] Migrate my entire Proxmox homelab into Kubernetes
-- [ ] Rely entirely on GitOps and Infrastructure as Code using [FluxCD](https://fluxcd.io/)
-- [ ] Keep everything public - use [Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets) and [External Secrets](https://external-secrets.io/) to protect sensitive data
-- [ ] Implement a full CI/CD pipeline
+- [ ✓ ] Rely entirely on GitOps and Infrastructure as Code using [FluxCD](https://fluxcd.io/)
+- [ ✓ ] Keep everything public - use [Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets) and [External Secrets](https://external-secrets.io/) to protect sensitive data
+- [ ✓ ] Implement a CI/CD pipeline
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```text
 .
@@ -21,7 +21,7 @@ This is my personal Kubernetes learning project.
 └── README.md
 ```
 
-## 🔧 External Requirements
+##  External Requirements
 
 These components are required outside of the Kubernetes cluster:
 
@@ -30,25 +30,28 @@ These components are required outside of the Kubernetes cluster:
 3. [Caddy](https://caddyserver.com/) as a reverse proxy to reach the cluster in the first place
 4. A public domain to enable SSL via DNS challenge (in my case Cloudflare + cert-manager)
 
-## 💻 Homelab Hardware
+These components are optional:
 
-Currently, the cluster is running on three virtual machines in my Proxmox setup:
+1. A [private Docker Hub Proxy Cache](https://hub.docker.com/_/registry) ,  so I don't run into the new Docker pull limit when I restart the cluster multiple times.
+
+## Homelab Hardware
+
+Currently, the cluster is running on three virtual machines in my three node Proxmox setup:
 
 | Hostname     | Cores | RAM   |
 |--------------|-------|-------|
-| K3-CP-01     | 2     | 4 GB  |
-| K3-Node-01   | 2     | 4 GB  |
-| K3-Node-02   | 2     | 4 GB  |
+| K3-CP-01     | 2     | 8 GB  |
+| K3-Node-01   | 4     | 48GB  |
+| K3-Node-02   | 4     | 48GB  |
 
-In the future, I plan to move the worker nodes to dedicated hardware.
 
-## 🌐 Networking
+## Networking
 
 - The cluster runs in an isolated VLAN.
 - All hostnames in this repository are used internally - the cluster is not accessible from the internet.
 - [Traefik](https://traefik.io/traefik/) acts as the reverse proxy and handles TLS termination for incoming traffic to the cluster.
 
-## 💾 Storage
+## Storage
 
 Storage is not part of this repository:
 
@@ -56,7 +59,7 @@ Storage is not part of this repository:
 
 2. I prefer not to publicly expose my file structure
 
-## 🚀 Cluster Initialization
+## Cluster Initialization
 
 ### Install K3s (Control Plane)
 
@@ -83,12 +86,3 @@ flux bootstrap github \
   --personal
 ```
 
-## 📝 Notes
-
-This repository is intended to be:
-
-- Fully declarative
-- Automatically applied to the cluster via FluxCD
-- Public and secure using Sealed Secrets and External Secrets
-
-> PRs, issues or suggestions are welcome - but please keep in mind that this is a personal learning project.
