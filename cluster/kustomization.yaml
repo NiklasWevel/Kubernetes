@@ -10,9 +10,10 @@ resources:
   - infrastructure-nvidia.yaml
   - apps-homepage.yaml
   - apps-linkwarden.yaml
+  - apps-comfyui.yaml
   - monitoring-uptimekuma.yaml
   - monitoring-ntfy.yaml
   - monitoring-grafana.yaml
   - monitoring-prometheus.yaml
   - monitoring-kube-state-metrics.yaml
-  - test-hashisecret.yaml
+#  - test-hashisecret.yaml
