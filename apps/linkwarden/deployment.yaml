@@ -89,7 +89,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: linkwarden-postgres
-          image: docker.wevelsiep.com/postgres:16
+          image: docker.wevelsiep.com/library/postgres:16
           imagePullPolicy: IfNotPresent
           envFrom:
             - secretRef:
