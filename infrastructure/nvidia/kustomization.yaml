@@ -5,3 +5,4 @@ resources:
   - helmrepository.yaml
   - helmrelease.yaml
   - configmap.yaml
+  - cluster-policy-patch.yaml
