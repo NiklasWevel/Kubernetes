@@ -16,7 +16,7 @@ spec:
         app: comfyui
     spec:
       nodeSelector:
-        comfyui: "true"
+#        comfyui: "true"
         nvidia.com/gpu.present: "true"
       runtimeClassName: nvidia
       securityContext:
