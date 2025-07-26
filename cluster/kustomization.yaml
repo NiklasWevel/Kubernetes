@@ -4,18 +4,18 @@ resources:
   - flux-system/
   - infrastructure-namespaces.yaml
   - infrastructure-cilium.yaml
-  - infrastructure-traefik.yaml
+  - infrastructure-nvidia.yaml
   - infrastructure-sealed-secrets.yaml
   - infrastructure-external-secrets.yaml
   - infrastructure-cert-manager.yaml
-  - infrastructure-nvidia.yaml
-#  - infrastructure-cloudnative-pg.yaml
-  - apps-homepage.yaml
-  - apps-linkwarden.yaml
-  - apps-comfyui.yaml
+  - infrastructure-traefik.yaml
+  - infrastructure-cloudnative-pg.yaml
   - monitoring-uptimekuma.yaml
   - monitoring-ntfy.yaml
   - monitoring-grafana.yaml
   - monitoring-prometheus.yaml
   - monitoring-kube-state-metrics.yaml
+  - apps-homepage.yaml
+  - apps-linkwarden.yaml
+  - apps-comfyui.yaml
 #  - test-hashisecret.yaml
