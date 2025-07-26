@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - storage.yaml
-  - database-credentials-yaml
+  - database-credentials.yaml
   - database.yaml
   - deployment.yaml
   - ingress.yaml
