@@ -17,8 +17,8 @@ spec:
 
   managed:
     roles:
-    - name: openwebui_user
-      ensure: present
-      login: true
-      passwordSecret:
-        name: openwebui-db-secret
+      - name: openwebui_user
+        ensure: present
+        login: true
+        passwordSecret:
+          name: openwebui-db-secret
