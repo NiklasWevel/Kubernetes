@@ -1,0 +1,89 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openwebui
+  namespace: openwebui
+  labels:
+    app: openwebui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openwebui
+  template:
+    metadata:
+      labels:
+        app: openwebui
+    spec:
+      nodeSelector:
+        nvidia.com/gpu.present: "true"
+      runtimeClassName: nvidia
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 1000
+      containers:
+        - name: openwebui
+          image: ghcr.io/open-webui/open-webui:ollama
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: openwebui-db-secret
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: openwebui-db-secret
+                  key: password
+
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              set -e
+              export DATABASE_URL="postgresql://${DB_USER}:${DB_PASSWORD}@postgres-cluster-rw.database.svc.cluster.local:5432/openwebui_db"
+              exec /entrypoint.sh
+
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "250Mi"
+            limits:
+              cpu: "1"
+              memory: "4Gi"
+              nvidia.com/gpu: "1"
+          securityContext:
+            runAsNonRoot: false
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+            seccompProfile:
+              type: "RuntimeDefault"
+          volumeMounts:
+            # - name: openwebui-data
+            #   mountPath: /app/backend/data
+            - name: openwebui-ollama
+              mountPath: /root/.ollama
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            failureThreshold: 3
+      volumes:
+        # - name: openwebui-data
+        #   persistentVolumeClaim:
+        #     claimName: openwebui-data-pvc
+        - name: openwebui-ollama
+          persistentVolumeClaim:
+            claimName: openwebui-pvc
