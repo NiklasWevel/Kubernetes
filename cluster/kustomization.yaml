@@ -10,13 +10,13 @@ resources:
   - infrastructure-cert-manager.yaml
   - infrastructure-traefik.yaml
   - infrastructure-cloudnative-pg.yaml
-  - infrastructure-nvidia.yaml
   - infrastructure-cloudnative-pg.yaml
   - monitoring-uptimekuma.yaml
   - monitoring-ntfy.yaml
   - monitoring-grafana.yaml
   - monitoring-prometheus.yaml
   - monitoring-kube-state-metrics.yaml
+  - apps-postgres.yaml
   - apps-homepage.yaml
   - apps-linkwarden.yaml
   - apps-comfyui.yaml
