@@ -17,6 +17,7 @@ resources:
   - monitoring-grafana.yaml
   - monitoring-prometheus.yaml
   - monitoring-kube-state-metrics.yaml
+  - apps-postgres.yaml
   - apps-homepage.yaml
   - apps-linkwarden.yaml
   - apps-comfyui.yaml
