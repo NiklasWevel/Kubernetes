@@ -9,7 +9,7 @@ resources:
   - infrastructure-external-secrets.yaml
   - infrastructure-cert-manager.yaml
   - infrastructure-nvidia.yaml
-  - infrastructure-cloudnative-pg.yaml
+#  - infrastructure-cloudnative-pg.yaml
   - apps-homepage.yaml
   - apps-linkwarden.yaml
   - apps-comfyui.yaml
