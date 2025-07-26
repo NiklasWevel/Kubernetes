@@ -1,0 +1,24 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres-cluster
+  namespace: database
+spec:
+  instances: 2
+
+  imageName: ghcr.io/cloudnative-pg/postgresql:16
+
+  storage:
+    storageClass: "local-path"
+    size: 25Gi
+
+  superuserSecret:
+    name: postgres-superlogin
+
+  managed:
+    roles:
+    - name: openwebui_user
+      ensure: present
+      login: true
+      passwordSecret:
+        name: openwebui-db-secret
