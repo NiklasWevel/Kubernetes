@@ -63,8 +63,6 @@ spec:
             seccompProfile:
               type: "RuntimeDefault"
           volumeMounts:
-            # - name: openwebui-data
-            #   mountPath: /app/backend/data
             - name: openwebui-ollama
               mountPath: /root/.ollama
           readinessProbe:
@@ -81,9 +79,6 @@ spec:
             periodSeconds: 10
             failureThreshold: 3
       volumes:
-        # - name: openwebui-data
-        #   persistentVolumeClaim:
-        #     claimName: openwebui-data-pvc
         - name: openwebui-ollama
           persistentVolumeClaim:
             claimName: openwebui-pvc
