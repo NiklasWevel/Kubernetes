@@ -22,3 +22,8 @@ spec:
         login: true
         passwordSecret:
           name: openwebui-db-secret
+      - name: linkwarden_user
+        ensure: present
+        login: true
+        passwordSecret:
+          name: linkwarden-db-secret
