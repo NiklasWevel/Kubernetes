@@ -5,3 +5,4 @@ resources:
   - ../cloudnative-pg/namespace.yaml
   - ../external-secrets/namespace.yaml
   - ../nvidia/namespace.yaml
+  - ../longhorn/namespace.yaml
