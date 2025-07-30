@@ -6,3 +6,4 @@ resources:
   - ../external-secrets/namespace.yaml
   - ../nvidia/namespace.yaml
   - ../longhorn/namespace.yaml
+  - ../traefik/namespace.yaml
