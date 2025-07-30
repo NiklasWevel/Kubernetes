@@ -21,11 +21,13 @@ spec:
     ports:
       web:
         port: 80
-        expose: true
+        expose:
+          default: true
         exposedPort: 80
       websecure:
         port: 443
-        expose: true
+        expose:
+          default: true
         exposedPort: 443
 
     ingressRoute:
@@ -36,10 +38,3 @@ spec:
       default:
         defaultCertificate:
           secretName: wildcard-cert
-
-    additionalArguments:
-      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
-      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
-
-    rbac:
-      enabled: true
