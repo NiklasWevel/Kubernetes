@@ -19,6 +19,6 @@ resources:
   - apps-postgres.yaml
   - apps-openwebui.yaml
   - apps-homepage.yaml
-#  - apps-linkwarden.yaml
+  - apps-linkwarden.yaml
   - apps-comfyui.yaml
 #  - test-hashisecret.yaml
