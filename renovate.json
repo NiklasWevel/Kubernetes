@@ -8,6 +8,9 @@
     "kustomize",
     "kubernetes"
   ],
+  "schedule": [
+    "before 8am"
+  ],
   "timezone": "Europe/Berlin",
   "commitMessageAction": "update",
   "packageRules": [
