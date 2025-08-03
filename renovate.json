@@ -1,0 +1,23 @@
+{
+  "extends": ["config:recommended"],
+  "labels": ["dependencies"],
+  "enabledManagers": [
+    "docker-compose",
+    "helm-values",
+    "helmfile",
+    "kustomize",
+    "kubernetes"
+  ],
+  "timezone": "Europe/Berlin",
+  "commitMessageAction": "update",
+  "packageRules": [
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["/.*/"],
+      "groupName": null
+    }
+  ],
+  "kubernetes": {
+    "managerFilePatterns": ["/\\.yaml$/"]
+  }
+}
