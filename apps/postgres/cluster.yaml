@@ -27,3 +27,8 @@ spec:
         login: true
         passwordSecret:
           name: linkwarden-db-secret
+      - name: wikijs_user
+        ensure: present
+        login: true
+        passwordSecret:
+          name: wikijs-db-secret
