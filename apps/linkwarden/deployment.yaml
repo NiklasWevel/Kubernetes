@@ -24,9 +24,32 @@ spec:
         - name: linkwarden
           image: ghcr.io/linkwarden/linkwarden:v2.10.2
           imagePullPolicy: IfNotPresent
-          envFrom:
-            - secretRef:
-                name: linkwarden-secret
+          env:
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: linkwarden-db-secret
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: linkwarden-db-secret
+                  key: password
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: linkwarden-db-secret
+                  key: DATABASE_URL
+            - name: NEXTAUTH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: linkwarden-env-secret
+                  key: NEXTAUTH_SECRET
+            - name: NEXTAUTH_URL
+              valueFrom:
+                secretKeyRef:
+                  name: linkwarden-env-secret
+                  key: NEXTAUTH_URL
           ports:
             - containerPort: 3000
           resources:
@@ -64,50 +87,5 @@ spec:
             failureThreshold: 3
       volumes:
         - name: linkwarden-data
-          persistentVolumeClaim:
-            claimName: linkwarden-pvc
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: linkwarden-postgres
-  namespace: linkwarden
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: linkwarden-postgres
-  template:
-    metadata:
-      labels:
-        app: linkwarden-postgres
-    spec:
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-      containers:
-        - name: linkwarden-postgres
-          image: docker.wevelsiep.com/library/postgres:16
-          imagePullPolicy: IfNotPresent
-          envFrom:
-            - secretRef:
-                name: linkwarden-secret
-          ports:
-            - containerPort: 5432
-          resources:
-            requests:
-              cpu: "250m"
-              memory: "512Mi"
-            limits:
-              cpu: "1"
-              memory: "1Gi"
-          volumeMounts:
-            - mountPath: /var/lib/postgresql/data
-              name: linkwarden-pgdata
-              subPath: postgres
-      volumes:
-        - name: linkwarden-pgdata
           persistentVolumeClaim:
             claimName: linkwarden-pvc
