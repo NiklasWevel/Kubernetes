@@ -39,7 +39,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: linkwarden-db-secret
-                  key: DATABASE_URL                  
+                  key: DATABASE_URL
             - name: NEXTAUTH_SECRET
               valueFrom:
                 secretKeyRef:
@@ -49,7 +49,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: linkwarden-env-secret
-                  key: NEXTAUTH_URL                  
+                  key: NEXTAUTH_URL
           ports:
             - containerPort: 3000
           resources:
