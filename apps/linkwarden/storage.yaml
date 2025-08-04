@@ -2,12 +2,12 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: linkwarden-pvc
-  namespace: linkwarden
+  labels:
+    app.kubernetes.io/name: linkwarden
 spec:
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: 10Gi
-  storageClassName: ""
-  volumeName: linkwarden-pv
+      storage: 1Gi
+  storageClassName: longhorn
