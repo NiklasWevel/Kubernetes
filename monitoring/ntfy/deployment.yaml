@@ -39,11 +39,11 @@ spec:
               drop:
                 - ALL
           volumeMounts:
-            - name: ntfy-data
+            - name: ntfy
               mountPath: /var/cache/ntfy
               subPath: cache
 
-            - name: ntfy-data
+            - name: ntfy
               mountPath: /etc/ntfy
               subPath: data
           readinessProbe:
@@ -60,6 +60,6 @@ spec:
             periodSeconds: 15
             failureThreshold: 3
       volumes:
-        - name: ntfy-data
+        - name: ntfy
           persistentVolumeClaim:
             claimName: ntfy-pvc
