@@ -1,0 +1,12 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: wikijs-db
+  namespace: database
+  annotations:
+    "cnpg.io/cluster": "postgres-cluster"
+spec:
+  name: wikijs_db
+  owner: wikijs_user
+  cluster:
+    name: postgres-cluster
