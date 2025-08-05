@@ -3,11 +3,12 @@ kind: PersistentVolumeClaim
 metadata:
   name: uptimekuma-pvc
   namespace: uptimekuma
+  labels:
+    app.kubernetes.io/name: uptimekuma
 spec:
   accessModes:
     - ReadWriteMany
   resources:
     requests:
       storage: 10Gi
-  storageClassName: ""
-  volumeName: uptimekuma-pv
+  storageClassName: longhorn
