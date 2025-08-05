@@ -69,8 +69,7 @@ spec:
       volumes:
         - name: prometheus-config
           configMap:
-            name: prometheus      
+            name: prometheus
         - name: prometheus-data
           persistentVolumeClaim:
             claimName: prometheus-pvc
-
