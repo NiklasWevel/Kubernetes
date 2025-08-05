@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wikijs
+  namespace: wikijs
+spec:
+  selector:
+    app: wikijs
+  ports:
+    - port: 80
+      targetPort: 3000
