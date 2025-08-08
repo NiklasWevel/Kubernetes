@@ -3,11 +3,12 @@ kind: PersistentVolumeClaim
 metadata:
   name: ntfy-pvc
   namespace: ntfy
+  labels:
+    app.kubernetes.io/name: ntfy
 spec:
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: 10Gi
-  storageClassName: ""
-  volumeName: ntfy-pv
+      storage: 5Gi
+  storageClassName: longhorn
