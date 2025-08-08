@@ -67,9 +67,9 @@ spec:
             periodSeconds: 10
             failureThreshold: 3
       volumes:
-        - name: prometheus-data
-          persistentVolumeClaim:
-            claimName: prometheus-pvc
         - name: prometheus-config
           configMap:
             name: prometheus
+        - name: prometheus-data
+          persistentVolumeClaim:
+            claimName: prometheus-pvc
