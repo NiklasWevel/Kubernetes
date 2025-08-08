@@ -19,7 +19,7 @@ spec:
       serviceAccountName: kube-state-metrics
       containers:
         - name: kube-state-metrics
-          image: k8s.gcr.io/kube-state-metrics/kube-state-metrics:v2.13.0
+          image: k8s.gcr.io/kube-state-metrics/kube-state-metrics:v2.16.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
