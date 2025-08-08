@@ -13,9 +13,9 @@ resources:
   - infrastructure-cloudnative-pg.yaml
   - monitoring-uptimekuma.yaml
   - monitoring-ntfy.yaml
-  - monitoring-grafana.yaml
-  - monitoring-prometheus.yaml
-  - monitoring-kube-state-metrics.yaml
+  #- monitoring-grafana.yaml
+  #- monitoring-prometheus.yaml
+  #- monitoring-kube-state-metrics.yaml
   - apps-postgres.yaml
   - apps-openwebui.yaml
   - apps-homepage.yaml
