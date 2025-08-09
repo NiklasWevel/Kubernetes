@@ -20,27 +20,27 @@ spec:
   upgrade:
     remediation:
       retries: 3
-values:
-  installCRDs: true
-  kubeStateMetrics:
-    enabled: true
-  prometheus:
-    prometheusSpec:
-      serviceMonitorSelectorNilUsesHelmValues: false
-      retention: 15d
-      resources:
-        requests:
-          cpu: 250m
-          memory: 512Mi
-        limits:
-          cpu: 500m
-          memory: 1Gi
-      storage:
-        volumeClaimTemplate:
-          spec:
-            storageClassName: longhorn-retain
-            accessModes:
-              - ReadWriteMany
-            resources:
-              requests:
-                storage: 15Gi
+  values:
+    installCRDs: true
+    kubeStateMetrics:
+      enabled: true
+    prometheus:
+      prometheusSpec:
+        serviceMonitorSelectorNilUsesHelmValues: false
+        retention: 15d
+        resources:
+          requests:
+            cpu: 250m
+            memory: 512Mi
+          limits:
+            cpu: 500m
+            memory: 1Gi
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: longhorn-retain
+              accessModes:
+                - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 20Gi
