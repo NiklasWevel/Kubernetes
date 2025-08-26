@@ -24,4 +24,5 @@ resources:
   - apps-homepage.yaml
   - apps-linkwarden.yaml
   - apps-comfyui.yaml
+  - apps-hidden.yaml
 #  - test-hashisecret.yaml
