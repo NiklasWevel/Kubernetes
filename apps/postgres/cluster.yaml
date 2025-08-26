@@ -35,12 +35,6 @@ spec:
         passwordSecret:
           name: wikijs-db-secret
 
-      - name: wikijs_user
-        ensure: present
-        login: true
-        passwordSecret:
-          name: wiki-db-secret
-
       - name: sonarr_user
         ensure: present
         login: true
