@@ -22,13 +22,27 @@ spec:
         login: true
         passwordSecret:
           name: openwebui-db-secret
+
       - name: linkwarden_user
         ensure: present
         login: true
         passwordSecret:
           name: linkwarden-db-secret
+
       - name: wikijs_user
         ensure: present
         login: true
         passwordSecret:
           name: wikijs-db-secret
+
+      - name: wikijs_user
+        ensure: present
+        login: true
+        passwordSecret:
+          name: wiki-db-secret
+
+      - name: sonarr_user
+        ensure: present
+        login: true
+        passwordSecret:
+          name: sonarr-db-secret
