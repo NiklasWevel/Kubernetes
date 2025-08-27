@@ -10,7 +10,7 @@ resources:
   - infrastructure-sealed-secrets.yaml
   - infrastructure-external-secrets.yaml
   - infrastructure-smb-csi.yaml
-  - storage-hidden.yaml  
+  - storage-hidden.yaml
   - infrastructure-cert-manager.yaml
   - infrastructure-traefik.yaml
   - infrastructure-cloudnative-pg.yaml
