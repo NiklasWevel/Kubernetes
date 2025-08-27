@@ -3,13 +3,14 @@ kind: Kustomization
 resources:
   - flux-system/
   - repository-hiddenkubernetes.yaml
-  - storage-hidden.yaml
   - infrastructure-namespaces.yaml
   - infrastructure-cilium.yaml
   - infrastructure-longhorn.yaml
   - infrastructure-nvidia.yaml
   - infrastructure-sealed-secrets.yaml
   - infrastructure-external-secrets.yaml
+  - infrastructure-smb-csi.yaml
+  - storage-hidden.yaml  
   - infrastructure-cert-manager.yaml
   - infrastructure-traefik.yaml
   - infrastructure-cloudnative-pg.yaml
