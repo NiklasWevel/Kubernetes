@@ -7,3 +7,4 @@ resources:
   - ../nvidia/namespace.yaml
   - ../longhorn/namespace.yaml
   - ../traefik/namespace.yaml
+  - ../smb-csi/namespace.yaml
