@@ -8,4 +8,3 @@ resources:
   - ../longhorn/namespace.yaml
   - ../traefik/namespace.yaml
   - ../smb-csi/namespace.yaml
-  
