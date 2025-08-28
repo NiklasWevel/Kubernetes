@@ -47,11 +47,11 @@ spec:
         passwordSecret:
           name: radarr-db-secret
 
-#      - name: lidarr_user
-#        ensure: present
-#        login: true
-#        passwordSecret:
-#          name: lidarr-db-secret
+      - name: lidarr_user
+        ensure: present
+        login: true
+        passwordSecret:
+          name: lidarr-db-secret
 
       - name: whisparr_user
         ensure: present
