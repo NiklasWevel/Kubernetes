@@ -37,9 +37,6 @@ spec:
           envFrom:
             - configMapRef:
                 name: homepage
-          volumeMounts:
-            - name: homepage
-              mountPath: /app/config
           readinessProbe:
             httpGet:
               path: /
@@ -53,7 +50,22 @@ spec:
             initialDelaySeconds: 15
             periodSeconds: 10
             failureThreshold: 3
+
+          volumeMounts:
+            - name: homepage
+              mountPath: /app/config
+              subPath: config
+
+            - name: homepage
+              mountPath: /app/public/icons
+              subPath: icons
+
+            - name: homepage
+              mountPath: /app/public/images
+              subPath: images                         
+
       volumes:
         - name: homepage
           persistentVolumeClaim:
             claimName: homepage-pvc
+
