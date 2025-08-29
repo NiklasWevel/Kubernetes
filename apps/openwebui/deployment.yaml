@@ -30,8 +30,8 @@ spec:
           image: ghcr.io/open-webui/open-webui:ollama
           imagePullPolicy: IfNotPresent
           envFrom:
-          - secretRef:
-              name: openwebui-db-secret
+            - secretRef:
+                name: openwebui-db-secret
           ports:
             - containerPort: 8080
           resources:
