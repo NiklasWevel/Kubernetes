@@ -62,10 +62,9 @@ spec:
 
             - name: homepage
               mountPath: /app/public/images
-              subPath: images                         
+              subPath: images
 
       volumes:
         - name: homepage
           persistentVolumeClaim:
             claimName: homepage-pvc
-
