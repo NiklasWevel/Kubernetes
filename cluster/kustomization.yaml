@@ -27,6 +27,6 @@ resources:
   - apps-comfyui.yaml
   - apps-sonarr.yaml
   - apps-radarr.yaml
-  - apps-lidarr.yaml  
+  - apps-lidarr.yaml
   - apps-hidden.yaml
 #  - test-hashisecret.yaml
