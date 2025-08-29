@@ -1,0 +1,71 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lidarr
+  namespace: lidarr
+  labels:
+    app: lidarr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lidarr
+  template:
+    metadata:
+      labels:
+        app: lidarr
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: lidarr
+          image: docker.wevelsiep.com/linuxserver/lidarr:2.12.4
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8686
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+          securityContext:
+            runAsNonRoot: false
+            allowPrivilegeEscalation: true
+            readOnlyRootFilesystem: false
+            seccompProfile:
+              type: "RuntimeDefault"
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8686
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8686
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 3
+          volumeMounts:
+            - name: lidarr-config
+              mountPath: /config
+            - name: lidarr-media
+              mountPath: /media
+            - name: lidarr-seedbox
+              mountPath: /downloads
+      volumes:
+        - name: lidarr-config
+          persistentVolumeClaim:
+            claimName: lidarr-pvc
+        - name: lidarr-media
+          persistentVolumeClaim:
+            claimName: lidarr-media-pvc
+        - name: lidarr-seedbox
+          persistentVolumeClaim:
+            claimName: lidarr-seedbox-pvc
