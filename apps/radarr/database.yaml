@@ -1,0 +1,25 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: radarr-db
+  namespace: database
+  annotations:
+    "cnpg.io/cluster": "postgres-cluster"
+spec:
+  name: radarr-db
+  owner: radarr_user
+  cluster:
+    name: postgres-cluster
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: radarr-log-db
+  namespace: database
+  annotations:
+    "cnpg.io/cluster": "postgres-cluster"
+spec:
+  name: radarr-log-db
+  owner: radarr_user
+  cluster:
+    name: postgres-cluster
