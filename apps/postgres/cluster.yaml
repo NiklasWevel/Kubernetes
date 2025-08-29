@@ -52,3 +52,9 @@ spec:
         login: true
         passwordSecret:
           name: lidarr-db-secret
+
+      - name: prowlarr_user
+        ensure: present
+        login: true
+        passwordSecret:
+          name: prowlarr-db-secret
