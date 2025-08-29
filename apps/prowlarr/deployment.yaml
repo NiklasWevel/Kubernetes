@@ -51,10 +51,10 @@ spec:
               port: 9696
             initialDelaySeconds: 30
             periodSeconds: 10
-            failureThreshold: 3                
+            failureThreshold: 3
           volumeMounts:
             - name: prowlarr-config
-              mountPath: /config                       
+              mountPath: /config
       volumes:
         - name: prowlarr-config
           persistentVolumeClaim:
