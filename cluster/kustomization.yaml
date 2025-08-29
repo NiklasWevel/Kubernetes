@@ -28,5 +28,5 @@ resources:
   - apps-sonarr.yaml
   - apps-radarr.yaml
   - apps-lidarr.yaml
+  - apps-prowlarr.yaml
   - apps-hidden.yaml
-#  - test-hashisecret.yaml
