@@ -39,4 +39,3 @@ spec:
       storage: 10Gi
   storageClassName: ""
   volumeName: sonarr-seedbox-pv
-

@@ -51,14 +51,14 @@ spec:
               port: 7878
             initialDelaySeconds: 30
             periodSeconds: 10
-            failureThreshold: 3                
+            failureThreshold: 3
           volumeMounts:
             - name: radarr-config
               mountPath: /config
             - name: radarr-media
               mountPath: /media
             - name: radarr-seedbox
-              mountPath: /downloads                          
+              mountPath: /downloads
       volumes:
         - name: radarr-config
           persistentVolumeClaim:
