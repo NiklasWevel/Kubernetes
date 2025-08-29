@@ -14,12 +14,12 @@ spec:
 apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
-  name: lidarr-log-db
+  name: lidarr_log_db
   namespace: database
   annotations:
     "cnpg.io/cluster": "postgres-cluster"
 spec:
-  name: lidarr-log-db
+  name: lidarr_log_db
   owner: lidarr_user
   cluster:
     name: postgres-cluster

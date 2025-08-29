@@ -14,12 +14,12 @@ spec:
 apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
-  name: sonarr-log-db
+  name: sonarr_log_db
   namespace: database
   annotations:
     "cnpg.io/cluster": "postgres-cluster"
 spec:
-  name: sonarr-log-db
+  name: sonarr_log_db
   owner: sonarr_user
   cluster:
     name: postgres-cluster
