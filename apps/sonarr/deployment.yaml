@@ -51,14 +51,14 @@ spec:
               port: 8989
             initialDelaySeconds: 30
             periodSeconds: 10
-            failureThreshold: 3                
+            failureThreshold: 3
           volumeMounts:
             - name: sonarr-config
               mountPath: /config
             - name: sonarr-media
               mountPath: /media
             - name: sonarr-seedbox
-              mountPath: /downloads                          
+              mountPath: /downloads
       volumes:
         - name: sonarr-config
           persistentVolumeClaim:
