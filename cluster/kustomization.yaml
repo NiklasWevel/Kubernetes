@@ -25,8 +25,8 @@ resources:
   - apps-homepage.yaml
   - apps-linkwarden.yaml
   - apps-comfyui.yaml
-  - apps-sonarr.yaml
-  - apps-radarr.yaml
-  - apps-lidarr.yaml
-  - apps-prowlarr.yaml
+  #  - apps-sonarr.yaml
+  #  - apps-radarr.yaml
+  #  - apps-lidarr.yaml
+  #  - apps-prowlarr.yaml
   - apps-hidden.yaml
