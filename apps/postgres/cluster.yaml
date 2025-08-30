@@ -15,6 +15,20 @@ spec:
   superuserSecret:
     name: postgres-superlogin
 
+  backup:
+    barmanObjectStore:
+      destinationPath: s3://postgres-kubernetes
+      s3Credentials:
+        accessKeyId:
+          name: postgres-s3-secret
+          key: s3_key_id
+        secretAccessKey:
+          name: postgres-s3-secret
+          key: s3_secret_key
+      endpointURL: https://s3.wevelsiep.com
+      wal:
+        compression: gzip
+
   managed:
     roles:
       - name: openwebui_user
