@@ -20,7 +20,7 @@ metadata:
     "cnpg.io/cluster": "postgres-cluster"
 spec:
   name: prowlarr-log-db
-  owner: prowlarr_user
+  owner: prowlarr-user
   cluster:
     name: postgres-cluster
 ---

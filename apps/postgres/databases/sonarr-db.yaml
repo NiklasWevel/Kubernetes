@@ -20,7 +20,7 @@ metadata:
     "cnpg.io/cluster": "postgres-cluster"
 spec:
   name: sonarr-log-db
-  owner: sonarr_user
+  owner: sonarr-user
   cluster:
     name: postgres-cluster
 ---
