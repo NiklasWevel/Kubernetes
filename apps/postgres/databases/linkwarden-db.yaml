@@ -1,0 +1,37 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: linkwarden-db
+  namespace: database
+  annotations:
+    "cnpg.io/cluster": "postgres-cluster"
+spec:
+  name: linkwarden_db
+  owner: linkwarden_user
+  cluster:
+    name: postgres-cluster
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: linkwarden-password-source
+  namespace: database
+  labels:
+    cnpg.io/reload: "true"
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: vault-global
+    kind: ClusterSecretStore
+  target:
+    name: linkwarden-db-secret
+  data:
+    - secretKey: username
+      remoteRef:
+        key: linkwarden
+        property: db_user
+
+    - secretKey: password
+      remoteRef:
+        key: linkwarden
+        property: db_password
