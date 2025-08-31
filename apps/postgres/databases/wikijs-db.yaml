@@ -1,0 +1,37 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: wikijs-db
+  namespace: database
+  annotations:
+    "cnpg.io/cluster": "postgres-cluster"
+spec:
+  name: wikijs_db
+  owner: wikijs_user
+  cluster:
+    name: postgres-cluster
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: wikijs-password-source
+  namespace: database
+  labels:
+    cnpg.io/reload: "true"
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: vault-global
+    kind: ClusterSecretStore
+  target:
+    name: wikijs-db-secret
+  data:
+    - secretKey: username
+      remoteRef:
+        key: wikijs
+        property: db_user
+
+    - secretKey: password
+      remoteRef:
+        key: wikijs
+        property: db_password
