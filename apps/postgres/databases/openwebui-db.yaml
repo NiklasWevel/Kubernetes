@@ -7,7 +7,7 @@ metadata:
     "cnpg.io/cluster": "postgres-cluster"
 spec:
   name: openwebui-db
-  owner: openwebui_user
+  owner: openwebui-user
   cluster:
     name: postgres-cluster
 ---

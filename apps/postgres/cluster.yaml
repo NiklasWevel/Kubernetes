@@ -31,43 +31,43 @@ spec:
 
   managed:
     roles:
-      - name: openwebui_user
+      - name: openwebui-user
         ensure: present
         login: true
         passwordSecret:
           name: openwebui-db-secret
 
-      - name: linkwarden_user
+      - name: linkwarden-user
         ensure: present
         login: true
         passwordSecret:
           name: linkwarden-db-secret
 
-      - name: wikijs_user
+      - name: wikijs-user
         ensure: present
         login: true
         passwordSecret:
           name: wikijs-db-secret
 
-      - name: sonarr_user
+      - name: sonarr-user
         ensure: present
         login: true
         passwordSecret:
           name: sonarr-db-secret
 
-      - name: radarr_user
+      - name: radarr-user
         ensure: present
         login: true
         passwordSecret:
           name: radarr-db-secret
 
-      - name: lidarr_user
+      - name: lidarr-user
         ensure: present
         login: true
         passwordSecret:
           name: lidarr-db-secret
 
-      - name: prowlarr_user
+      - name: prowlarr-user
         ensure: present
         login: true
         passwordSecret:
