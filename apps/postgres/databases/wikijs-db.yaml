@@ -6,7 +6,7 @@ metadata:
   annotations:
     "cnpg.io/cluster": "postgres-cluster"
 spec:
-  name: wikijs_db
+  name: wikijs-db
   owner: wikijs_user
   cluster:
     name: postgres-cluster
