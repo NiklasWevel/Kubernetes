@@ -7,7 +7,7 @@ metadata:
     "cnpg.io/cluster": "postgres-cluster"
 spec:
   name: radarr-db
-  owner: radarr_user
+  owner: radarr-user
   cluster:
     name: postgres-cluster
 ---
@@ -19,7 +19,7 @@ metadata:
   annotations:
     "cnpg.io/cluster": "postgres-cluster"
 spec:
-  name: radarr_log_db
+  name: radarr-log-db
   owner: radarr_user
   cluster:
     name: postgres-cluster
