@@ -4,3 +4,11 @@ resources:
   - namespace.yaml
   - secret.yaml
   - cluster.yaml
+  - backup.yaml
+  - databases/lidarr-db.yaml
+  - databases/linkwarden-db.yaml
+  - databases/openwebui-db.yaml
+  - databases/prowlarr-db.yaml
+  - databases/radarr-db.yaml
+  - databases/sonarr-db.yaml
+  - databases/wikijs-db.yaml

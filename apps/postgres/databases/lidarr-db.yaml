@@ -23,3 +23,28 @@ spec:
   owner: lidarr_user
   cluster:
     name: postgres-cluster
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: lidarr-password-source
+  namespace: database
+  labels:
+    cnpg.io/reload: "true"
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: vault-global
+    kind: ClusterSecretStore
+  target:
+    name: lidarr-db-secret
+  data:
+    - secretKey: username
+      remoteRef:
+        key: lidarr
+        property: db_user
+
+    - secretKey: password
+      remoteRef:
+        key: lidarr
+        property: db_password
