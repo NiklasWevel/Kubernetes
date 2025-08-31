@@ -7,4 +7,4 @@ data:
   DB_TYPE: postgres
   DB_HOST: postgres-cluster-rw.database.svc.cluster.local
   DB_PORT: "5432"
-  DB_NAME: wikijs_db
+  DB_NAME: wikijs-db

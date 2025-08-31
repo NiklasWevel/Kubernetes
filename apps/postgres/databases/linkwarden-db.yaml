@@ -6,7 +6,7 @@ metadata:
   annotations:
     "cnpg.io/cluster": "postgres-cluster"
 spec:
-  name: linkwarden_db
+  name: linkwarden-db
   owner: linkwarden_user
   cluster:
     name: postgres-cluster
