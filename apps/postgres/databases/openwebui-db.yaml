@@ -1,0 +1,37 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: openwebui-db-resource
+  namespace: database
+  annotations:
+    "cnpg.io/cluster": "postgres-cluster"
+spec:
+  name: openwebui_db
+  owner: openwebui_user
+  cluster:
+    name: postgres-cluster
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: openwebui-password-source
+  namespace: database
+  labels:
+    cnpg.io/reload: "true"
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: vault-global
+    kind: ClusterSecretStore
+  target:
+    name: openwebui-db-secret
+  data:
+    - secretKey: username
+      remoteRef:
+        key: openwebui
+        property: db_user
+
+    - secretKey: password
+      remoteRef:
+        key: openwebui
+        property: db_password
