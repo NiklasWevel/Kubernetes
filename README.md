@@ -16,8 +16,10 @@ This is my personal Kubernetes learning project.
 ```text
 .
 ├── apps/             # Application deployments (e.g. Homepage, Paperless)
-├── infrastructure/   # Infrastructure components (e.g. Traefik, cert-manager)
 ├── cluster/          # Cluster-wide configuration (e.g. Flux setup)
+├── infrastructure/   # Infrastructure components (e.g. Traefik, cert-manager)
+├── monitoring/       # Monitoring components (e.g. Grafana, prometheus, NTFY)
+├── repository/       # Other Git Git Repositories
 └── README.md
 ```
 
@@ -33,6 +35,7 @@ These components are required outside of the Kubernetes cluster:
 These components are optional:
 
 1. A [private Docker Hub Proxy Cache](https://hub.docker.com/_/registry) ,  so I don't run into the new Docker pull limit when I restart the cluster multiple times.
+2  A [S3 compatible storage backend](https://github.com/deuxfleurs-org/garage) for the cloud native postgres backups jobs. I'm using Garage with a simple GUI. 
 
 ## Homelab Hardware
 
@@ -40,14 +43,15 @@ Currently, the cluster is running on three virtual machines in my three node Pro
 
 | Hostname     | Cores | RAM   |
 |--------------|-------|-------|
-| K3-CP-01     | 2     | 8 GB  |
-| K3-Node-01   | 4     | 48GB  |
-| K3-Node-02   | 4     | 48GB  |
+| K3-CP-01     | 2     | 16 GB |
+| K3-Node-01   | 5     | 48GB  |
+| K3-Node-02   | 5     | 48GB  |
 
 
 ## Networking
 
 - The cluster runs in an isolated VLAN.
+- The support components like NFS, reverse proxy, vault etc. run in the same VLAN.
 - All hostnames in this repository are used internally - the cluster is not accessible from the internet.
 - [Traefik](https://traefik.io/traefik/) acts as the reverse proxy and handles TLS termination for incoming traffic to the cluster.
 
