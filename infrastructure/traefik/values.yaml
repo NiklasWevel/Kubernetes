@@ -23,3 +23,19 @@ tlsStore:
   default:
     defaultCertificate:
       secretName: wildcard-cert
+
+log:
+  level: INFO
+
+logs:
+  access:
+    enabled: true
+    format: common
+
+entryPoints:
+  web:
+    forwardedHeaders:
+      insecure: true
+  websecure:
+    forwardedHeaders:
+      insecure: true
