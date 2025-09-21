@@ -39,3 +39,7 @@ entryPoints:
   websecure:
     forwardedHeaders:
       insecure: true
+
+providers:
+  kubernetesCRD:
+    allowCrossNamespace: true
