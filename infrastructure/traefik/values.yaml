@@ -1,3 +1,6 @@
+deployment:
+  kind: DaemonSet
+
 service:
   type: LoadBalancer
   spec:
