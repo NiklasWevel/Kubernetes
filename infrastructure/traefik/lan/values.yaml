@@ -20,7 +20,7 @@ ports:
 
 ingressRoute:
   dashboard:
-    enabled: true
+    enabled: false
 
 tlsStore:
   default:

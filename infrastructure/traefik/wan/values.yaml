@@ -8,11 +8,17 @@ service:
     externalTrafficPolicy: Local
 ports:
   web:
+    expose:
+      default: false
+  websecure:
+    expose:
+      default: false
+  web-wan:
     port: 8080
     expose:
       default: true
     exposedPort: 8080
-  websecure:
+  websecure-wan:
     port: 8443
     expose:
       default: true
@@ -20,7 +26,7 @@ ports:
 
 ingressRoute:
   dashboard:
-    enabled: true
+    enabled: false
 
 tlsStore:
   default:
@@ -36,10 +42,10 @@ logs:
     format: common
 
 entryPoints:
-  web:
+  web-wan:
     forwardedHeaders:
       insecure: true
-  websecure:
+  websecure-wan:
     forwardedHeaders:
       insecure: true
 
