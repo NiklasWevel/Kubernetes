@@ -8,15 +8,15 @@ service:
     externalTrafficPolicy: Local
 ports:
   web:
-    port: 80
+    port: 8080
     expose:
       default: true
-    exposedPort: 80
+    exposedPort: 8080
   websecure:
-    port: 443
+    port: 8443
     expose:
       default: true
-    exposedPort: 443
+    exposedPort: 8443
 
 ingressRoute:
   dashboard:
@@ -45,4 +45,9 @@ entryPoints:
 
 providers:
   kubernetesCRD:
-    allowCrossNamespace: true
+    allowCrossNamespace: false
+
+ingressClass:
+  enabled: true
+  isDefaultClass: false
+  name: traefik-wan
