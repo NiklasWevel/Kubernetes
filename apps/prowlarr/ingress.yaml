@@ -4,9 +4,9 @@ metadata:
   name: prowlarr
   namespace: prowlarr
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure-lan
 spec:
-  ingressClassName: traefik
+  ingressClassName: traefik-lan
   rules:
     - host: prowlarr.wevelsiep.com
       http:

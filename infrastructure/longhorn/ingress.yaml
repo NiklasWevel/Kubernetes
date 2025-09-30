@@ -4,9 +4,9 @@ metadata:
   name: longhorn
   namespace: longhorn-system
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure-lan
 spec:
-  ingressClassName: traefik
+  ingressClassName: traefik-lan
   rules:
     - host: longhorn.wevelsiep.com
       http:

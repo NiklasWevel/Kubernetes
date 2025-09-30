@@ -6,7 +6,7 @@ metadata:
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
 spec:
-  ingressClassName: traefik
+  ingressClassName: traefik-lan
   rules:
     - host: prometheus.wevelsiep.com
       http:

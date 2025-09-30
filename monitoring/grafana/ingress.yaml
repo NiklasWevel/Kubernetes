@@ -4,9 +4,9 @@ metadata:
   name: grafana
   namespace: monitoring
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure-lan
 spec:
-  ingressClassName: traefik
+  ingressClassName: traefik-lan
   rules:
     - host: grafana.wevelsiep.com
       http:

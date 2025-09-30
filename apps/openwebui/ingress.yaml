@@ -4,9 +4,10 @@ metadata:
   name: openwebui
   namespace: openwebui
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure-lan
 spec:
-  ingressClassName: traefik
+  ingressClassName: traefik-lan
+
   rules:
     - host: openwebui.wevelsiep.com
       http:
