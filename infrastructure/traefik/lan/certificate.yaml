@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-cert
+  namespace: traefik-lan
+spec:
+  secretName: wildcard-cert
+  issuerRef:
+    name: cloudflare-clusterissuer
+    kind: ClusterIssuer
+  dnsNames:
+    - "wevelsiep.com"
+    - "*.wevelsiep.com"
