@@ -12,7 +12,8 @@ resources:
   - infrastructure-smb-csi.yaml
   - storage-hidden.yaml
   - infrastructure-cert-manager.yaml
-  - infrastructure-traefik.yaml
+  - infrastructure-traefik-lan.yaml
+  - infrastructure-traefik-wan.yaml  
   - infrastructure-cloudnative-pg.yaml
   - monitoring-uptimekuma.yaml
   - monitoring-ntfy.yaml

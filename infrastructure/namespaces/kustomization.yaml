@@ -6,5 +6,6 @@ resources:
   - ../external-secrets/namespace.yaml
   - ../nvidia/namespace.yaml
   - ../longhorn/namespace.yaml
-  - ../traefik/namespace.yaml
+  - ../traefik/lan/namespace.yaml
+  - ../traefik/wan/namespace.yaml
   - ../smb-csi/namespace.yaml
