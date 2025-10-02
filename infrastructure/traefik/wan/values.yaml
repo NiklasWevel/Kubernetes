@@ -8,21 +8,15 @@ service:
     externalTrafficPolicy: Local
 ports:
   web:
+    port: 9080
     expose:
-      default: false
+      default: true
+    exposedPort: 9080
   websecure:
-    expose:
-      default: false
-  web-wan:
-    port: 8080
+    port: 9443
     expose:
       default: true
-    exposedPort: 8080
-  websecure-wan:
-    port: 8443
-    expose:
-      default: true
-    exposedPort: 8443
+    exposedPort: 9443
 
 ingressRoute:
   dashboard:
