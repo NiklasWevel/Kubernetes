@@ -23,7 +23,7 @@ ingressRoute:
     enabled: false
 
 tlsStore:
-  default:
+  default-wan:
     defaultCertificate:
       secretName: wildcard-cert
 
