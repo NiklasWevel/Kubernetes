@@ -17,15 +17,13 @@ ports:
     expose:
       default: true
     exposedPort: 443
-    tls:
-      store: default-lan
 
 ingressRoute:
   dashboard:
     enabled: false
 
 tlsStore:
-  default-lan:
+  default:
     defaultCertificate:
       secretName: wildcard-cert
 
