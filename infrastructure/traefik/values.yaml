@@ -17,6 +17,11 @@ ports:
     expose:
       default: true
     exposedPort: 443
+  websecure-wan-trafic:
+    port: 9443
+    expose:
+      default: true
+    exposedPort: 9443
 
 ingressRoute:
   dashboard:
