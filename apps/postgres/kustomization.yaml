@@ -12,3 +12,4 @@ resources:
   - databases/radarr-db.yaml
   - databases/sonarr-db.yaml
   - databases/wikijs-db.yaml
+  - databases/pocketid-db.yaml

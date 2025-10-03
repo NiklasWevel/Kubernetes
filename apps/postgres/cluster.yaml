@@ -72,3 +72,9 @@ spec:
         login: true
         passwordSecret:
           name: prowlarr-db-secret
+
+      - name: pocketid-user
+        ensure: present
+        login: true
+        passwordSecret:
+          name: pocketid-db-secret
