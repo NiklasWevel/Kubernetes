@@ -22,6 +22,8 @@ ports:
     expose:
       default: true
     exposedPort: 9443
+    tls:
+      enabled: true
 
 ingressRoute:
   dashboard:
