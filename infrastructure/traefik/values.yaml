@@ -47,7 +47,10 @@ entryPoints:
   websecure:
     forwardedHeaders:
       insecure: true
-
+  websecure-wan-trafic:
+    forwardedHeaders:
+      insecure: true
+      
 providers:
   kubernetesCRD:
     allowCrossNamespace: true
