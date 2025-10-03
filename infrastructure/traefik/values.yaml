@@ -17,7 +17,7 @@ ports:
     expose:
       default: true
     exposedPort: 443
-  websecure-wan-trafic:
+  websecure-wan-traffic:
     port: 9443
     expose:
       default: true
@@ -47,7 +47,7 @@ entryPoints:
   websecure:
     forwardedHeaders:
       insecure: true
-  websecure-wan-trafic:
+  websecure-wan-traffic:
     forwardedHeaders:
       insecure: true
 
