@@ -26,6 +26,8 @@ ports:
 ingressRoute:
   dashboard:
     enabled: true
+    matchRule: Host(`traefik.wevelsiep.com`)
+    entryPoints: ["websecure"]
 
 tlsStore:
   default:
