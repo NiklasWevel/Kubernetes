@@ -22,7 +22,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: linkwarden
-          image: ghcr.io/linkwarden/linkwarden:v2.11.8
+          image: ghcr.io/linkwarden/linkwarden:v2.13.1
           imagePullPolicy: IfNotPresent
           env:
             - name: DB_USER
