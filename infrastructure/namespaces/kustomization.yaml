@@ -8,3 +8,5 @@ resources:
   - ../longhorn/namespace.yaml
   - ../traefik/namespace.yaml
   - ../smb-csi/namespace.yaml
+  - ../oauth2-proxy/namespace.yaml
+  - ../pocketid/namespace.yaml

@@ -1,0 +1,62 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oauth2
+  namespace: oauth2
+  labels:
+    app: oauth2
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: oauth2
+  template:
+    metadata:
+      labels:
+        app: oauth2
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: oauth2
+          image: quay.io/oauth2-proxy/oauth2-proxy:v7.12.0
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: oauth2-secret
+            - configMapRef:
+                name: oauth2-config
+          ports:
+            - containerPort: 4180
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "250m"
+              memory: "512Mi"
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            seccompProfile:
+              type: "RuntimeDefault"
+            capabilities:
+              drop:
+                - ALL
+          readinessProbe:
+            httpGet:
+              path: /ping
+              port: 4180
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: 4180
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            failureThreshold: 3

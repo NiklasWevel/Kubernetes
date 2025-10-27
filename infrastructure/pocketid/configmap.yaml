@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pocketid
+  namespace: pocketid
+data:
+  APP_URL: "https://pocketid.wevelsiep.com"
+  TRUST_PROXY: "true"
+  PUID: "1000"
+  PGID: "1000"
+  DB_PROVIDER: "postgres"
+  KEYS_STORAGE: database

@@ -1,11 +1,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: test-hashisecret
+  name: test-whoami
   namespace: flux-system
 spec:
   interval: 5m0s
-  path: ./test/hashisecret
+  path: ./test/whoami
   prune: true
   sourceRef:
     kind: GitRepository
