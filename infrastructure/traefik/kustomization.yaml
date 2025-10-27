@@ -5,6 +5,7 @@ resources:
   - helmrepository.yaml
   - helmrelease.yaml
   - certificate.yaml
+  - middleware.yaml
 configMapGenerator:
   - name: traefik-values
     files:

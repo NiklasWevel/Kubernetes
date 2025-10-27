@@ -1,0 +1,71 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pocketid
+  namespace: pocketid
+  labels:
+    app: pocketid
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pocketid
+  template:
+    metadata:
+      labels:
+        app: pocketid
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: pocketid
+          image: ghcr.io/pocket-id/pocket-id:v1
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: pocketid
+            - secretRef:
+                name: pocketid-env
+            - secretRef:
+                name: pocketid-db-secret
+          ports:
+            - containerPort: 1411
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            seccompProfile:
+              type: "RuntimeDefault"
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: pocketid-data
+              mountPath: /app/data
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 1411
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 1411
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 3
+      volumes:
+        - name: pocketid-data
+          persistentVolumeClaim:
+            claimName: pocketid-pvc
