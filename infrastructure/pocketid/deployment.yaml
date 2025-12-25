@@ -22,7 +22,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: pocketid
-          image: ghcr.io/pocket-id/pocket-id:v1
+          image: ghcr.io/pocket-id/pocket-id:v2
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
