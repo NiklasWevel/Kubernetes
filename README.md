@@ -55,7 +55,7 @@ Currently, the cluster is running on three virtual machines in my three node Pro
 - The cluster runs in an isolated VLAN.
 - The support components like NFS, reverse proxy, vault etc. run in the same VLAN.
 - ~~All hostnames in this repository are used internally - the cluster is not accessible from the internet.~~
-- The cluster will be accessible from internet. Soon.
+- The cluster will be accessible from the internet. Soon™.
 - [Traefik](https://traefik.io/traefik/) acts as the reverse proxy and handles TLS termination for incoming traffic to the cluster.
 
 ## Storage
