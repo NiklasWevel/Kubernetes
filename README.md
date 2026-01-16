@@ -6,10 +6,12 @@ This is my personal Kubernetes learning project.
 
 ## Goals
 
-- [ ] Migrate my entire Proxmox homelab into Kubernetes
+- [   ] Migrate my entire Proxmox homelab into Kubernetes
 - [ ✓ ] Rely entirely on GitOps and Infrastructure as Code using [FluxCD](https://fluxcd.io/)
 - [ ✓ ] Keep everything public - use [Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets) and [External Secrets](https://external-secrets.io/) to protect sensitive data
-- [ ✓ ] Implement a CI/CD pipeline
+- [ ✓ ] Implement a CI/CD pipeline to lint/prettier the configuration files. 
+- [   ] Make the cluster reachable from the internet while using [PocketID](https://pocketid.com/) to authenticate with passkeys
+
 
 ## Repository Structure
 
@@ -35,7 +37,7 @@ These components are required outside of the Kubernetes cluster:
 These components are optional:
 
 1. A [private Docker Hub Proxy Cache](https://hub.docker.com/_/registry) ,  so I don't run into the new Docker pull limit when I restart the cluster multiple times.
-2  A [S3 compatible storage backend](https://github.com/deuxfleurs-org/garage) for the cloud native postgres backups jobs. I'm using Garage with a simple GUI. 
+2. A [S3 compatible storage backend](https://github.com/deuxfleurs-org/garage) for the cloud native postgres backups jobs. I'm using Garage with a simple GUI. 
 
 ## Homelab Hardware
 
@@ -52,7 +54,8 @@ Currently, the cluster is running on three virtual machines in my three node Pro
 
 - The cluster runs in an isolated VLAN.
 - The support components like NFS, reverse proxy, vault etc. run in the same VLAN.
-- All hostnames in this repository are used internally - the cluster is not accessible from the internet.
+- ~~All hostnames in this repository are used internally - the cluster is not accessible from the internet.~~
+- The cluster will be accessible from internet. Soon.
 - [Traefik](https://traefik.io/traefik/) acts as the reverse proxy and handles TLS termination for incoming traffic to the cluster.
 
 ## Storage
