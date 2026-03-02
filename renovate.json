@@ -8,12 +8,16 @@
     "kustomize",
     "kubernetes"
   ],
-  "schedule": [
-    "before 8am"
-  ],
+  "schedule": ["before 8am"],
   "timezone": "Europe/Berlin",
   "commitMessageAction": "update",
   "packageRules": [
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["/^docker\\.wevelsiep\\.com\\//"],
+      "overridePackageName": "{{replace '^docker\\.wevelsiep\\.com/' 'docker.io/' packageName}}",
+      "overrideDepName": "{{replace '^docker\\.wevelsiep\\.com/' 'docker.io/' depName}}"
+    },
     {
       "matchDatasources": ["docker"],
       "matchPackageNames": ["/.*/"],
