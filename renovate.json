@@ -1,4 +1,5 @@
 {
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended"],
   "labels": ["dependencies"],
   "enabledManagers": [
@@ -6,17 +7,19 @@
     "helm-values",
     "helmfile",
     "kustomize",
-    "kubernetes"
+    "kubernetes",
+    "regex"
   ],
   "schedule": ["before 8am"],
   "timezone": "Europe/Berlin",
   "commitMessageAction": "update",
   "packageRules": [
     {
+      "description": "Do not let kubernetes manager rewrite internal registry images to docker.io",
+      "matchManagers": ["kubernetes"],
       "matchDatasources": ["docker"],
       "matchPackageNames": ["/^docker\\.wevelsiep\\.com\\//"],
-      "overridePackageName": "{{replace '^docker\\.wevelsiep\\.com/' 'docker.io/' packageName}}",
-      "overrideDepName": "{{replace '^docker\\.wevelsiep\\.com/' 'docker.io/' depName}}"
+      "enabled": false
     },
     {
       "matchDatasources": ["docker"],
@@ -25,6 +28,19 @@
     }
   ],
   "kubernetes": {
-    "managerFilePatterns": ["/\\.yaml$/"]
-  }
+    "managerFilePatterns": ["/\\.ya?ml$/"]
+  },
+  "regexManagers": [
+    {
+      "description": "Update docker.wevelsiep.com images using docker.io tags, but keep docker.wevelsiep.com in YAML",
+      "fileMatch": ["\\.ya?ml$"],
+      "matchStrings": [
+        "image:\\s*docker\\.wevelsiep\\.com\\/(?<depName>[^\\s:\"']+):(?<currentValue>[^\\s\"']+)"
+      ],
+      "datasourceTemplate": "docker",
+      "versioningTemplate": "docker",
+      "depNameTemplate": "{{depName}}",
+      "autoReplaceStringTemplate": "image: docker.wevelsiep.com/{{depName}}:{{newValue}}"
+    }
+  ]
 }
