@@ -1,4 +1,4 @@
-\\\mermaid
+```mermaid
 flowchart TB
 
 %% Kubernetes
@@ -30,5 +30,4 @@ AppB --> CNPGB
 %% DB -> Backup Bucket
 DBA -- S3 Key A --> BucketA
 DBB -- S3 Key B --> BucketB
-
-\\\
+```
