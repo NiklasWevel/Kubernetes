@@ -7,7 +7,7 @@ spec:
   interval: 5m0s
   path: ./storage
   prune: false
-  wait: true    
+  wait: true
   sourceRef:
     kind: GitRepository
     name: hidden-repo
