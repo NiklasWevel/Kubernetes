@@ -6,9 +6,9 @@ metadata:
 spec:
   interval: 5m0s
   path: ./apps
-  prune: true
+  prune: true  
   sourceRef:
     kind: GitRepository
     name: hidden-repo
   dependsOn:
-    - name: storage-hidden
+    - name: databases
