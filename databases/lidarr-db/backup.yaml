@@ -12,23 +12,22 @@ spec:
   pluginConfiguration:
     name: barman-cloud.cloudnative-pg.io
 ---
-
 apiVersion: barmancloud.cnpg.io/v1
 kind: ObjectStore
 metadata:
   name: s3-garage
-  namespace: lidarr-db  
+  namespace: lidarr-db
 spec:
   configuration:
-      destinationPath: s3://lidarr-s3
-      s3Credentials:
-        accessKeyId:
-          name: postgres-s3-secret
-          key: s3_key_id
-        secretAccessKey:
-          name: postgres-s3-secret
-          key: s3_secret_key
-      endpointURL: https://s3.wevelsiep.com
-      wal:
-        compression: gzip
+    destinationPath: s3://lidarr-s3
+    s3Credentials:
+      accessKeyId:
+        name: postgres-s3-secret
+        key: s3_key_id
+      secretAccessKey:
+        name: postgres-s3-secret
+        key: s3_secret_key
+    endpointURL: https://s3.wevelsiep.com
+    wal:
+      compression: gzip
   retentionPolicy: "30d"

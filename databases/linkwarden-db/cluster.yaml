@@ -13,14 +13,14 @@ spec:
     size: 10Gi
 
   plugins:
-  - name: barman-cloud.cloudnative-pg.io
-    isWALArchiver: true
-    parameters:
-      barmanObjectName: s3-garage
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: s3-garage
 
   superuserSecret:
     name: postgres-superlogin
-    
+
   managed:
     roles:
       - name: linkwarden-user

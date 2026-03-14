@@ -2,8 +2,8 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - namespace.yaml
-  - cluster.yaml  
+  - cluster.yaml
   - database-credentials.yaml
-  - database-superuser.yaml  
+  - database-superuser.yaml
   - database.yaml
   - backup.yaml
