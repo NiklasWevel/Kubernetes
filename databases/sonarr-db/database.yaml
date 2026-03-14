@@ -1,0 +1,21 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: sonarr-db
+  namespace: sonarr-db
+spec:
+  name: sonarr-db
+  owner: sonarr-user
+  cluster:
+    name: sonarr-postgres-cluster
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: sonarr-log-db
+  namespace: sonarr-db
+spec:
+  name: sonarr-log-db
+  owner: sonarr-user
+  cluster:
+    name: sonarr-postgres-cluster
