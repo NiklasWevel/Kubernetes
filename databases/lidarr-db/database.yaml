@@ -1,0 +1,21 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: lidarr-db
+  namespace: lidarr-db
+spec:
+  name: lidarr-db
+  owner: lidarr-user
+  cluster:
+    name: lidarr-postgres-cluster
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: lidarr-log-db
+  namespace: lidarr-db
+spec:
+  name: lidarr-log-db
+  owner: lidarr-user
+  cluster:
+    name: lidarr-postgres-cluster
