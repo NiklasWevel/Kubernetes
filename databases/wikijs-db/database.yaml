@@ -1,0 +1,21 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: wikijs-db
+  namespace: wikijs-db
+spec:
+  name: wikijs-db
+  owner: wikijs-user
+  cluster:
+    name: wikijs-postgres-cluster
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: wikijs-log-db
+  namespace: wikijs-db
+spec:
+  name: wikijs-log-db
+  owner: wikijs-user
+  cluster:
+    name: wikijs-postgres-cluster
