@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - lidarr-db
+  - linkwarden-db
+  - openwebui-db
+  - pocketid-db
+  - prowlarr-db
+  - radarr-db
+  - sonarr-db
+  - wikijs-db

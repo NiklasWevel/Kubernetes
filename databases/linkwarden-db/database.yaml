@@ -1,0 +1,10 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: linkwarden-db
+  namespace: linkwarden-db
+spec:
+  name: linkwarden-db
+  owner: linkwarden-user
+  cluster:
+    name: linkwarden-postgres-cluster

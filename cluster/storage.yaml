@@ -1,14 +1,15 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: monitoring-kube-state-metrics
+  name: storage
   namespace: flux-system
 spec:
   interval: 5m0s
-  path: ./monitoring/kube-state-metrics
-  prune: true
+  path: ./storage
+  prune: false
+  wait: true
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: hidden-repo
   dependsOn:
-    - name: monitoring-prometheus
+    - name: repository-hiddenkubernetes
