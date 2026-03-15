@@ -6,9 +6,9 @@ metadata:
 spec:
   interval: 10m
   path: ./databases
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system
   dependsOn:
-    - name: infrastructure-cloudnative-pg
+    - name: platform
