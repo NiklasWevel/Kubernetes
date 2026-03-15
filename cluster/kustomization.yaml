@@ -13,9 +13,9 @@ resources:
   - storage.yaml
   - infrastructure-cert-manager.yaml
   - infrastructure-traefik.yaml
-  - infrastructure-cloudnative-pg.yaml
   - apps-postgres.yaml
   - databases.yaml
+  - platform.yaml
   - apps.yaml
   - apps-hidden.yaml
   - monitoring.yaml
