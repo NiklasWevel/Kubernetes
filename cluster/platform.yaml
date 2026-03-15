@@ -1,14 +1,15 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: apps-sonarr
+  name: platform
   namespace: flux-system
 spec:
-  interval: 5m0s
-  path: ./apps/sonarr
+  interval: 10m
+  path: ./platform
   prune: true
+  wait: true
   sourceRef:
     kind: GitRepository
     name: flux-system
   dependsOn:
-    - name: apps-postgres
+    - name: infrastructure-cloudnative-pg

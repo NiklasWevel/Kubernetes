@@ -2,11 +2,8 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../cert-manager/namespace.yaml
-  - ../cloudnative-pg/namespace.yaml
   - ../external-secrets/namespace.yaml
   - ../nvidia/namespace.yaml
   - ../longhorn/namespace.yaml
   - ../traefik/namespace.yaml
   - ../smb-csi/namespace.yaml
-  - ../oauth2-proxy/namespace.yaml
-  - ../pocketid/namespace.yaml
