@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - cloudnative-pg
   - oauth2-proxy
-  - pocketid
+#  - pocketid Needs to be migrated to /apps, because it depends on a db.
