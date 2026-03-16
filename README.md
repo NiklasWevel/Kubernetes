@@ -6,7 +6,7 @@ This is my personal Kubernetes learning project.
 
 ## Goals
 
-- ~~ [ ] Migrate my entire Proxmox homelab into Kubernetes ~~
+- ~~Migrate my entire Proxmox homelab into Kubernetes~~
 - [x] Rely entirely on GitOps and Infrastructure as Code using [FluxCD](https://fluxcd.io/)
 - [x] Keep everything public - use [Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets) and [External Secrets](https://external-secrets.io/) to protect sensitive data
 - [x] Implement a CI/CD pipeline to lint/prettier the configuration files
@@ -23,8 +23,8 @@ This is my personal Kubernetes learning project.
 ├── databases/        # Database deployments used by applications
 ├── docs/             # Documentation about architecture, decisions and setup
 ├── infrastructure/   # Core infrastructure components required for the cluster
-├── platform/         # Shared platform services used by apps
 ├── monitoring/       # Monitoring and observability stack
+├── platform/         # Shared platform services used by apps
 ├── repository/       # External or additional Git repositories referenced by Flux
 └── README.md
 ```
