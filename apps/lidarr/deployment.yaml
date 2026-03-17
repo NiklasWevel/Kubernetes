@@ -22,7 +22,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: lidarr
-          image: docker.wevelsiep.com/linuxserver/lidarr:2.12.4
+          image: docker.wevelsiep.com/linuxserver/lidarr:2.14.5
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8686
