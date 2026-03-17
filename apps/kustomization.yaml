@@ -11,3 +11,4 @@ resources:
   - radarr
   - sonarr
   - wikijs
+  #- pocketid
