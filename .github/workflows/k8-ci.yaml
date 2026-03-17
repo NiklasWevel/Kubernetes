@@ -15,12 +15,12 @@ jobs:
     outputs:
       prettier_changed: ${{ steps.check.outputs.changed }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           persist-credentials: false
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: "24"
 
@@ -60,7 +60,7 @@ jobs:
     needs: fix-yaml
     if: needs.fix-yaml.outputs.prettier_changed == 'false'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install yamllint
         run: sudo apt-get update && sudo apt-get install -y yamllint
@@ -74,7 +74,7 @@ jobs:
     needs: yamllint
     if: needs.fix-yaml.outputs.prettier_changed == 'false'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install Kustomize
         run: |
