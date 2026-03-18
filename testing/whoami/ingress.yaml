@@ -1,19 +1,28 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: whoami
+  name: whoami-lan
+  namespace: test
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`whoami.wevelsiep.com`)
+      kind: Rule
+      services:
+        - name: whoami
+          port: 80
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: whoami-wan
   namespace: test
 spec:
   entryPoints:
     - websecure-wan-traffic
   routes:
-    - match: Host(`whoami.wevelsiep.com`)&& ClientIP(`192.168.50.0/24`)
-      kind: Rule
-      priority: 99
-      services:
-        - name: whoami
-          port: 80
-    - match: Host(`whoami.wevelsiep.com`) && ! ClientIP(`192.168.50.0/24`)
+    - match: Host(`whoami.wevelsiep.com`)
       kind: Rule
       priority: 100
       services:
