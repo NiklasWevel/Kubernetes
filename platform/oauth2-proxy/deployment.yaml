@@ -28,7 +28,7 @@ spec:
             - secretRef:
                 name: oauth2-secret
             - configMapRef:
-                name: oauth2-config                
+                name: oauth2-config
           ports:
             - containerPort: 4180
           resources:
