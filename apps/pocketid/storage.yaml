@@ -1,14 +1,13 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pocketid-pvc
+  name: pocketid-data-pvc
   namespace: pocketid
-  labels:
-    app.kubernetes.io/name: pocketid
 spec:
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: 1Gi
-  storageClassName: longhorn-retain
+      storage: 10Gi
+  storageClassName: ""
+  volumeName: pocketid-pv
