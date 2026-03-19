@@ -3,12 +3,11 @@ kind: PersistentVolumeClaim
 metadata:
   name: grafana-pvc
   namespace: monitoring
-  labels:
-    app.kubernetes.io/name: grafana
 spec:
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: 5Gi
-  storageClassName: longhorn-retain
+      storage: 10Gi
+  storageClassName: ""
+  volumeName: grafana-pv
