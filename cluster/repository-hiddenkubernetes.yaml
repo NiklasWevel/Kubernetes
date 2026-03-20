@@ -6,7 +6,8 @@ metadata:
 spec:
   interval: 5m0s
   path: ./repository/hiddenkubernetes
-  prune: false
+  prune: true
+  wait: true
   sourceRef:
     kind: GitRepository
     name: flux-system

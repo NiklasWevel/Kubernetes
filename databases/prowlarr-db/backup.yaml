@@ -1,0 +1,33 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: backup-cnpg
+  namespace: prowlarr-db
+spec:
+  schedule: "0 0 0 * * *"
+  backupOwnerReference: self
+  cluster:
+    name: prowlarr-postgres-cluster
+  method: plugin
+  pluginConfiguration:
+    name: barman-cloud.cloudnative-pg.io
+---
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: s3-garage
+  namespace: prowlarr-db
+spec:
+  configuration:
+    destinationPath: s3://prowlarr-s3
+    s3Credentials:
+      accessKeyId:
+        name: postgres-s3-secret
+        key: s3_key_id
+      secretAccessKey:
+        name: postgres-s3-secret
+        key: s3_secret_key
+    endpointURL: https://s3.wevelsiep.com
+    wal:
+      compression: gzip
+  retentionPolicy: "30d"

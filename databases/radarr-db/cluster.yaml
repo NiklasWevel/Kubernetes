@@ -1,0 +1,30 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: radarr-postgres-cluster
+  namespace: radarr-db
+spec:
+  instances: 2
+
+  imageName: ghcr.io/cloudnative-pg/postgresql:16
+
+  storage:
+    storageClass: "local-path"
+    size: 10Gi
+
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: s3-garage
+
+  superuserSecret:
+    name: postgres-superlogin
+
+  managed:
+    roles:
+      - name: radarr-user
+        ensure: present
+        login: true
+        passwordSecret:
+          name: radarr-db-secret

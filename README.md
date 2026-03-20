@@ -6,24 +6,33 @@ This is my personal Kubernetes learning project.
 
 ## Goals
 
-- [ ] Migrate my entire Proxmox homelab into Kubernetes
-- [ ✓ ] Rely entirely on GitOps and Infrastructure as Code using [FluxCD](https://fluxcd.io/)
-- [ ✓ ] Keep everything public - use [Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets) and [External Secrets](https://external-secrets.io/) to protect sensitive data
-- [ ✓ ] Implement a CI/CD pipeline
+- ~~Migrate my entire Proxmox homelab into Kubernetes~~
+- [x] Rely entirely on GitOps and Infrastructure as Code using [FluxCD](https://fluxcd.io/)
+- [x] Keep everything public - use [Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets) and [External Secrets](https://external-secrets.io/) to protect sensitive data
+- [x] Implement a CI/CD pipeline to lint/prettier the configuration files
+- [x] Implement [NVIDIA Container Toolkit ](https://nvidia.github.io/libnvidia-container/) to run GPU workloads in the cluster
+- [ ] Make the cluster reachable from the internet while using [PocketID](https://pocketid.com/) to authenticate with passkeys
+
 
 ## Repository Structure
 
 ```text
 .
-├── apps/             # Application deployments (e.g. Homepage, Paperless)
-├── cluster/          # Cluster-wide configuration (e.g. Flux setup)
-├── infrastructure/   # Infrastructure components (e.g. Traefik, cert-manager)
-├── monitoring/       # Monitoring components (e.g. Grafana, prometheus, NTFY)
-├── repository/       # Other Git Git Repositories
+├── apps/             # Application deployments 
+├── cluster/          # FluxCD bootstrap and cluster-wide configuration
+├── databases/        # Database deployments used by applications
+├── docs/             # Documentation about architecture, decisions and setup
+├── infrastructure/   # Core infrastructure components required for the cluster
+├── monitoring/       # Monitoring and observability stack
+├── platform/         # Shared platform services used by apps
+├── repository/       # External or additional Git repositories referenced by Flux
 └── README.md
 ```
 
-##  External Requirements
+
+
+
+## External Requirements
 
 These components are required outside of the Kubernetes cluster:
 
@@ -35,24 +44,25 @@ These components are required outside of the Kubernetes cluster:
 These components are optional:
 
 1. A [private Docker Hub Proxy Cache](https://hub.docker.com/_/registry) ,  so I don't run into the new Docker pull limit when I restart the cluster multiple times.
-2  A [S3 compatible storage backend](https://github.com/deuxfleurs-org/garage) for the cloud native postgres backups jobs. I'm using Garage with a simple GUI. 
+2. A [S3 compatible storage backend](https://github.com/deuxfleurs-org/garage) for the cloud native postgres backups jobs. I'm using Garage with a simple GUI. 
 
 ## Homelab Hardware
 
 Currently, the cluster is running on three virtual machines in my three node Proxmox setup:
 
-| Hostname     | Cores | RAM   |
-|--------------|-------|-------|
-| K3-CP-01     | 2     | 16 GB |
-| K3-Node-01   | 5     | 48GB  |
-| K3-Node-02   | 5     | 48GB  |
+| Hostname     | Cores | RAM   | GPU       |
+|--------------|-------|-------|-----------|
+| K3-CP-01     | 2     | 16GB  |           |
+| K3-Node-01   | 5     | 48GB  | RTX A2000 |
+| K3-Node-02   | 5     | 48GB  | RTX A2000 |
 
 
 ## Networking
 
 - The cluster runs in an isolated VLAN.
 - The support components like NFS, reverse proxy, vault etc. run in the same VLAN.
-- All hostnames in this repository are used internally - the cluster is not accessible from the internet.
+- ~~All hostnames in this repository are used internally - the cluster is not accessible from the internet.~~
+- The cluster will be accessible from the internet. Soon™.
 - [Traefik](https://traefik.io/traefik/) acts as the reverse proxy and handles TLS termination for incoming traffic to the cluster.
 
 ## Storage

@@ -1,7 +1,11 @@
+deployment:
+  kind: DaemonSet
+
 service:
   type: LoadBalancer
   spec:
     loadBalancerIP: 192.168.20.30
+    externalTrafficPolicy: Local
 
 ports:
   web:
@@ -9,17 +13,52 @@ ports:
     expose:
       default: true
     exposedPort: 80
+    redirectTo: websecure
   websecure:
     port: 443
     expose:
       default: true
     exposedPort: 443
+    tls:
+      enabled: true
+  websecure-wan-traffic:
+    port: 9443
+    expose:
+      default: true
+    exposedPort: 9443
+    tls:
+      enabled: true
+
+entryPoints:
+  web:
+    forwardedHeaders:
+      insecure: true
+  websecure:
+    forwardedHeaders:
+      insecure: true
+  websecure-wan-traffic:
+    forwardedHeaders:
+      insecure: true
 
 ingressRoute:
   dashboard:
     enabled: true
+    matchRule: Host(`traefik.wevelsiep.com`)
+    entryPoints: ["websecure"]
 
 tlsStore:
   default:
     defaultCertificate:
       secretName: wildcard-cert
+
+log:
+  level: INFO
+
+logs:
+  access:
+    enabled: true
+    format: common
+
+providers:
+  kubernetesCRD:
+    allowCrossNamespace: true
