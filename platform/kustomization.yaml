@@ -3,4 +3,4 @@ kind: Kustomization
 
 resources:
   - cloudnative-pg
-#  - oauth2-proxy
+  - oauth2-proxy
