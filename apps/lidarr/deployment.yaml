@@ -60,7 +60,7 @@ spec:
             - name: lidarr-seedbox
               mountPath: /downloads
             - name: lidarr-logs
-              mountPath: /config/logs                
+              mountPath: /config/logs
       volumes:
         - name: lidarr-config
           persistentVolumeClaim:
@@ -74,4 +74,4 @@ spec:
         - name: lidarr-logs
           emptyDir:
             medium: Memory
-            sizeLimit: 32Mi 
+            sizeLimit: 32Mi

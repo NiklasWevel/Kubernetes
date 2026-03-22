@@ -60,7 +60,7 @@ spec:
             - name: radarr-seedbox
               mountPath: /downloads
             - name: radarr-logs
-              mountPath: /config/logs  
+              mountPath: /config/logs
       volumes:
         - name: radarr-config
           persistentVolumeClaim:
@@ -74,4 +74,4 @@ spec:
         - name: radarr-logs
           emptyDir:
             medium: Memory
-            sizeLimit: 32Mi 
+            sizeLimit: 32Mi
