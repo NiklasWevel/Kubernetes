@@ -72,6 +72,6 @@ spec:
           persistentVolumeClaim:
             claimName: sonarr-seedbox-pvc
         - name: sonarr-logs
-           emptyDir:
+          emptyDir:
             medium: Memory
             sizeLimit: 32Mi 

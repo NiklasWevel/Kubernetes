@@ -72,6 +72,6 @@ spec:
           persistentVolumeClaim:
             claimName: radarr-seedbox-pvc
         - name: radarr-logs
-           emptyDir:
+          emptyDir:
             medium: Memory
             sizeLimit: 32Mi 

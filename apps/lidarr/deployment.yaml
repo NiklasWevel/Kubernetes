@@ -72,6 +72,6 @@ spec:
           persistentVolumeClaim:
             claimName: lidarr-seedbox-pvc
         - name: lidarr-logs
-           emptyDir:
+          emptyDir:
             medium: Memory
             sizeLimit: 32Mi 

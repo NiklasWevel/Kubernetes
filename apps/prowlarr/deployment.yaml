@@ -62,6 +62,6 @@ spec:
           persistentVolumeClaim:
             claimName: prowlarr-pvc
         - name: prowlarr-logs
-           emptyDir:
+          emptyDir:
             medium: Memory
             sizeLimit: 32Mi 
