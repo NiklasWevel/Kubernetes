@@ -59,6 +59,8 @@ spec:
               mountPath: /media
             - name: sonarr-seedbox
               mountPath: /downloads
+            - name: sonarr-logs
+              mountPath: /config/logs                
       volumes:
         - name: sonarr-config
           persistentVolumeClaim:
@@ -69,3 +71,7 @@ spec:
         - name: sonarr-seedbox
           persistentVolumeClaim:
             claimName: sonarr-seedbox-pvc
+        - name: sonarr-logs
+           emptyDir:
+            medium: Memory
+            sizeLimit: 32Mi 

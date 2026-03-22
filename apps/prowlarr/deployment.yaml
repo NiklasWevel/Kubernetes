@@ -55,7 +55,13 @@ spec:
           volumeMounts:
             - name: prowlarr-config
               mountPath: /config
+            - name: prowlarr-logs
+              mountPath: /config/logs                
       volumes:
         - name: prowlarr-config
           persistentVolumeClaim:
             claimName: prowlarr-pvc
+        - name: prowlarr-logs
+           emptyDir:
+            medium: Memory
+            sizeLimit: 32Mi 
