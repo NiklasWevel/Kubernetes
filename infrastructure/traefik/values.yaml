@@ -13,10 +13,6 @@ ports:
     expose:
       default: true
     exposedPort: 80
-    redirections:
-      entryPoint:
-        to: websecure
-        scheme: https
     forwardedHeaders:
       insecure: true
   websecure:
@@ -34,6 +30,10 @@ ports:
     forwardedHeaders:
       insecure: true
 
+additionalArguments:
+  - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+  - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+  
 ingressRoute:
   dashboard:
     enabled: true
