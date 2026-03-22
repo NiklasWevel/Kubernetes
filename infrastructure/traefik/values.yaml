@@ -33,6 +33,7 @@ ports:
 additionalArguments:
   - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
   - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+  - "--entrypoints.websecure-wan-traffic.http.tls=true"
 
 ingressRoute:
   dashboard:
