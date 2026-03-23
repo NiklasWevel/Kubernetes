@@ -4,7 +4,8 @@ resources:
   - configmap.yaml
   - database-credentials.yaml
   - deployment.yaml
-  - ingress.yaml
+  - ingress-lan.yaml
+  - ingress-wan.yaml
   - namespace.yaml
   - secret.yaml
   - service.yaml

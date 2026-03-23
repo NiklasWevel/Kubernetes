@@ -1,0 +1,14 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: pocketid-lan
+  namespace: pocketid
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`pocketid.wevelsiep.com`)
+      kind: Rule
+      services:
+        - name: pocketid
+          port: 80
