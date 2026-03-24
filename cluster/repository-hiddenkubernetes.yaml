@@ -1,11 +1,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: repository-hiddenkubernetes
+  name: repository-kuberneteshidden
   namespace: flux-system
 spec:
   interval: 5m0s
-  path: ./repository/hiddenkubernetes
+  path: ./repository/kuberneteshidden
   prune: true
   wait: true
   sourceRef:
