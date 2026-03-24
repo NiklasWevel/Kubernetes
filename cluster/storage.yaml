@@ -12,4 +12,4 @@ spec:
     kind: GitRepository
     name: hidden-repo
   dependsOn:
-    - name: repository-hiddenkubernetes
+    - name: repository-kuberneteshidden
