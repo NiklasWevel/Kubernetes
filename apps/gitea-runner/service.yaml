@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gitea-runner
+  namespace: gitea-runner
+spec:
+  selector:
+    app: gitea-runner
+  ports:
+    - port: 80
+      targetPort: 8088

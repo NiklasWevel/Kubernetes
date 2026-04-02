@@ -12,3 +12,4 @@ resources:
   - sonarr
   - wikijs
   - pocketid
+  - gitea-runner
