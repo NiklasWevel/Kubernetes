@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gitea-runner-config
+  namespace: gitea-runner
+data:
+  config.yaml: |
+    runner:
+      labels:
+        - "kubernetes:docker://gitea/runner-images:ubuntu-latest"
+    cache:
+      enabled: true
+      dir: "/data/.cache/actcache"
+    container:
+      valid_volumes:
+        - '**'
+      options: >-
+        --add-host=docker:host-gateway
+        -v /certs:/certs
+        -v /cache:/root/.cache/act
+        -e "DOCKER_HOST=tcp://docker:2376/"
+        -e "DOCKER_TLS_VERIFY=1"
+        -e "DOCKER_CERT_PATH=/certs/client"
