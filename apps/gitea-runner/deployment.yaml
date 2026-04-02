@@ -19,7 +19,12 @@ spec:
         - name: gitea-runner
           image: docker.wevelsiep.com/gitea/act_runner:0.3
           imagePullPolicy: IfNotPresent
-          command: ["sh", "-c", "while ! nc -z localhost 2376 </dev/null; do echo 'waiting for docker daemon...'; sleep 5; done; /sbin/tini -- run.sh"]
+          command:
+            [
+              "sh",
+              "-c",
+              "while ! nc -z localhost 2376 </dev/null; do echo 'waiting for docker daemon...'; sleep 5; done; /sbin/tini -- run.sh"
+            ]
           env:
             - name: GITEA_RUNNER_NAME
               value: "Kubernetes-Runner"
@@ -44,11 +49,11 @@ spec:
           workingDir: /data
           volumeMounts:
             - name: gitea-runner-data
-              mountPath: /data            
+              mountPath: /data
             - name: dind-cache
-              mountPath: /root/.cache/act    
+              mountPath: /root/.cache/act
             - name: gitea-runner-config
-              mountPath: /config                      
+              mountPath: /config
             - name: docker-certs
               mountPath: /certs
         - name: dind
@@ -67,7 +72,7 @@ spec:
               memory: "2Gi"
           volumeMounts:
             - name: dind-cache
-              mountPath: /cache          
+              mountPath: /cache
             - name: docker-certs
               mountPath: /certs
       volumes:
