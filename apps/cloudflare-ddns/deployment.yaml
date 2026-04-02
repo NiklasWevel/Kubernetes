@@ -21,7 +21,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: cloudflare-ddns
-          image: docker.wevelsiep.com/favonia/cloudflare-ddns:1.15.1
+          image: docker.wevelsiep.com/favonia/cloudflare-ddns:1.16.2
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
