@@ -76,7 +76,7 @@ DatabaseB -- S3 Key B --> S3BucketB
 
 During the refactor, I split the single S3 bucket into multiple buckets.
 
-Now, each app gets its own CNPG cluster, S3 bucket, and backup key, making it possible to restore individual databases.  
+Now, each app gets its own CNPG cluster, S3 bucket and S3 key, making it possible to restore individual databases.  
 Additionally, this provides separation between databases both at the cluster level and at the S3 bucket level, improving isolation and safety.
 
 # Conclusion
