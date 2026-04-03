@@ -23,8 +23,17 @@
     },
     {
       "matchDatasources": ["docker"],
-      "matchPackageNames": ["/.*/"],
-      "groupName": null
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "automerge": true
+    },
+    {
+      "matchDatasources": ["docker"],
+      "matchUpdateTypes": ["major"],
+      "automerge": false
+    },
+    {
+      "matchDatasources": ["docker"],
+      "allowedVersions": "/^v?[0-9]+(\\.[0-9]+){0,2}$/"
     }
   ],
   "kubernetes": {
