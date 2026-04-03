@@ -1,4 +1,5 @@
 cluster/flux-system/
+docs/
 .github/
 .prettierignore
 .yamllint
