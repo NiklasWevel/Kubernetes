@@ -8,7 +8,8 @@
     "helmfile",
     "kustomize",
     "kubernetes",
-    "regex"
+    "regex",
+    "custom.regex"
   ],
   "schedule": ["before 8am"],
   "timezone": "Europe/Berlin",
@@ -34,6 +35,10 @@
     {
       "matchDatasources": ["docker"],
       "allowedVersions": "/^v?[0-9]+(\\.[0-9]+){0,2}$/"
+    },
+    {
+      "matchDatasources": ["custom.k3s"],
+      "automerge": false
     }
   ],
   "kubernetes": {
@@ -50,6 +55,24 @@
       "versioningTemplate": "docker",
       "depNameTemplate": "{{depName}}",
       "autoReplaceStringTemplate": "image: docker.wevelsiep.com/{{depName}}:{{newValue}}"
+    }
+  ],
+  "customDatasources": {
+    "k3s": {
+      "defaultRegistryUrlTemplate": "https://update.k3s.io/v1-release/channels",
+      "transformTemplates": [
+        "{\"releases\":[{\"version\": $$.(data[id = 'stable'].latest),\"sourceUrl\":\"https://github.com/k3s-io/k3s\",\"changelogUrl\":$join([\"https://github.com/k3s-io/k3s/releases/tag/\",data[id = 'stable'].latest])}],\"sourceUrl\": \"https://github.com/k3s-io/k3s\",\"homepage\": \"https://k3s.io/\"}"
+      ]
+    }
+  },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/infrastructure/system-upgrade/plans/.+\\.ya?ml$/"],
+      "matchStrings": ["version: (?<currentValue>v[\\d]+\\.[\\d]+\\.[\\d]+\\+k3s\\d+)"],
+      "depNameTemplate": "k3s",
+      "versioningTemplate": "regex:^v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(?<compatibility>\\+k3s)(?<build>\\d+)$",
+      "datasourceTemplate": "custom.k3s"
     }
   ]
 }
