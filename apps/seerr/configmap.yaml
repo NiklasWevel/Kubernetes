@@ -11,4 +11,3 @@ data:
   DB_PASS:
   DB_NAME: "seerr-db"
   DB_LOG_QUERIES: "false"
-
