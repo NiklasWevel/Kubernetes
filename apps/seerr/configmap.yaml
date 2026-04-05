@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: seerr-config
+  namespace: seerr
+data:
+  DB_TYPE: postgres
+  DB_HOST: seerr-postgres-cluster-rw.seerr-db.svc.cluster.local
+  DB_PORT: "5432"
+  DB_USER:
+  DB_PASS:
+  DB_NAME: "seerr-db"
+  DB_LOG_QUERIES: "false"
+

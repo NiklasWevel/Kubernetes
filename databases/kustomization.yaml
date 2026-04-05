@@ -10,3 +10,4 @@ resources:
   - radarr-db
   - sonarr-db
   - wikijs-db
+  - seerr-db
