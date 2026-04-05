@@ -13,3 +13,4 @@ resources:
   - wikijs
   - pocketid
   - gitea-runner
+  - jellyfin
