@@ -27,7 +27,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: jellyfin
-          image: jellyfin/jellyfin:10.11.7
+          image: jellyfin/jellyfin:10.11.8
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
