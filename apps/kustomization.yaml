@@ -14,3 +14,5 @@ resources:
   - pocketid
   - gitea-runner
   - jellyfin
+  - seerr
+  #- autobrr

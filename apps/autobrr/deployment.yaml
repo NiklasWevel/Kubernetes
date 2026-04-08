@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: autobrr
+  namespace: autobrr
+  labels:
+    app: autobrr
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: autobrr
+  template:
+    metadata:
+      labels:
+        app: autobrr
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: autobrr
+          image: ghcr.io/autobrr/autobrr:v1.76
+          imagePullPolicy: IfNotPresent
+          # envFrom:
+          #   - configMapRef:
+          #       name: seerr-config
+          #   - secretRef:
+          #       name: seerr-db-secret
+          ports:
+            - containerPort: 7474
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "100Mi"
+            limits:
+              cpu: "500m"
+              memory: "500Mi"
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+            seccompProfile:
+              type: "RuntimeDefault"
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: autobrr-config
+              mountPath: /config
+          readinessProbe:
+            httpGet:
+              path: /api/healthz/readiness
+              port: 7474
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /api/healthz/liveness
+              port: 7474
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            failureThreshold: 3
+      volumes:
+        - name: autobrr-config
+          secret:
+            secretName: autobrr-config-secret

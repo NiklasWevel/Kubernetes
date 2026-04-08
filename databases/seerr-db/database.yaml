@@ -1,0 +1,10 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: seerr-db
+  namespace: seerr-db
+spec:
+  name: seerr-db
+  owner: seerr-user
+  cluster:
+    name: seerr-postgres-cluster
