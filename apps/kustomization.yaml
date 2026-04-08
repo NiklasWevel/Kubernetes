@@ -4,12 +4,12 @@ kind: Kustomization
 resources:
   - comfyui
   - homepage
-  - lidarr
+  #  - lidarr
   - linkwarden
   - openwebui
-  - prowlarr
-  - radarr
-  - sonarr
+  #  - prowlarr
+  #  - radarr
+  #  - sonarr
   - wikijs
   - pocketid
   - gitea-runner
