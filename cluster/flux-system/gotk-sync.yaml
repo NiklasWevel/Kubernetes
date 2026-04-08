@@ -11,7 +11,7 @@ spec:
     branch: main
   secretRef:
     name: flux-system
-  url: https://github.com/NiklasWevel/Kubernetes.git
+  url: ssh://git@github.com/NiklasWevel/Kubernetes
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
