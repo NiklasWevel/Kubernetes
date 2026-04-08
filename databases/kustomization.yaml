@@ -11,3 +11,4 @@ resources:
   - sonarr-db
   - wikijs-db
   - seerr-db
+  - autobrr-db
