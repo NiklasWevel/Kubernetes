@@ -8,6 +8,11 @@ metadata:
     app: prowlarr
 spec:
   replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
   selector:
     matchLabels:
       app: prowlarr
@@ -41,13 +46,13 @@ spec:
               type: "RuntimeDefault"
           readinessProbe:
             httpGet:
-              path: /
+              path: /ping
               port: 9696
             initialDelaySeconds: 15
             periodSeconds: 10
           livenessProbe:
             httpGet:
-              path: /
+              path: /ping
               port: 9696
             initialDelaySeconds: 30
             periodSeconds: 10
@@ -57,10 +62,16 @@ spec:
               mountPath: /config
             - name: prowlarr-logs
               mountPath: /config/logs
+            - name: prowlarr-configmap
+              mountPath: /config/config.xml
+              subPath: config.xml
       volumes:
         - name: prowlarr-config
           persistentVolumeClaim:
             claimName: prowlarr-pvc
+        - name: prowlarr-configmap
+          secret:
+            secretName: prowlarr-configmap-secret
         - name: prowlarr-logs
           emptyDir:
             medium: Memory

@@ -1,0 +1,64 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: radarr-configmap-secret
+  namespace: radarr
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: vault-global
+    kind: ClusterSecretStore
+  target:
+    name: radarr-configmap-secret
+    template:
+      engineVersion: v2
+      templateFrom:
+        - configMap:
+            name: radarr-configmap
+            items:
+              - key: config.xml
+  data:
+    - secretKey: postgresUser
+      remoteRef:
+        key: database/radarr
+        property: db_user
+    - secretKey: postgresPassword
+      remoteRef:
+        key: database/radarr
+        property: db_password
+    - secretKey: apikey
+      remoteRef:
+        key: apps/radarr
+        property: apikey
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: radarr-configmap
+  namespace: radarr
+data:
+  config.xml: |
+    <Config>
+      <BindAddress>*</BindAddress>
+      <Port>7878</Port>
+      <SslPort>9898</SslPort>
+      <EnableSsl>False</EnableSsl>
+      <LaunchBrowser>True</LaunchBrowser>
+      <ApiKey>{{ .apikey }}</ApiKey>
+      <AuthenticationMethod>Basic</AuthenticationMethod>
+      <AuthenticationRequired>DisabledForLocalAddresses</AuthenticationRequired>
+      <Branch>main</Branch>
+      <LogLevel>debug</LogLevel>
+      <SslCertPath></SslCertPath>
+      <SslCertPassword></SslCertPassword>
+      <UrlBase></UrlBase>
+      <InstanceName>radarr</InstanceName>
+      <UpdateMechanism>Docker</UpdateMechanism>
+      <PostgresUser>{{ .postgresUser }}</PostgresUser>
+      <PostgresPassword>{{ .postgresPassword }}</PostgresPassword>
+      <PostgresPort>5432</PostgresPort>
+      <PostgresHost>radarr-postgres-cluster-rw.radarr-db.svc.cluster.local</PostgresHost>
+      <PostgresMainDb>radarr-db</PostgresMainDb>
+      <PostgresLogDb>radarr-log-db</PostgresLogDb>
+    </Config>

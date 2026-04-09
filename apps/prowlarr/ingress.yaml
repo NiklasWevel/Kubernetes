@@ -1,20 +1,14 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
 metadata:
-  name: prowlarr
+  name: prowlarr-lan
   namespace: prowlarr
-  annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
 spec:
-  ingressClassName: traefik
-  rules:
-    - host: prowlarr.wevelsiep.com
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: prowlarr
-                port:
-                  number: 80
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`prowlarr.wevelsiep.com`)
+      kind: Rule
+      services:
+        - name: prowlarr
+          port: 80

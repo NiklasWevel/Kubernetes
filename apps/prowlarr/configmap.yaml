@@ -1,0 +1,64 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: prowlarr-configmap-secret
+  namespace: prowlarr
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: vault-global
+    kind: ClusterSecretStore
+  target:
+    name: prowlarr-configmap-secret
+    template:
+      engineVersion: v2
+      templateFrom:
+        - configMap:
+            name: prowlarr-configmap
+            items:
+              - key: config.xml
+  data:
+    - secretKey: postgresUser
+      remoteRef:
+        key: database/prowlarr
+        property: db_user
+    - secretKey: postgresPassword
+      remoteRef:
+        key: database/prowlarr
+        property: db_password
+    - secretKey: apikey
+      remoteRef:
+        key: apps/prowlarr
+        property: apikey
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prowlarr-configmap
+  namespace: prowlarr
+data:
+  config.xml: |
+    <Config>
+      <BindAddress>*</BindAddress>
+      <Port>9696</Port>
+      <SslPort>6969</SslPort>
+      <EnableSsl>False</EnableSsl>
+      <LaunchBrowser>True</LaunchBrowser>
+      <ApiKey>{{ .apikey }}</ApiKey>
+      <AuthenticationMethod>Basic</AuthenticationMethod>
+      <AuthenticationRequired>DisabledForLocalAddresses</AuthenticationRequired>
+      <Branch>main</Branch>
+      <LogLevel>debug</LogLevel>
+      <SslCertPath></SslCertPath>
+      <SslCertPassword></SslCertPassword>
+      <UrlBase></UrlBase>
+      <InstanceName>prowlarr</InstanceName>
+      <UpdateMechanism>Docker</UpdateMechanism>
+      <PostgresUser>{{ .postgresUser }}</PostgresUser>
+      <PostgresPassword>{{ .postgresPassword }}</PostgresPassword>
+      <PostgresPort>5432</PostgresPort>
+      <PostgresHost>prowlarr-postgres-cluster-rw.prowlarr-db.svc.cluster.local</PostgresHost>
+      <PostgresMainDb>prowlarr-db</PostgresMainDb>
+      <PostgresLogDb>prowlarr-log-db</PostgresLogDb>
+    </Config>

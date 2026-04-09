@@ -1,0 +1,64 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: sonarr-configmap-secret
+  namespace: sonarr
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: vault-global
+    kind: ClusterSecretStore
+  target:
+    name: sonarr-configmap-secret
+    template:
+      engineVersion: v2
+      templateFrom:
+        - configMap:
+            name: sonarr-configmap
+            items:
+              - key: config.xml
+  data:
+    - secretKey: postgresUser
+      remoteRef:
+        key: database/sonarr
+        property: db_user
+    - secretKey: postgresPassword
+      remoteRef:
+        key: database/sonarr
+        property: db_password
+    - secretKey: apikey
+      remoteRef:
+        key: apps/sonarr
+        property: apikey
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sonarr-configmap
+  namespace: sonarr
+data:
+  config.xml: |
+    <Config>
+      <BindAddress>*</BindAddress>
+      <Port>8989</Port>
+      <SslPort>9898</SslPort>
+      <EnableSsl>False</EnableSsl>
+      <LaunchBrowser>True</LaunchBrowser>
+      <ApiKey>{{ .apikey }}</ApiKey>
+      <AuthenticationMethod>Basic</AuthenticationMethod>
+      <AuthenticationRequired>DisabledForLocalAddresses</AuthenticationRequired>
+      <Branch>main</Branch>
+      <LogLevel>debug</LogLevel>
+      <SslCertPath></SslCertPath>
+      <SslCertPassword></SslCertPassword>
+      <UrlBase></UrlBase>
+      <InstanceName>Sonarr</InstanceName>
+      <UpdateMechanism>Docker</UpdateMechanism>
+      <PostgresUser>{{ .postgresUser }}</PostgresUser>
+      <PostgresPassword>{{ .postgresPassword }}</PostgresPassword>
+      <PostgresPort>5432</PostgresPort>
+      <PostgresHost>sonarr-postgres-cluster-rw.sonarr-db.svc.cluster.local</PostgresHost>
+      <PostgresMainDb>sonarr-db</PostgresMainDb>
+      <PostgresLogDb>sonarr-log-db</PostgresLogDb>
+    </Config>
