@@ -1,7 +1,7 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: seer-lan
+  name: autobrr-lan
   namespace: autobrr
 spec:
   entryPoints:
