@@ -8,6 +8,11 @@ metadata:
     app: sonarr
 spec:
   replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
   selector:
     matchLabels:
       app: sonarr
@@ -41,13 +46,13 @@ spec:
               type: "RuntimeDefault"
           readinessProbe:
             httpGet:
-              path: /
+              path: /ping
               port: 8989
             initialDelaySeconds: 15
             periodSeconds: 10
           livenessProbe:
             httpGet:
-              path: /
+              path: /ping
               port: 8989
             initialDelaySeconds: 30
             periodSeconds: 10
@@ -61,6 +66,9 @@ spec:
               mountPath: /downloads
             - name: sonarr-logs
               mountPath: /config/logs
+            - name: sonarr-configmap
+              mountPath: /config/config.xml
+              subPath: config.xml
       volumes:
         - name: sonarr-config
           persistentVolumeClaim:
@@ -71,6 +79,9 @@ spec:
         - name: sonarr-seedbox
           persistentVolumeClaim:
             claimName: sonarr-seedbox-pvc
+        - name: sonarr-configmap
+          secret:
+            secretName: sonarr-configmap-secret
         - name: sonarr-logs
           emptyDir:
             medium: Memory

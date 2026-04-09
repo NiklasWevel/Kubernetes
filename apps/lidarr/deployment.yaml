@@ -8,6 +8,11 @@ metadata:
     app: lidarr
 spec:
   replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
   selector:
     matchLabels:
       app: lidarr
@@ -41,13 +46,13 @@ spec:
               type: "RuntimeDefault"
           readinessProbe:
             httpGet:
-              path: /
+              path: /ping
               port: 8686
             initialDelaySeconds: 15
             periodSeconds: 10
           livenessProbe:
             httpGet:
-              path: /
+              path: /ping
               port: 8686
             initialDelaySeconds: 30
             periodSeconds: 10
@@ -61,6 +66,9 @@ spec:
               mountPath: /downloads
             - name: lidarr-logs
               mountPath: /config/logs
+            - name: lidarr-configmap
+              mountPath: /config/config.xml
+              subPath: config.xml
       volumes:
         - name: lidarr-config
           persistentVolumeClaim:
@@ -71,6 +79,9 @@ spec:
         - name: lidarr-seedbox
           persistentVolumeClaim:
             claimName: lidarr-seedbox-pvc
+        - name: lidarr-configmap
+          secret:
+            secretName: lidarr-configmap-secret
         - name: lidarr-logs
           emptyDir:
             medium: Memory
