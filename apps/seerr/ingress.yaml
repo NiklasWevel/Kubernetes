@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`seerr.wevelsiep.com`)
+    - match: Host(`seerr.wevelsiep.com`) | Host(`netflix.wevelsiep.com`)
       kind: Rule
       services:
         - name: seerr
