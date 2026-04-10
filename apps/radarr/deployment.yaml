@@ -81,7 +81,7 @@ spec:
               mountPath: /downloads
             - name: radarr-logs
               mountPath: /config/logs
-              
+
       volumes:
         - name: radarr-config
           persistentVolumeClaim:
