@@ -6,6 +6,7 @@ metadata:
   namespace: lidarr
   labels:
     app: lidarr
+
 spec:
   replicas: 1
   strategy:
@@ -25,6 +26,20 @@ spec:
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
+
+      initContainers:
+        - name: config-init
+          image: busybox:1.37.0
+          command:
+            - sh
+            - -c
+            - cp /secret/config.xml /config/config.xml
+          volumeMounts:
+            - name: lidarr-configmap
+              mountPath: /secret
+            - name: lidarr-config
+              mountPath: /config
+
       containers:
         - name: lidarr
           image: docker.wevelsiep.com/linuxserver/lidarr:3.1.0
@@ -56,7 +71,7 @@ spec:
               port: 8686
             initialDelaySeconds: 30
             periodSeconds: 10
-            failureThreshold: 3
+            failureThreshold: 3            
           volumeMounts:
             - name: lidarr-config
               mountPath: /config
@@ -66,9 +81,7 @@ spec:
               mountPath: /downloads
             - name: lidarr-logs
               mountPath: /config/logs
-            - name: lidarr-configmap
-              mountPath: /config/config.xml
-              subPath: config.xml
+
       volumes:
         - name: lidarr-config
           persistentVolumeClaim:
