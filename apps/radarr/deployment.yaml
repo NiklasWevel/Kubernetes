@@ -6,6 +6,7 @@ metadata:
   namespace: radarr
   labels:
     app: radarr
+
 spec:
   replicas: 1
   strategy:
@@ -25,6 +26,20 @@ spec:
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
+
+      initContainers:
+        - name: config-init
+          image: busybox:1.37.0
+          command:
+            - sh
+            - -c
+            - cp /secret/config.xml /config/config.xml
+          volumeMounts:
+            - name: radarr-configmap
+              mountPath: /secret
+            - name: radarr-config
+              mountPath: /config
+
       containers:
         - name: radarr
           image: docker.wevelsiep.com/linuxserver/radarr:6.1.1
@@ -66,9 +81,7 @@ spec:
               mountPath: /downloads
             - name: radarr-logs
               mountPath: /config/logs
-            - name: radarr-configmap
-              mountPath: /config/config.xml
-              subPath: config.xml
+              
       volumes:
         - name: radarr-config
           persistentVolumeClaim:
