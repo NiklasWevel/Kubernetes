@@ -25,6 +25,7 @@ spec:
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
+
       containers:
         - name: sonarr
           image: docker.wevelsiep.com/linuxserver/sonarr:4.0.17
@@ -69,6 +70,7 @@ spec:
             - name: sonarr-configmap
               mountPath: /config/config.xml
               subPath: config.xml
+              
       volumes:
         - name: sonarr-config
           persistentVolumeClaim:

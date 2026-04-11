@@ -20,6 +20,7 @@ spec:
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
+
       containers:
         - name: pocketid
           image: ghcr.io/pocket-id/pocket-id:v2
@@ -65,6 +66,7 @@ spec:
             initialDelaySeconds: 30
             periodSeconds: 10
             failureThreshold: 3
+            
       volumes:
         - name: pocketid-data
           persistentVolumeClaim:

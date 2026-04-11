@@ -25,6 +25,7 @@ spec:
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
+
       containers:
         - name: seerr
           image: ghcr.io/seerr-team/seerr:v3.1.0
@@ -61,15 +62,16 @@ spec:
             httpGet:
               path: /api/v1/status
               port: 5055
-            initialDelaySeconds: 20
+            initialDelaySeconds: 10
             periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /api/v1/status
               port: 5055
-            initialDelaySeconds: 60
+            initialDelaySeconds: 30
             periodSeconds: 10
             failureThreshold: 3
+
       volumes:
         - name: seerr-config
           persistentVolumeClaim:
