@@ -7,5 +7,3 @@ data:
   ND_SCANNER_SCHEDULE: "@every 12h"
   ND_ENABLEINSIGHTSCOLLECTOR: "false"
   ND_SCANNER_PURGEMISSING: "always"
-
-
