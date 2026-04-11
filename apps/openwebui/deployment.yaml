@@ -52,15 +52,22 @@ spec:
           volumeMounts:
             - name: openwebui-ollama
               mountPath: /root/.ollama
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            failureThreshold: 30
+            periodSeconds: 10
+          initialDelaySeconds: 30              
           readinessProbe:
             httpGet:
-              path: /
+              path: /health
               port: 8080
-            initialDelaySeconds: 20
+            initialDelaySeconds: 0
             periodSeconds: 10
           livenessProbe:
             httpGet:
-              path: /
+              path: /health
               port: 8080
             initialDelaySeconds: 60
             periodSeconds: 10
