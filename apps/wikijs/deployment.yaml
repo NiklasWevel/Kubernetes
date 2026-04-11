@@ -20,6 +20,7 @@ spec:
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
+
       containers:
         - name: wikijs
           image: ghcr.io/requarks/wiki:2.5.312
@@ -58,13 +59,13 @@ spec:
                 - ALL
           readinessProbe:
             httpGet:
-              path: /
+              path: /healthz
               port: 3000
             initialDelaySeconds: 15
             periodSeconds: 10
           livenessProbe:
             httpGet:
-              path: /
+              path: /healthz
               port: 3000
             initialDelaySeconds: 30
             periodSeconds: 10
