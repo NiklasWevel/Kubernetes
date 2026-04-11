@@ -5,9 +5,7 @@ metadata:
   namespace: sonarr-db
 spec:
   instances: 2
-
   imageName: ghcr.io/cloudnative-pg/postgresql:16
-
   storage:
     storageClass: "local-path"
     size: 10Gi
