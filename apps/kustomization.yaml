@@ -15,4 +15,5 @@ resources:
   - gitea-runner
   - jellyfin
   - seerr
+  - navidrome
   #- autobrr

@@ -1,0 +1,14 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: navidrome-lan
+  namespace: navidrome
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`navidrome.wevelsiep.com`)
+      kind: Rule
+      services:
+        - name: navidrome
+          port: 80
