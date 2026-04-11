@@ -70,7 +70,7 @@ spec:
             - name: sonarr-configmap
               mountPath: /config/config.xml
               subPath: config.xml
-              
+
       volumes:
         - name: sonarr-config
           persistentVolumeClaim:

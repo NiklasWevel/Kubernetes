@@ -91,7 +91,7 @@ spec:
             initialDelaySeconds: 30
             periodSeconds: 10
             failureThreshold: 3
-            
+
       volumes:
         - name: linkwarden-data
           persistentVolumeClaim:

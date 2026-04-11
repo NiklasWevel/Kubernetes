@@ -27,4 +27,3 @@ spec:
       storage: 5Gi
   storageClassName: longhorn-retain
   volumeName: pvc-63b951e6-d961-4878-8162-2577ae2d9de0
-
