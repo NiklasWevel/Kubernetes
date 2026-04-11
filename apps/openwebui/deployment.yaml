@@ -25,6 +25,7 @@ spec:
         runAsUser: 0
         runAsGroup: 0
         fsGroup: 1000
+
       containers:
         - name: openwebui
           image: ghcr.io/open-webui/open-webui:ollama
@@ -53,17 +54,18 @@ spec:
               mountPath: /root/.ollama
           readinessProbe:
             httpGet:
-              path: /
+              path: /health
               port: 8080
             initialDelaySeconds: 20
             periodSeconds: 10
           livenessProbe:
             httpGet:
-              path: /
+              path: /health
               port: 8080
             initialDelaySeconds: 60
             periodSeconds: 10
             failureThreshold: 3
+
       volumes:
         - name: openwebui-ollama
           persistentVolumeClaim:

@@ -25,6 +25,7 @@ spec:
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
+
       containers:
         - name: jellyfin
           image: jellyfin/jellyfin:10.11.8
@@ -56,17 +57,18 @@ spec:
               mountPath: /media
           readinessProbe:
             httpGet:
-              path: /
+              path: /health
               port: 8096
-            initialDelaySeconds: 20
+            initialDelaySeconds: 10
             periodSeconds: 10
           livenessProbe:
             httpGet:
-              path: /
+              path: /health
               port: 8096
-            initialDelaySeconds: 60
+            initialDelaySeconds: 30
             periodSeconds: 10
             failureThreshold: 3
+
       volumes:
         - name: jellyfin-data
           persistentVolumeClaim:
