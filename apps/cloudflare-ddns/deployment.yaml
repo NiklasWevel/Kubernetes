@@ -7,6 +7,11 @@ metadata:
     app: cloudflare-ddns
 spec:
   replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
   selector:
     matchLabels:
       app: cloudflare-ddns
@@ -19,6 +24,7 @@ spec:
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
+
       containers:
         - name: cloudflare-ddns
           image: docker.wevelsiep.com/favonia/cloudflare-ddns:1.16.2
