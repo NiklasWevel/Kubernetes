@@ -18,13 +18,13 @@ spec:
         app: comfyui
     spec:
       nodeSelector:
-        #        comfyui: "true"
         nvidia.com/gpu.present: "true"
       runtimeClassName: nvidia
       securityContext:
         runAsUser: 0
         runAsGroup: 0
         fsGroup: 1000
+
       containers:
         - name: comfyui
           image: docker.wevelsiep.com/yanwk/comfyui-boot:cu124-slim
@@ -64,6 +64,7 @@ spec:
             initialDelaySeconds: 90
             periodSeconds: 10
             failureThreshold: 3
+            
       volumes:
         - name: comfyui
           persistentVolumeClaim:
