@@ -24,15 +24,11 @@ spec:
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
+
       containers:
         - name: autobrr
           image: ghcr.io/autobrr/autobrr:v1.76
           imagePullPolicy: IfNotPresent
-          # envFrom:
-          #   - configMapRef:
-          #       name: seerr-config
-          #   - secretRef:
-          #       name: seerr-db-secret
           ports:
             - containerPort: 7474
           resources:
@@ -67,6 +63,7 @@ spec:
             initialDelaySeconds: 60
             periodSeconds: 10
             failureThreshold: 3
+            
       volumes:
         - name: autobrr-config
           secret:
