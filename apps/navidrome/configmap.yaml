@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: navidrome-config
+  namespace: navidrome
+data:
+  ND_SCANNER_SCHEDULE: "@every 12h"
+  ND_ENABLEINSIGHTSCOLLECTOR: "false"
+  ND_SCANNER_PURGEMISSING: "always"
+
+
