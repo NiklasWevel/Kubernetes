@@ -3,7 +3,3 @@ kind: Kustomization
 resources:
   - uptimekuma
   - ntfy
-#  - prometheus-stack.yaml
-#  - grafana.yaml
-#  - prometheus.yaml
-#  - kube-state-metrics.yaml
