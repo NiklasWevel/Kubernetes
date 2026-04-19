@@ -77,6 +77,6 @@ spec:
         - name: navidrome-music
           persistentVolumeClaim:
             claimName: navidrome-music-pvc
-          readOnly: true  
+          readOnly: true
         - name: tmp
           emptyDir: {}
