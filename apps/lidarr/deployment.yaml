@@ -30,6 +30,10 @@ spec:
       initContainers:
         - name: config-init
           image: busybox:1.37.0
+          resources:
+            requests:
+            cpu: "10m"
+            memory: "16Mi"
           command:
             - sh
             - -c
