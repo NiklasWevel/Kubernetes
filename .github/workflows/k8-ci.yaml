@@ -2,12 +2,16 @@ name: CI - Kubernetes YAML Checks
 
 on:
   push:
-    branches:
-      - ci
+    branches-ignore:
+      - main
   pull_request:
     branches:
       - main
-
+ 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+ 
 jobs:
   fix-yaml:
     name: Auto-format YAML with Prettier
@@ -18,18 +22,19 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
-
+          fetch-depth: 0
+ 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "24"
-
+ 
       - name: Install Prettier
         run: npm install -g prettier
-
+ 
       - name: Format YAML files
         run: prettier --write "**/*.yaml"
-
+ 
       - name: Check for changes
         id: check
         run: |
@@ -38,20 +43,20 @@ jobs:
           else
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
-
+ 
       - name: Commit & push changes if needed
         if: steps.check.outputs.changed == 'true'
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git add .
-          git commit -m "style(yaml): auto-format via CI"
-          git push https://x-access-token:${{ secrets.GIT_TOKEN }}@github.com/${{ github.repository }}.git HEAD:ci
-
+          git commit -m "style(yaml): auto-format via CI [skip ci]"
+          git push https://x-access-token:${{ secrets.GIT_TOKEN }}@github.com/${{ github.repository }}.git HEAD:${{ github.ref_name }}
+ 
       - name: Exit early if changes were made
         if: steps.check.outputs.changed == 'true'
         run: |
-          echo "Prettier has made changes. Exiting early..."
+          echo "Prettier has made changes. Downstream jobs skipped — new CI run will be triggered by the auto-format commit."
           exit 0
 
   yamllint:
