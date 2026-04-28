@@ -23,7 +23,7 @@ spec:
 
       containers:
         - name: wikijs
-          image: ghcr.io/requarks/wiki:2.5.312
+          image: ghcr.io/requarks/wiki:2.5.313
           imagePullPolicy: IfNotPresent
           env:
             - name: DB_USER
