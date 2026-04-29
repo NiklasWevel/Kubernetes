@@ -32,12 +32,21 @@ spec:
           image: busybox:1.37.0
           resources:
             requests:
-            cpu: "10m"
-            memory: "16Mi"
+              cpu: "10m"
+              memory: "16Mi"
+            limits:
+              cpu: "10m"
+              memory: "16Mi"
           command:
             - sh
             - -c
             - cp /secret/config.xml /config/config.xml
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ALL]
           volumeMounts:
             - name: radarr-configmap
               mountPath: /secret
@@ -46,7 +55,7 @@ spec:
 
       containers:
         - name: radarr
-          image: docker.wevelsiep.com/linuxserver/radarr:6.1.1
+          image: ghcr.io/home-operations/radarr:6.2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 7878
@@ -58,9 +67,9 @@ spec:
               cpu: "1"
               memory: "1Gi"
           securityContext:
-            runAsNonRoot: false
-            allowPrivilegeEscalation: true
-            readOnlyRootFilesystem: false
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
             seccompProfile:
               type: "RuntimeDefault"
           readinessProbe:
@@ -79,6 +88,9 @@ spec:
           volumeMounts:
             - name: radarr-config
               mountPath: /config
+            - name: radarr-configmap
+              mountPath: /config/config.xml
+              subPath: config.xml                
             - name: radarr-media
               mountPath: /media
             - name: radarr-seedbox
@@ -100,6 +112,4 @@ spec:
           secret:
             secretName: radarr-configmap-secret
         - name: radarr-logs
-          emptyDir:
-            medium: Memory
-            sizeLimit: 32Mi
+          emptyDir: {}
