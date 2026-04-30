@@ -97,6 +97,8 @@ spec:
               mountPath: /downloads
             - name: radarr-logs
               mountPath: /config/logs
+            - name: radarr-sentry
+              mountPath: /config/Sentry              
 
       volumes:
         - name: radarr-config
@@ -112,4 +114,6 @@ spec:
           secret:
             secretName: radarr-configmap-secret
         - name: radarr-logs
+          emptyDir: {}
+        - name: radarr-sentry
           emptyDir: {}

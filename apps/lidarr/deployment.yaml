@@ -97,6 +97,8 @@ spec:
               mountPath: /downloads
             - name: lidarr-logs
               mountPath: /config/logs
+            - name: lidarr-sentry
+              mountPath: /config/Sentry              
 
       volumes:
         - name: lidarr-config
@@ -112,4 +114,6 @@ spec:
           secret:
             secretName: lidarr-configmap-secret
         - name: lidarr-logs
+          emptyDir: {}
+        - name: lidarr-sentry
           emptyDir: {}
