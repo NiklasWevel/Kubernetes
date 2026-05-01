@@ -27,9 +27,14 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
 
+      # Radarr checks if it can write to config.xml on start. Copy from read-only Secret into emptyDir first.
       initContainers:
         - name: config-init
           image: busybox:1.37.0
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "16Mi"
           command:
             - sh
             - -c
@@ -42,7 +47,7 @@ spec:
 
       containers:
         - name: radarr
-          image: docker.wevelsiep.com/linuxserver/radarr:6.1.1
+          image: ghcr.io/home-operations/radarr:6.2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 7878
@@ -54,9 +59,9 @@ spec:
               cpu: "1"
               memory: "1Gi"
           securityContext:
-            runAsNonRoot: false
-            allowPrivilegeEscalation: true
-            readOnlyRootFilesystem: false
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
             seccompProfile:
               type: "RuntimeDefault"
           readinessProbe:
@@ -75,15 +80,23 @@ spec:
           volumeMounts:
             - name: radarr-config
               mountPath: /config
+            - name: radarr-configmap
+              mountPath: /config/config.xml
+              subPath: config.xml
+            - name: radarr-media-cover
+              mountPath: /config/MediaCover                           
             - name: radarr-media
               mountPath: /media
             - name: radarr-seedbox
               mountPath: /downloads
-            - name: radarr-logs
-              mountPath: /config/logs
 
       volumes:
         - name: radarr-config
+          emptyDir: {}         
+        - name: radarr-configmap
+          secret:
+            secretName: radarr-configmap-secret   
+        - name: radarr-media-cover
           persistentVolumeClaim:
             claimName: radarr-pvc
         - name: radarr-media
@@ -92,10 +105,4 @@ spec:
         - name: radarr-seedbox
           persistentVolumeClaim:
             claimName: radarr-seedbox-pvc
-        - name: radarr-configmap
-          secret:
-            secretName: radarr-configmap-secret
-        - name: radarr-logs
-          emptyDir:
-            medium: Memory
-            sizeLimit: 32Mi
+

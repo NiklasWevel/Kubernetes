@@ -28,7 +28,7 @@ spec:
 
       containers:
         - name: sonarr
-          image: docker.wevelsiep.com/linuxserver/sonarr:4.0.17
+          image: ghcr.io/home-operations/sonarr:4.0.17
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8989
@@ -40,9 +40,9 @@ spec:
               cpu: "1"
               memory: "1Gi"
           securityContext:
-            runAsNonRoot: false
-            allowPrivilegeEscalation: true
-            readOnlyRootFilesystem: false
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
             seccompProfile:
               type: "RuntimeDefault"
           readinessProbe:
@@ -61,18 +61,23 @@ spec:
           volumeMounts:
             - name: sonarr-config
               mountPath: /config
+            - name: sonarr-configmap
+              mountPath: /config/config.xml
+              subPath: config.xml
+            - name: sonarr-media-cover
+              mountPath: /config/MediaCover                           
             - name: sonarr-media
               mountPath: /media
             - name: sonarr-seedbox
               mountPath: /downloads
-            - name: sonarr-logs
-              mountPath: /config/logs
-            - name: sonarr-configmap
-              mountPath: /config/config.xml
-              subPath: config.xml
 
       volumes:
         - name: sonarr-config
+          emptyDir: {}         
+        - name: sonarr-configmap
+          secret:
+            secretName: sonarr-configmap-secret   
+        - name: sonarr-media-cover
           persistentVolumeClaim:
             claimName: sonarr-pvc
         - name: sonarr-media
@@ -81,10 +86,4 @@ spec:
         - name: sonarr-seedbox
           persistentVolumeClaim:
             claimName: sonarr-seedbox-pvc
-        - name: sonarr-configmap
-          secret:
-            secretName: sonarr-configmap-secret
-        - name: sonarr-logs
-          emptyDir:
-            medium: Memory
-            sizeLimit: 32Mi
+

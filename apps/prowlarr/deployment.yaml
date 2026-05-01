@@ -28,7 +28,7 @@ spec:
 
       containers:
         - name: prowlarr
-          image: docker.wevelsiep.com/linuxserver/prowlarr:2.3.5
+          image: ghcr.io/home-operations/prowlarr:2.3.6
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 9696
@@ -40,9 +40,9 @@ spec:
               cpu: "1"
               memory: "1Gi"
           securityContext:
-            runAsNonRoot: false
-            allowPrivilegeEscalation: true
-            readOnlyRootFilesystem: false
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
             seccompProfile:
               type: "RuntimeDefault"
           readinessProbe:
@@ -61,20 +61,14 @@ spec:
           volumeMounts:
             - name: prowlarr-config
               mountPath: /config
-            - name: prowlarr-logs
-              mountPath: /config/logs
             - name: prowlarr-configmap
               mountPath: /config/config.xml
               subPath: config.xml
 
       volumes:
         - name: prowlarr-config
-          persistentVolumeClaim:
-            claimName: prowlarr-pvc
+          emptyDir: {}         
         - name: prowlarr-configmap
           secret:
-            secretName: prowlarr-configmap-secret
-        - name: prowlarr-logs
-          emptyDir:
-            medium: Memory
-            sizeLimit: 32Mi
+            secretName: prowlarr-configmap-secret   
+        - name: prowlarr-media-cover

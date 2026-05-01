@@ -27,9 +27,14 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
 
+      # Lidarr checks if it can write to config.xml on start. Copy from read-only Secret into emptyDir first.
       initContainers:
         - name: config-init
           image: busybox:1.37.0
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "16Mi"
           command:
             - sh
             - -c
@@ -42,7 +47,7 @@ spec:
 
       containers:
         - name: lidarr
-          image: docker.wevelsiep.com/linuxserver/lidarr:3.1.0
+          image: ghcr.io/home-operations/lidarr:3.1.2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8686
@@ -54,8 +59,8 @@ spec:
               cpu: "1"
               memory: "1Gi"
           securityContext:
-            runAsNonRoot: false
-            allowPrivilegeEscalation: true
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
             readOnlyRootFilesystem: false
             seccompProfile:
               type: "RuntimeDefault"
@@ -75,15 +80,23 @@ spec:
           volumeMounts:
             - name: lidarr-config
               mountPath: /config
+            - name: lidarr-configmap
+              mountPath: /config/config.xml
+              subPath: config.xml
+            - name: lidarr-media-cover
+              mountPath: /config/MediaCover                           
             - name: lidarr-media
               mountPath: /media
             - name: lidarr-seedbox
               mountPath: /downloads
-            - name: lidarr-logs
-              mountPath: /config/logs
 
       volumes:
         - name: lidarr-config
+          emptyDir: {}         
+        - name: lidarr-configmap
+          secret:
+            secretName: lidarr-configmap-secret   
+        - name: lidarr-media-cover
           persistentVolumeClaim:
             claimName: lidarr-pvc
         - name: lidarr-media
@@ -92,10 +105,3 @@ spec:
         - name: lidarr-seedbox
           persistentVolumeClaim:
             claimName: lidarr-seedbox-pvc
-        - name: lidarr-configmap
-          secret:
-            secretName: lidarr-configmap-secret
-        - name: lidarr-logs
-          emptyDir:
-            medium: Memory
-            sizeLimit: 32Mi
