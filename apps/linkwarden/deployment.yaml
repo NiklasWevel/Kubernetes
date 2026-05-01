@@ -7,7 +7,7 @@ metadata:
   labels:
     app: linkwarden
   annotations:
-    ignore-check.kube-linter.io/run-as-non-root: "linkwarden/linkwarden requires root"          
+    ignore-check.kube-linter.io/run-as-non-root: "linkwarden/linkwarden requires root"
 spec:
   replicas: 1
   strategy:
@@ -94,7 +94,7 @@ spec:
               mountPath: /app/config
               subPath: data
             - name: linkwarden-tmp
-              mountPath: /tmp              
+              mountPath: /tmp
       volumes:
         - name: linkwarden-data
           persistentVolumeClaim:

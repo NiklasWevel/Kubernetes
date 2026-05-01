@@ -6,7 +6,7 @@ metadata:
   labels:
     app: comfyui
   annotations:
-    ignore-check.kube-linter.io/run-as-non-root: "yanwk/comfyui requires root"        
+    ignore-check.kube-linter.io/run-as-non-root: "yanwk/comfyui requires root"
 spec:
   replicas: 1
   strategy:
