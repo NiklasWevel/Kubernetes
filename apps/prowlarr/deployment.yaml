@@ -68,7 +68,7 @@ spec:
 
       volumes:
         - name: prowlarr-config
-          emptyDir: {}         
+          emptyDir: {}
         - name: prowlarr-configmap
           secret:
             secretName: prowlarr-configmap-secret

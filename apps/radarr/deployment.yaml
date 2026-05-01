@@ -103,10 +103,10 @@ spec:
 
       volumes:
         - name: radarr-config
-          emptyDir: {}         
+          emptyDir: {}
         - name: radarr-configmap
           secret:
-            secretName: radarr-configmap-secret   
+            secretName: radarr-configmap-secret
         - name: radarr-media-cover
           persistentVolumeClaim:
             claimName: radarr-pvc

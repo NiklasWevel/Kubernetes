@@ -103,10 +103,10 @@ spec:
 
       volumes:
         - name: lidarr-config
-          emptyDir: {}         
+          emptyDir: {}
         - name: lidarr-configmap
           secret:
-            secretName: lidarr-configmap-secret   
+            secretName: lidarr-configmap-secret
         - name: lidarr-media-cover
           persistentVolumeClaim:
             claimName: lidarr-pvc
