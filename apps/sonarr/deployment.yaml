@@ -28,7 +28,7 @@ spec:
 
       containers:
         - name: sonarr
-          image: docker.wevelsiep.com/linuxserver/sonarr:4.0.17
+          image: ghcr.io/home-operations/sonarr:4.0.17
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8989
@@ -40,9 +40,9 @@ spec:
               cpu: "1"
               memory: "1Gi"
           securityContext:
-            runAsNonRoot: false
-            allowPrivilegeEscalation: true
-            readOnlyRootFilesystem: false
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
             seccompProfile:
               type: "RuntimeDefault"
           readinessProbe:
@@ -61,6 +61,9 @@ spec:
           volumeMounts:
             - name: sonarr-config
               mountPath: /config
+            - name: sonarr-configmap
+              mountPath: /config/config.xml
+              subPath: config.xml
             - name: sonarr-media
               mountPath: /media
             - name: sonarr-seedbox
@@ -70,7 +73,8 @@ spec:
             - name: sonarr-configmap
               mountPath: /config/config.xml
               subPath: config.xml
-
+            - name: sonarr-sentry
+              mountPath: /config/Sentry
       volumes:
         - name: sonarr-config
           persistentVolumeClaim:
@@ -85,6 +89,6 @@ spec:
           secret:
             secretName: sonarr-configmap-secret
         - name: sonarr-logs
-          emptyDir:
-            medium: Memory
-            sizeLimit: 32Mi
+          emptyDir: {}
+        - name: sonarr-sentry
+          emptyDir: {}
