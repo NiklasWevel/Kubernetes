@@ -27,6 +27,7 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
 
+      # Lidarr checks if it can write to config.xml on start. Copy from read-only Secret into emptyDir first.
       initContainers:
         - name: config-init
           image: busybox:1.37.0
@@ -102,6 +103,11 @@ spec:
 
       volumes:
         - name: lidarr-config
+          emptyDir: {}
+        - name: lidarr-configmap
+          secret:
+            secretName: lidarr-configmap-secret
+        - name: lidarr-media-cover
           persistentVolumeClaim:
             claimName: lidarr-pvc
         - name: lidarr-media

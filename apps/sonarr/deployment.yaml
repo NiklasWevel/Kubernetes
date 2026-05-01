@@ -77,6 +77,11 @@ spec:
               mountPath: /config/Sentry
       volumes:
         - name: sonarr-config
+          emptyDir: {}
+        - name: sonarr-configmap
+          secret:
+            secretName: sonarr-configmap-secret
+        - name: sonarr-media-cover
           persistentVolumeClaim:
             claimName: sonarr-pvc
         - name: sonarr-media

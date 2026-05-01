@@ -60,8 +60,6 @@ spec:
           volumeMounts:
             - name: prowlarr-config
               mountPath: /config
-            - name: prowlarr-logs
-              mountPath: /config/logs
             - name: prowlarr-configmap
               mountPath: /config/config.xml
               subPath: config.xml
@@ -70,8 +68,7 @@ spec:
 
       volumes:
         - name: prowlarr-config
-          persistentVolumeClaim:
-            claimName: prowlarr-pvc
+          emptyDir: {}
         - name: prowlarr-configmap
           secret:
             secretName: prowlarr-configmap-secret

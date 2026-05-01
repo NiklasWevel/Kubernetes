@@ -27,6 +27,7 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
 
+      # Radarr checks if it can write to config.xml on start. Copy from read-only Secret into emptyDir first.
       initContainers:
         - name: config-init
           image: busybox:1.37.0
@@ -102,6 +103,11 @@ spec:
 
       volumes:
         - name: radarr-config
+          emptyDir: {}
+        - name: radarr-configmap
+          secret:
+            secretName: radarr-configmap-secret
+        - name: radarr-media-cover
           persistentVolumeClaim:
             claimName: radarr-pvc
         - name: radarr-media
