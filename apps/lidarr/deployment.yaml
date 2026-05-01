@@ -90,7 +90,7 @@ spec:
               mountPath: /config
             - name: lidarr-configmap
               mountPath: /config/config.xml
-              subPath: config.xml                 
+              subPath: config.xml
             - name: lidarr-media
               mountPath: /media
             - name: lidarr-seedbox
@@ -98,7 +98,7 @@ spec:
             - name: lidarr-logs
               mountPath: /config/logs
             - name: lidarr-sentry
-              mountPath: /config/Sentry              
+              mountPath: /config/Sentry
 
       volumes:
         - name: lidarr-config

@@ -90,7 +90,7 @@ spec:
               mountPath: /config
             - name: radarr-configmap
               mountPath: /config/config.xml
-              subPath: config.xml                
+              subPath: config.xml
             - name: radarr-media
               mountPath: /media
             - name: radarr-seedbox
@@ -98,7 +98,7 @@ spec:
             - name: radarr-logs
               mountPath: /config/logs
             - name: radarr-sentry
-              mountPath: /config/Sentry              
+              mountPath: /config/Sentry
 
       volumes:
         - name: radarr-config

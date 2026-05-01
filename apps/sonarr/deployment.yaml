@@ -63,7 +63,7 @@ spec:
               mountPath: /config
             - name: sonarr-configmap
               mountPath: /config/config.xml
-              subPath: config.xml                 
+              subPath: config.xml
             - name: sonarr-media
               mountPath: /media
             - name: sonarr-seedbox
@@ -74,7 +74,7 @@ spec:
               mountPath: /config/config.xml
               subPath: config.xml
             - name: sonarr-sentry
-              mountPath: /config/Sentry    
+              mountPath: /config/Sentry
       volumes:
         - name: sonarr-config
           persistentVolumeClaim:
