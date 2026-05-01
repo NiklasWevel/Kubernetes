@@ -8,8 +8,8 @@ metadata:
   annotations:
     ignore-check.kube-linter.io/privileged-container: "DinD requires privileged"
     ignore-check.kube-linter.io/privilege-escalation-container: "DinD requires privileged"
-    ignore-check.kube-linter.io/run-as-non-root: "DinD requires root"    
-    ignore-check.kube-linter.io/no-read-only-root-fs: "DinD requires writable filesystem"    
+    ignore-check.kube-linter.io/run-as-non-root: "DinD requires root"
+    ignore-check.kube-linter.io/no-read-only-root-fs: "DinD requires writable filesystem"
 spec:
   replicas: 1
   selector:
