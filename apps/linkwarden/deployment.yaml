@@ -6,6 +6,8 @@ metadata:
   namespace: linkwarden
   labels:
     app: linkwarden
+  annotations:
+    ignore-check.kube-linter.io/run-as-non-root: "linkwarden/linkwarden requires root"          
 spec:
   replicas: 1
   strategy:
@@ -68,16 +70,12 @@ spec:
           securityContext:
             runAsNonRoot: false
             allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: false
+            readOnlyRootFilesystem: true
             seccompProfile:
               type: "RuntimeDefault"
             capabilities:
               drop:
                 - ALL
-          volumeMounts:
-            - name: linkwarden-data
-              mountPath: /app/config
-              subPath: data
           readinessProbe:
             httpGet:
               path: /
@@ -91,8 +89,15 @@ spec:
             initialDelaySeconds: 30
             periodSeconds: 10
             failureThreshold: 3
-
+          volumeMounts:
+            - name: linkwarden-data
+              mountPath: /app/config
+              subPath: data
+            - name: linkwarden-tmp
+              mountPath: /tmp              
       volumes:
         - name: linkwarden-data
           persistentVolumeClaim:
             claimName: linkwarden-pvc
+        - name: linkwarden-tmp
+          emptyDir: {}
