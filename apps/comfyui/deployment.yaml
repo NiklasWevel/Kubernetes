@@ -5,6 +5,8 @@ metadata:
   namespace: comfyui
   labels:
     app: comfyui
+  annotations:
+    ignore-check.kube-linter.io/run-as-non-root: "yanwk/comfyui requires root"
 spec:
   replicas: 1
   strategy:
@@ -42,7 +44,7 @@ spec:
           securityContext:
             runAsNonRoot: false
             allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: false
+            readOnlyRootFilesystem: true
             seccompProfile:
               type: "RuntimeDefault"
           #            capabilities:

@@ -1,4 +1,3 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -64,11 +63,16 @@ spec:
             - name: prowlarr-configmap
               mountPath: /config/config.xml
               subPath: config.xml
+            - name: prowlarr-sentry
+              mountPath: /config/Sentry
 
       volumes:
         - name: prowlarr-config
           emptyDir: {}         
         - name: prowlarr-configmap
           secret:
-            secretName: prowlarr-configmap-secret   
-        - name: prowlarr-media-cover
+            secretName: prowlarr-configmap-secret
+        - name: prowlarr-logs
+          emptyDir: {}
+        - name: prowlarr-sentry
+          emptyDir: {}

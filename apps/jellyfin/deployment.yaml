@@ -31,7 +31,7 @@ spec:
           image: jellyfin/jellyfin:10.11.8
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8080
+            - containerPort: 8096
           resources:
             requests:
               cpu: "250m"
@@ -43,7 +43,7 @@ spec:
           securityContext:
             runAsNonRoot: false
             allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: false
+            readOnlyRootFilesystem: true
             seccompProfile:
               type: "RuntimeDefault"
           volumeMounts:

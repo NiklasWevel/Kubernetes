@@ -35,10 +35,19 @@ spec:
             requests:
               cpu: "10m"
               memory: "16Mi"
+            limits:
+              cpu: "10m"
+              memory: "16Mi"
           command:
             - sh
             - -c
             - cp /secret/config.xml /config/config.xml
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ALL]
           volumeMounts:
             - name: lidarr-configmap
               mountPath: /secret
@@ -61,7 +70,7 @@ spec:
           securityContext:
             runAsNonRoot: true
             allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: false
+            readOnlyRootFilesystem: true
             seccompProfile:
               type: "RuntimeDefault"
           readinessProbe:
@@ -83,12 +92,14 @@ spec:
             - name: lidarr-configmap
               mountPath: /config/config.xml
               subPath: config.xml
-            - name: lidarr-media-cover
-              mountPath: /config/MediaCover                           
             - name: lidarr-media
               mountPath: /media
             - name: lidarr-seedbox
               mountPath: /downloads
+            - name: lidarr-logs
+              mountPath: /config/logs
+            - name: lidarr-sentry
+              mountPath: /config/Sentry
 
       volumes:
         - name: lidarr-config
@@ -105,3 +116,10 @@ spec:
         - name: lidarr-seedbox
           persistentVolumeClaim:
             claimName: lidarr-seedbox-pvc
+        - name: lidarr-configmap
+          secret:
+            secretName: lidarr-configmap-secret
+        - name: lidarr-logs
+          emptyDir: {}
+        - name: lidarr-sentry
+          emptyDir: {}

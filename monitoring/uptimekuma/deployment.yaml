@@ -25,10 +25,17 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3001
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "1Gi"
           securityContext:
             runAsNonRoot: true
             allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: false
+            readOnlyRootFilesystem: true
             seccompProfile:
               type: "RuntimeDefault"
             capabilities:

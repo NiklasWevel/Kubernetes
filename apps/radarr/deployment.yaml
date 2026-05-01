@@ -35,10 +35,19 @@ spec:
             requests:
               cpu: "10m"
               memory: "16Mi"
+            limits:
+              cpu: "10m"
+              memory: "16Mi"
           command:
             - sh
             - -c
             - cp /secret/config.xml /config/config.xml
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ALL]
           volumeMounts:
             - name: radarr-configmap
               mountPath: /secret
@@ -83,12 +92,14 @@ spec:
             - name: radarr-configmap
               mountPath: /config/config.xml
               subPath: config.xml
-            - name: radarr-media-cover
-              mountPath: /config/MediaCover                           
             - name: radarr-media
               mountPath: /media
             - name: radarr-seedbox
               mountPath: /downloads
+            - name: radarr-logs
+              mountPath: /config/logs
+            - name: radarr-sentry
+              mountPath: /config/Sentry
 
       volumes:
         - name: radarr-config
@@ -105,4 +116,10 @@ spec:
         - name: radarr-seedbox
           persistentVolumeClaim:
             claimName: radarr-seedbox-pvc
-
+        - name: radarr-configmap
+          secret:
+            secretName: radarr-configmap-secret
+        - name: radarr-logs
+          emptyDir: {}
+        - name: radarr-sentry
+          emptyDir: {}

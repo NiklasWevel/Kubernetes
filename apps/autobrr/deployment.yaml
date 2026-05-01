@@ -27,7 +27,7 @@ spec:
 
       containers:
         - name: autobrr
-          image: ghcr.io/autobrr/autobrr:v1.76
+          image: ghcr.io/autobrr/autobrr:v1.77
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 7474
@@ -41,7 +41,7 @@ spec:
           securityContext:
             runAsNonRoot: true
             allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: false
+            readOnlyRootFilesystem: true
             seccompProfile:
               type: "RuntimeDefault"
             capabilities:

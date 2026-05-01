@@ -39,12 +39,12 @@ spec:
               cpu: "50m"
               memory: "50Mi"
             limits:
-              cpu: "250m"
+              cpu: "100m"
               memory: "250Mi"
           securityContext:
             runAsNonRoot: false
             allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: false
+            readOnlyRootFilesystem: true
             seccompProfile:
               type: "RuntimeDefault"
             capabilities:

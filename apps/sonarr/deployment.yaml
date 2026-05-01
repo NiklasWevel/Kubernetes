@@ -64,13 +64,17 @@ spec:
             - name: sonarr-configmap
               mountPath: /config/config.xml
               subPath: config.xml
-            - name: sonarr-media-cover
-              mountPath: /config/MediaCover                           
             - name: sonarr-media
               mountPath: /media
             - name: sonarr-seedbox
               mountPath: /downloads
-
+            - name: sonarr-logs
+              mountPath: /config/logs
+            - name: sonarr-configmap
+              mountPath: /config/config.xml
+              subPath: config.xml
+            - name: sonarr-sentry
+              mountPath: /config/Sentry
       volumes:
         - name: sonarr-config
           emptyDir: {}         
@@ -86,4 +90,10 @@ spec:
         - name: sonarr-seedbox
           persistentVolumeClaim:
             claimName: sonarr-seedbox-pvc
-
+        - name: sonarr-configmap
+          secret:
+            secretName: sonarr-configmap-secret
+        - name: sonarr-logs
+          emptyDir: {}
+        - name: sonarr-sentry
+          emptyDir: {}
