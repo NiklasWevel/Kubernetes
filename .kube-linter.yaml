@@ -1,0 +1,5 @@
+checks:
+  # addAllBuiltIn: true
+  exclude:
+    - "minimum-three-replicas"
+    - "no-anti-affinity"    
