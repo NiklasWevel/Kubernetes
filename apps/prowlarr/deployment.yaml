@@ -63,8 +63,6 @@ spec:
             - name: prowlarr-configmap
               mountPath: /config/config.xml
               subPath: config.xml
-            - name: prowlarr-sentry
-              mountPath: /config/Sentry
 
       volumes:
         - name: prowlarr-config
@@ -72,7 +70,4 @@ spec:
         - name: prowlarr-configmap
           secret:
             secretName: prowlarr-configmap-secret
-        - name: prowlarr-logs
-          emptyDir: {}
-        - name: prowlarr-sentry
-          emptyDir: {}
+

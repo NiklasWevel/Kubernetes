@@ -92,14 +92,12 @@ spec:
             - name: lidarr-configmap
               mountPath: /config/config.xml
               subPath: config.xml
+            - name: lidarr-media-cover
+              mountPath: /config/MediaCover
             - name: lidarr-media
               mountPath: /media
             - name: lidarr-seedbox
               mountPath: /downloads
-            - name: lidarr-logs
-              mountPath: /config/logs
-            - name: lidarr-sentry
-              mountPath: /config/Sentry
 
       volumes:
         - name: lidarr-config
@@ -116,10 +114,3 @@ spec:
         - name: lidarr-seedbox
           persistentVolumeClaim:
             claimName: lidarr-seedbox-pvc
-        - name: lidarr-configmap
-          secret:
-            secretName: lidarr-configmap-secret
-        - name: lidarr-logs
-          emptyDir: {}
-        - name: lidarr-sentry
-          emptyDir: {}

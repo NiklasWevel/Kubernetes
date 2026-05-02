@@ -92,14 +92,12 @@ spec:
             - name: radarr-configmap
               mountPath: /config/config.xml
               subPath: config.xml
+            - name: radarr-media-cover
+              mountPath: /config/MediaCover
             - name: radarr-media
               mountPath: /media
             - name: radarr-seedbox
               mountPath: /downloads
-            - name: radarr-logs
-              mountPath: /config/logs
-            - name: radarr-sentry
-              mountPath: /config/Sentry
 
       volumes:
         - name: radarr-config
@@ -116,10 +114,3 @@ spec:
         - name: radarr-seedbox
           persistentVolumeClaim:
             claimName: radarr-seedbox-pvc
-        - name: radarr-configmap
-          secret:
-            secretName: radarr-configmap-secret
-        - name: radarr-logs
-          emptyDir: {}
-        - name: radarr-sentry
-          emptyDir: {}
