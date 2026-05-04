@@ -70,4 +70,3 @@ spec:
         - name: prowlarr-configmap
           secret:
             secretName: prowlarr-configmap-secret
-
