@@ -1,4 +1,4 @@
-#https://github.com/cloudnative-pg/plugin-barman-cloud/releases/
+# https://github.com/cloudnative-pg/plugin-barman-cloud/releases/
 
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition

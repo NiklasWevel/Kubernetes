@@ -16,4 +16,4 @@ resources:
   - jellyfin
   - seerr
   - navidrome
-  #- autobrr
+  # - autobrr
