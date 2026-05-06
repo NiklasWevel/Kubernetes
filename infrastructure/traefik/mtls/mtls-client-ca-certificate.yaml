@@ -7,8 +7,8 @@ spec:
   isCA: true
   commonName: homelab-mtls-client-ca
   secretName: mtls-client-ca
-  duration: 87600h    # 10y
-  renewBefore: 720h   # 30d
+  duration: 87600h # 10y
+  renewBefore: 720h # 30d
   privateKey:
     algorithm: ECDSA
     size: 256
