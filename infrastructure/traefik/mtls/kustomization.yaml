@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: traefik
+resources:
+  - mtls-cert-niklas-pixel.yaml
+  - mtls-client-ca-certificate.yaml
+  - mtls-client-ca-issuer.yaml
+  - tlsoption-mtls-required.yaml

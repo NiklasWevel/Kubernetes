@@ -1,0 +1,23 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: niklas-pixel
+  namespace: traefik
+spec:
+  secretName: niklas-pixel-tls
+  duration: 8760h      # 1y
+  renewBefore: 360h    # 15d
+  commonName: niklas@pixel
+  subject:
+    organizations:
+      - homelab
+  usages:
+    - client auth
+    - digital signature
+    - key encipherment
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: mtls-client-ca-issuer
+    kind: Issuer
