@@ -1,0 +1,8 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: mtls-client-ca-issuer
+  namespace: traefik
+spec:
+  ca:
+    secretName: mtls-client-ca
