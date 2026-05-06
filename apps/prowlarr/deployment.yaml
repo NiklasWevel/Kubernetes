@@ -27,7 +27,7 @@ spec:
 
       containers:
         - name: prowlarr
-          image: ghcr.io/home-operations/prowlarr:2.3.6
+          image: ghcr.io/home-operations/prowlarr:2.3.7
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 9696
