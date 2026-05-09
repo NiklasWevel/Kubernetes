@@ -3,3 +3,24 @@ kind: Kustomization
 resources:
   # - namespace.yaml
   - https://github.com/rancher/system-upgrade-controller/releases/download/v0.19.0/system-upgrade-controller.yaml
+
+patches:
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: system-upgrade-controller
+        namespace: system-upgrade
+        annotations:
+          ignore-check.kube-linter.io/no-read-only-root-fs: "system-upgrade-controller requires write access at runtime"
+      spec:
+        template:
+          spec:
+            containers:
+              - name: system-upgrade-controller
+                resources:
+                  requests:
+                    cpu: 50m
+                    memory: 64Mi
+                  limits:
+                    memory: 256Mi

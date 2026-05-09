@@ -6,6 +6,9 @@ metadata:
   namespace: openwebui
   labels:
     app: openwebui
+  annotations:
+    ignore-check.kube-linter.io/run-as-non-root: "open-webui/open-webui:ollama requires root"
+    ignore-check.kube-linter.io/no-read-only-root-fs: "open-webui/open-webui:ollama requires writable filesystem"
 spec:
   replicas: 1
   strategy:
