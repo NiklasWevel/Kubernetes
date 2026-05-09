@@ -7,7 +7,7 @@ spec:
   schedule: "0 0 0 * * *"
   backupOwnerReference: self
   cluster:
-    name: lidarr-linkwarden-openwebui-pocketid-prowlarr-radarr-postgres-cluster
+    name: radarr-postgres-cluster
   method: plugin
   pluginConfiguration:
     name: barman-cloud.cloudnative-pg.io
