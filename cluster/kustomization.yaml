@@ -16,6 +16,7 @@ resources:
   - infrastructure-traefik.yaml
   - infrastructure-traefik-mtls.yaml
   - databases.yaml
+  - databases-hidden.yaml  
   - platform.yaml
   - apps.yaml
   - apps-hidden.yaml
