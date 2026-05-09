@@ -3,7 +3,7 @@ kind: Kustomization
 
 resources:
   - autobrr
-  - comfyui  
+  - comfyui
   - gitea-runner
   - jellyfin
   - lidarr
