@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deemix
+  namespace: deemix
+  labels:
+    app: deemix
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: deemix
+  template:
+    metadata:
+      labels:
+        app: deemix
+    spec:
+      securityContext:
+        fsGroup: 1000
+
+      containers:
+        - name: deemix
+          image: ghcr.io/bambanah/deemix:v4.5.2
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 6595
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "100Mi"
+            limits:
+              cpu: "500m"
+              memory: "2Gi"
+          securityContext:
+            runAsNonRoot: false
+            allowPrivilegeEscalation: true
+            readOnlyRootFilesystem: false
+            seccompProfile:
+              type: "RuntimeDefault"
+            capabilities:
+              add:
+                - SETUID
+                - SETGID
+                - CHOWN
+              drop:
+                - ALL
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 6595
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 6595
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            failureThreshold: 3
+          volumeMounts:
+            - name: deemix-media-pvc
+              mountPath: /downloads
+
+      volumes:
+        - name: deemix-media-pvc
+          persistentVolumeClaim:
+            claimName: deemix-media-pvc

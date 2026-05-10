@@ -4,6 +4,7 @@ resources:
   - autobrr
   - bentopdf
   - comfyui
+  - deemix
   - gitea-runner
   - jellyfin
   - lidarr
