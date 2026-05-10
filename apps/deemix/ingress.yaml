@@ -1,0 +1,14 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: deemix-lan
+  namespace: deemix
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`deemix.wevelsiep.com`)
+      kind: Rule
+      services:
+        - name: deemix
+          port: 80

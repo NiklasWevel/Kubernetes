@@ -1,0 +1,19 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-egress-deezer
+  namespace: deemix
+spec:
+  endpointSelector: {}
+  egress:
+    - toFQDNs:
+        - matchName: "api.deezer.com"
+        - matchName: "www.deezer.com"
+        - matchName: "media.deezer.com"
+        - matchName: "e-cdns-images.dzcdn.net"
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
+            - port: "80"
+              protocol: TCP
