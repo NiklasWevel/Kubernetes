@@ -32,32 +32,11 @@ spec:
         - name: linkwarden
           image: ghcr.io/linkwarden/linkwarden:v2.14.1
           imagePullPolicy: IfNotPresent
-          env:
-            - name: DB_USER
-              valueFrom:
-                secretKeyRef:
-                  name: linkwarden-db-secret
-                  key: username
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: linkwarden-db-secret
-                  key: password
-            - name: DATABASE_URL
-              valueFrom:
-                secretKeyRef:
-                  name: linkwarden-db-secret
-                  key: DATABASE_URL
-            - name: NEXTAUTH_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: linkwarden-env-secret
-                  key: NEXTAUTH_SECRET
-            - name: NEXTAUTH_URL
-              valueFrom:
-                secretKeyRef:
-                  name: linkwarden-env-secret
-                  key: NEXTAUTH_URL
+          envFrom:
+            - secretRef:
+                name: linkwarden-db-secret        
+            - secretRef:
+                name: linkwarden-env-secret                   
           ports:
             - containerPort: 3000
           resources:
@@ -65,8 +44,8 @@ spec:
               cpu: "100m"
               memory: "256Mi"
             limits:
-              cpu: "500m"
-              memory: "1Gi"
+              cpu: "1m"
+              memory: "4Gi"
           securityContext:
             runAsNonRoot: false
             allowPrivilegeEscalation: false
