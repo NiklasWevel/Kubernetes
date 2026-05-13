@@ -1,0 +1,14 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: linkwarden-lan
+  namespace: linkwarden
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`linkwarden.wevelsiep.com`) || Host(`link.wevelsiep.com`)
+      kind: Rule
+      services:
+        - name: linkwarden
+          port: 80
