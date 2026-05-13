@@ -34,9 +34,9 @@ spec:
           imagePullPolicy: IfNotPresent
           envFrom:
             - secretRef:
-                name: linkwarden-db-secret        
+                name: linkwarden-db-secret
             - secretRef:
-                name: linkwarden-env-secret                   
+                name: linkwarden-env-secret
           ports:
             - containerPort: 3000
           resources:

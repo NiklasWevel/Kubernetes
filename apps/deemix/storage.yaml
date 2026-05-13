@@ -11,4 +11,3 @@ spec:
       storage: 10Gi
   storageClassName: "share"
   volumeName: deemix-media-pv
-
