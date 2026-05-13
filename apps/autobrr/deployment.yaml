@@ -27,7 +27,7 @@ spec:
 
       containers:
         - name: autobrr
-          image: ghcr.io/autobrr/autobrr:v1.77
+          image: ghcr.io/autobrr/autobrr:v1.78
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 7474
