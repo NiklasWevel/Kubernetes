@@ -6,6 +6,7 @@ resources:
   - comfyui
   - deemix
   - gitea-runner
+  - houndarr
   - jellyfin
   - lidarr
   - linkwarden

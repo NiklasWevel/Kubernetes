@@ -1,0 +1,43 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-egress-houndarr
+  namespace: houndarr
+spec:
+  endpointSelector: {}
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: sonarr
+            app: sonarr
+      toPorts:
+        - ports:
+            - port: "8989"
+              protocol: TCP
+
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: radarr
+            app: radarr
+      toPorts:
+        - ports:
+            - port: "7878"
+              protocol: TCP
+
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: whisparr
+            app: whisparr
+      toPorts:
+        - ports:
+            - port: "6969"
+              protocol: TCP
+
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: lidarr
+            app: lidarr
+      toPorts:
+        - ports:
+            - port: "8686"
+              protocol: TCP
