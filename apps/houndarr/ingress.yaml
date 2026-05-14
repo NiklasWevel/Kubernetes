@@ -1,0 +1,14 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: houndarr-lan
+  namespace: houndarr
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`houndarr.wevelsiep.com`)
+      kind: Rule
+      services:
+        - name: houndarr
+          port: 80

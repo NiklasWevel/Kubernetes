@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: houndarr
+  namespace: houndarr
+  labels:
+    app: houndarr
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: houndarr
+  template:
+    metadata:
+      labels:
+        app: houndarr
+    spec:
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+
+      containers:
+        - name: houndarr
+          image: ghcr.io/av1155/houndarr:v1.11.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8877
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "100Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            seccompProfile:
+              type: "RuntimeDefault"
+            capabilities:
+              drop:
+                - ALL
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 8877
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: 8877
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            failureThreshold: 3
+          volumeMounts:
+            - name: houndarr-data
+              mountPath: /data
+      volumes:
+        - name: houndarr-data
+          persistentVolumeClaim:
+            claimName: houndarr-pvc
