@@ -5,10 +5,8 @@ metadata:
 spec:
   endpointSelector:
     matchExpressions:
-      - key: io.cilium.k8s.namespace.labels.network-policy
-        operator: In
-        values:
-          - strict
+      - key: io.cilium.k8s.namespace.labels.network-policy-strict
+        operator: Exists
   egress:
     - toEndpoints:
         - matchLabels:

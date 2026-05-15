@@ -3,4 +3,4 @@ kind: Namespace
 metadata:
   name: deemix
   labels:
-    network-policy: strict
+    network-policy-strict: "true"

@@ -5,7 +5,7 @@ metadata:
 spec:
   endpointSelector:
     matchExpressions:
-      - key: io.cilium.k8s.namespace.labels.network-policy
+      - key: io.cilium.k8s.namespace.labels.network-policy-strict
         operator: In
         values:
           - strict
