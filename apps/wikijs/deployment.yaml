@@ -27,7 +27,7 @@ spec:
           imagePullPolicy: IfNotPresent
           envFrom:
             - secretRef:
-                name: wikijs-db-secret 
+                name: wikijs-db-secret
             - configMapRef:
                 name: wikijs
           ports:
