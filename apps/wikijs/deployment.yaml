@@ -67,10 +67,13 @@ spec:
               mountPath: /wiki/data
             - name: cache
               mountPath: /wiki/data/cache
-
+            - name: home
+              mountPath: /home/node
       volumes:
         - name: wikijs-data
           persistentVolumeClaim:
             claimName: wikijs-pvc
         - name: cache
+          emptyDir: {}
+        - name: home
           emptyDir: {}
