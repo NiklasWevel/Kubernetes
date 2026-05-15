@@ -63,9 +63,9 @@ spec:
             failureThreshold: 3
 
           volumeMounts:
-            - name: wikijs-cache
-              mountPath: /wiki/data/cache
+            - name: wikijs-data
+              mountPath: /wiki/data
 
       volumes:
-        - name: wikijs-cache
+        - name: wikijs-data
           emptyDir: {}
