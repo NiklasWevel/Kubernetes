@@ -3,4 +3,4 @@ kind: Namespace
 metadata:
   name: bentopdf
   labels:
-    network-policy: strict
+    network-policy-strict: "true"

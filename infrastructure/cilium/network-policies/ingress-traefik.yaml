@@ -1,0 +1,13 @@
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: allow-traefik-ingress
+spec:
+  endpointSelector:
+    matchExpressions:
+      - key: io.cilium.k8s.namespace.labels.network-policy-traefik-ingress
+        operator: Exists
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: traefik
