@@ -65,7 +65,12 @@ spec:
           volumeMounts:
             - name: wikijs-data
               mountPath: /wiki/data
+            - name: cache
+              mountPath: /wiki/data/cache
 
       volumes:
         - name: wikijs-data
+          persistentVolumeClaim:
+            claimName: wikijs-pv
+        - name: cache
           emptyDir: {}
