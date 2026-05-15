@@ -25,18 +25,9 @@ spec:
         - name: wikijs
           image: ghcr.io/requarks/wiki:2.5.314
           imagePullPolicy: IfNotPresent
-          env:
-            - name: DB_USER
-              valueFrom:
-                secretKeyRef:
-                  name: wikijs-db-secret
-                  key: username
-            - name: DB_PASS
-              valueFrom:
-                secretKeyRef:
-                  name: wikijs-db-secret
-                  key: password
           envFrom:
+            - secretRef:
+                name: wikijs-db-secret 
             - configMapRef:
                 name: wikijs
           ports:
@@ -70,3 +61,11 @@ spec:
             initialDelaySeconds: 30
             periodSeconds: 10
             failureThreshold: 3
+
+          volumeMounts:
+            - name: wikijs-cache
+              mountPath: /wiki/data/cache
+
+      volumes:
+        - name: wikijs-cache
+          emptyDir: {}
