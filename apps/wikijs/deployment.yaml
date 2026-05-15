@@ -71,6 +71,6 @@ spec:
       volumes:
         - name: wikijs-data
           persistentVolumeClaim:
-            claimName: wikijs-pv
+            claimName: wikijs-pvc
         - name: cache
           emptyDir: {}
