@@ -69,6 +69,5 @@ spec:
         - name: autobrr-config
           secret:
             secretName: autobrr-config-secret
-      volumes:
         - name: autobrr-tmp
           emptyDir: {}
