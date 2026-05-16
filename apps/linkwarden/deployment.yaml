@@ -70,7 +70,7 @@ spec:
             failureThreshold: 3
           volumeMounts:
             - name: linkwarden-data
-              mountPath: /app/config
+              mountPath: /data/data
               subPath: data
             - name: linkwarden-tmp
               mountPath: /tmp
