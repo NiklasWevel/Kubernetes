@@ -52,9 +52,7 @@ spec:
             readOnlyRootFilesystem: true
             seccompProfile:
               type: "RuntimeDefault"
-            capabilities:
-              drop:
-                - ALL
+
           readinessProbe:
             httpGet:
               path: /
