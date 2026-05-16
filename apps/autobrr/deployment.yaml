@@ -64,7 +64,7 @@ spec:
             - name: autobrr-config
               mountPath: /config
             - name: autobrr-tmp
-              mountPath: /tmp              
+              mountPath: /tmp
       volumes:
         - name: autobrr-config
           secret:
