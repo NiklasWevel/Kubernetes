@@ -12,3 +12,7 @@ spec:
       services:
         - name: pocketid
           port: 80
+  tls:
+    options:
+      name: mtls-required
+      namespace: traefik
