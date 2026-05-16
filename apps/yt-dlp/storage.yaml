@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: yt-dlp-data-pvc
+  namespace: yt-dlp
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: "share"
+  volumeName: yt-dlp-data-pv
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: yt-dlp-music-pvc
+  namespace: yt-dlp
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: "share"
+  volumeName: yt-dlp-music-pv
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: yt-dlp-video-pvc
+  namespace: yt-dlp
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: "share"
+  volumeName: yt-dlp-video-pv
