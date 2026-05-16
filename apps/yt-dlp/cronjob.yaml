@@ -1,0 +1,68 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: yt-dlp
+  namespace: yt-dlp
+spec:
+  schedule: "*/30 * * * *"
+  timeZone: "Europe/Berlin"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 5
+  failedJobsHistoryLimit: 5
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            seccompProfile:
+              type: RuntimeDefault
+          containers:
+          - name: yt-dlp
+            image: docker.wevelsiep.com/jauderho/yt-dlp:2026.03.17
+            command: ["/bin/sh", "/scripts/ytdlp.sh"]
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            volumeMounts:
+            - name: ytdlp-script
+              mountPath: /scripts
+            - name: data
+              mountPath: /data
+            - name: video
+              mountPath: /video
+            - name: music
+              mountPath: /music
+            - name: cache
+              mountPath: /cache
+            - name: tmp
+              mountPath: /tmp
+            - name: home-cache
+              mountPath: /root/.cache
+          volumes:
+          - name: ytdlp-script
+            configMap:
+              name: yt-dlp-script
+              defaultMode: 0755
+          - name: data
+            persistentVolumeClaim:
+              claimName: yt-dlp-data-pvc
+          - name: video
+            persistentVolumeClaim:
+              claimName: yt-dlp-video-pvc
+          - name: music
+            persistentVolumeClaim:
+              claimName: yt-dlp-music-pvc
+          - name: cache
+            emptyDir: {}
+          - name: tmp
+            emptyDir: {}
+          - name: home-cache
+            emptyDir: {}

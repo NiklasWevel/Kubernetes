@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: yt-dlp-script
+  namespace: yt-dlp
+data:
+  ytdlp.sh: |
+    #!/bin/sh
+    set -eu
+
+    # Playlist als MP3
+    yt-dlp -f 'ba' -x --audio-format mp3 --embed-thumbnail \
+      --playlist-end 15 \
+      --break-per-input \
+      --sponsorblock-remove default,-filler \
+      --cookies /data/cookies.txt \
+      --download-archive /data/archivplaylistmp3.txt \
+      --paths home:/music \
+      --paths temp:/cache \
+      --output "%(channel)s %(title)s.%(ext)s" \
+      --batch-file=/data/playlistmp3.txt
+
+    # Playlist als MP4
+    yt-dlp -f "bestvideo[height<=720]+bestaudio" --embed-thumbnail \
+      --playlist-end 15 \
+      --break-per-input \
+      --sponsorblock-remove default,-filler \
+      --cookies /data/cookies.txt \
+      --download-archive /data/archivplaylistmp4.txt \
+      --paths home:/video \
+      --paths temp:/cache \
+      --output "%(channel)s %(title)s.%(ext)s" \
+      --batch-file=/data/playlistmp4.txt
+
+    # Channel MP4
+    yt-dlp -f "bestvideo[height<=720]+bestaudio" --embed-thumbnail \
+      --playlist-end 5 \
+      --break-on-existing --break-per-input \
+      --sponsorblock-remove default,-filler \
+      --dateafter now-7days --match-filter "duration>180 & !is_live & !was_live" \
+      --cookies /data/cookies.txt \
+      --download-archive /data/archivchannelmp4.txt \
+      --paths home:/video \
+      --paths temp:/cache \
+      --output "%(channel)s %(title)s.%(ext)s" \
+      --batch-file=/data/channelmp4.txt
+
+    # Channel MP3
+    yt-dlp -f 'ba' -x --audio-format mp3 --embed-thumbnail \
+      --playlist-end 5 \
+      --break-on-existing --break-per-input \
+      --sponsorblock-remove default,-filler \
+      --dateafter now-7days --match-filter "duration>120" \
+      --cookies /data/cookies.txt \
+      --download-archive /data/archivchannelmp3.txt \
+      --paths home:/music \
+      --paths temp:/cache \
+      --output "%(channel)s %(title)s.%(ext)s" \
+      --batch-file=/data/channelmp3.txt
