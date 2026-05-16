@@ -47,9 +47,6 @@ spec:
             capabilities:
               drop:
                 - ALL
-          volumeMounts:
-            - name: autobrr-config
-              mountPath: /config
           readinessProbe:
             httpGet:
               path: /api/healthz/readiness
@@ -63,8 +60,15 @@ spec:
             initialDelaySeconds: 60
             periodSeconds: 10
             failureThreshold: 3
-
+          volumeMounts:
+            - name: autobrr-config
+              mountPath: /config
+            - name: autobrr-tmp
+              mountPath: /tmp              
       volumes:
         - name: autobrr-config
           secret:
             secretName: autobrr-config-secret
+      volumes:
+        - name: autobrr-tmp
+          emptyDir: {}
