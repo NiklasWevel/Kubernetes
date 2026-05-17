@@ -47,6 +47,7 @@ data:
       --paths temp:/cache \
       --output "%(channel)s %(title)s.%(ext)s" \
       --batch-file=/data/channelmp4.txt || true
+      
     # Channel MP3
     yt-dlp -f 'ba' -x --audio-format mp3 --embed-thumbnail \
       --playlist-end 5 \
@@ -60,3 +61,5 @@ data:
       --paths temp:/cache \
       --output "%(channel)s %(title)s.%(ext)s" \
       --batch-file=/data/channelmp3.txt || true
+
+    exit 0
