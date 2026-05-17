@@ -6,7 +6,7 @@ metadata:
 data:
   ytdlp.sh: |
     #!/bin/sh
-    set -eu
+    set -u
 
     # Playlist als MP3
     yt-dlp -f 'ba' -x --audio-format mp3 --embed-thumbnail \
@@ -19,7 +19,7 @@ data:
       --paths home:/music \
       --paths temp:/cache \
       --output "%(channel)s %(title)s.%(ext)s" \
-      --batch-file=/data/playlistmp3.txt
+      --batch-file=/data/playlistmp3.txt || true
       
     # Playlist als MP4
     yt-dlp -f "bestvideo[height<=720]+bestaudio" --embed-thumbnail \
@@ -32,7 +32,7 @@ data:
       --paths home:/video \
       --paths temp:/cache \
       --output "%(channel)s %(title)s.%(ext)s" \
-      --batch-file=/data/playlistmp4.txt 
+      --batch-file=/data/playlistmp4.txt || true
 
     # Channel MP4
     yt-dlp -f "bestvideo[height<=720]+bestaudio" --embed-thumbnail \
@@ -46,8 +46,7 @@ data:
       --paths home:/video \
       --paths temp:/cache \
       --output "%(channel)s %(title)s.%(ext)s" \
-      --batch-file=/data/channelmp4.txt
-
+      --batch-file=/data/channelmp4.txt || true
     # Channel MP3
     yt-dlp -f 'ba' -x --audio-format mp3 --embed-thumbnail \
       --playlist-end 5 \
@@ -60,4 +59,4 @@ data:
       --paths home:/music \
       --paths temp:/cache \
       --output "%(channel)s %(title)s.%(ext)s" \
-      --batch-file=/data/channelmp3.txt
+      --batch-file=/data/channelmp3.txt || true
