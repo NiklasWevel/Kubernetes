@@ -12,6 +12,7 @@ data:
     yt-dlp -f 'ba' -x --audio-format mp3 --embed-thumbnail \
       --playlist-end 15 \
       --break-per-input \
+      --ignore-errors \
       --sponsorblock-remove default,-filler \
       --cookies /data/cookies.txt \
       --download-archive /data/archivplaylistmp3.txt \
@@ -19,23 +20,25 @@ data:
       --paths temp:/cache \
       --output "%(channel)s %(title)s.%(ext)s" \
       --batch-file=/data/playlistmp3.txt
-
+      
     # Playlist als MP4
     yt-dlp -f "bestvideo[height<=720]+bestaudio" --embed-thumbnail \
       --playlist-end 15 \
       --break-per-input \
+      --ignore-errors \
       --sponsorblock-remove default,-filler \
       --cookies /data/cookies.txt \
       --download-archive /data/archivplaylistmp4.txt \
       --paths home:/video \
       --paths temp:/cache \
       --output "%(channel)s %(title)s.%(ext)s" \
-      --batch-file=/data/playlistmp4.txt
+      --batch-file=/data/playlistmp4.txt 
 
     # Channel MP4
     yt-dlp -f "bestvideo[height<=720]+bestaudio" --embed-thumbnail \
       --playlist-end 5 \
       --break-on-existing --break-per-input \
+      --ignore-errors \
       --sponsorblock-remove default,-filler \
       --dateafter now-7days --match-filter "duration>180 & !is_live & !was_live" \
       --cookies /data/cookies.txt \
@@ -49,6 +52,7 @@ data:
     yt-dlp -f 'ba' -x --audio-format mp3 --embed-thumbnail \
       --playlist-end 5 \
       --break-on-existing --break-per-input \
+      --ignore-errors \
       --sponsorblock-remove default,-filler \
       --dateafter now-7days --match-filter "duration>120" \
       --cookies /data/cookies.txt \
