@@ -30,7 +30,7 @@ spec:
       # Radarr checks if it can write to config.xml on start. Copy from read-only Secret into emptyDir first.
       initContainers:
         - name: config-init
-          image: busybox:1.37.0
+          image: busybox:1.38.0
           resources:
             requests:
               cpu: "10m"
