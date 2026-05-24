@@ -1,0 +1,10 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: gallery-dl-db
+  namespace: gallery-dl-db
+spec:
+  name: gallery-dl-db
+  owner: gallery-dl-user
+  cluster:
+    name: gallery-dl-postgres-cluster
