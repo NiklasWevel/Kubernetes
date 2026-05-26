@@ -1,0 +1,65 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: gallery-dl
+  namespace: gallery-dl
+spec:
+  schedule: "0 6 * * *"
+  timeZone: "Europe/Berlin"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 5
+  failedJobsHistoryLimit: 5
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            seccompProfile:
+              type: RuntimeDefault
+          containers:
+            - name: gallery-dl
+              image: git.wevelsiep.com/niklas/gallery-dl:sha-4d9b492
+              imagePullPolicy: IfNotPresent              
+              resources:
+                requests:
+                  cpu: "100m"
+                  memory: "128Mi"
+                limits:
+                  cpu: "250m"
+                  memory: "256Mi"              
+              command: ["/bin/sh", "/scripts/gallery-dl.sh"]
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop:
+                    - ALL
+              volumeMounts:
+                - name: gallery-dl-script
+                  mountPath: /scripts
+                - name: config
+                  mountPath: /config
+                - name: dl-niklas
+                  mountPath: /downloads/niklas
+                - name: dl-chiara
+                  mountPath: /downloads/chiara
+                  
+          volumes:
+            - name: gallery-dl-script
+              secret:
+                secretName: gallery-dl-script-secret
+                defaultMode: 0755
+            - name: config
+              persistentVolumeClaim:
+                claimName: gallery-dl-config-pvc
+            - name: dl-niklas
+              persistentVolumeClaim:
+                claimName: gallery-dl-niklas-pvc
+            - name: dl-chiara
+              persistentVolumeClaim:
+                claimName: gallery-dl-chiara-pvc

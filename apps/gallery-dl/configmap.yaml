@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gallery-dl-script
+  namespace: gallery-dl
+data:
+  gallery-dl.sh: |
+    #!/bin/sh
+    set -e
+
+    run_gallery_dl() {
+        gallery-dl "$@" || EXIT=$?
+        [ "${EXIT:-0}" -eq 2 ] && exit 2 || return 0
+    }
+
+
+    run_gallery_dl \
+      --config /config/config.json \
+      --input-file /config/niklas-input.txt \
+      --download-archive "postgresql://{{ .postgresUser }}:{{ .postgresPassword }}@gallery-dl-postgres-cluster-rw.gallery-dl-db.svc.cluster.local:5432/gallery-dl-db" \
+      --option "lang=en" \
+      --cbz \
+      --verbose \
+      --destination "/downloads/niklas"
+
+    run_gallery_dl \
+      --config /config/config.json \
+      --input-file /config/chiara-input.txt \
+      --download-archive "postgresql://{{ .postgresUser }}:{{ .postgresPassword }}@gallery-dl-postgres-cluster-rw.gallery-dl-db.svc.cluster.local:5432/gallery-dl-db" \
+      --option "lang=en" \
+      --cbz \
+      --verbose \
+      --destination "/downloads/chiara"
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: gallery-dl-script-secret
+  namespace: gallery-dl
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: vault-global
+    kind: ClusterSecretStore
+  target:
+    name: gallery-dl-script-secret
+    template:
+      engineVersion: v2
+      templateFrom:
+        - configMap:
+            name: gallery-dl-script
+            items:
+              - key: gallery-dl.sh
+  data:
+    - secretKey: postgresUser
+      remoteRef:
+        key: database/gallery-dl
+        property: db_user
+    - secretKey: postgresPassword
+      remoteRef:
+        key: database/gallery-dl
+        property: db_password
