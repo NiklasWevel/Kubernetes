@@ -11,6 +11,7 @@ resources:
   - lidarr
   - linkwarden
   - navidrome
+  - ollama
   - openwebui
   - pocketid
   - prowlarr
