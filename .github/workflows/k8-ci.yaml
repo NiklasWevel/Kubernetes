@@ -79,9 +79,14 @@ jobs:
           ref: ${{ github.head_ref }}
 
       - name: Install Kustomize
+        env:
+          KUSTOMIZE_VERSION: "5.4.3"
         run: |
-          curl -s https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh | bash
-          mv kustomize /usr/local/bin/
+          curl -fsSL "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv${KUSTOMIZE_VERSION}/kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz" \
+            -o kustomize.tar.gz
+          tar -xzf kustomize.tar.gz
+          install -m 0755 kustomize /usr/local/bin/kustomize
+          kustomize version
 
       - name: Run kustomize build on cluster/
         run: kustomize build ./cluster | tee kustomized.yaml
