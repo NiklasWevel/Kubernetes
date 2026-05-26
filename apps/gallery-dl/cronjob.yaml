@@ -24,14 +24,14 @@ spec:
           containers:
             - name: gallery-dl
               image: git.wevelsiep.com/niklas/gallery-dl:sha-4d9b492
-              imagePullPolicy: IfNotPresent              
+              imagePullPolicy: IfNotPresent
               resources:
                 requests:
                   cpu: "100m"
                   memory: "128Mi"
                 limits:
                   cpu: "250m"
-                  memory: "256Mi"              
+                  memory: "256Mi"
               command: ["/bin/sh", "/scripts/gallery-dl.sh"]
               securityContext:
                 allowPrivilegeEscalation: false
@@ -48,7 +48,7 @@ spec:
                   mountPath: /downloads/niklas
                 - name: dl-chiara
                   mountPath: /downloads/chiara
-                  
+
           volumes:
             - name: gallery-dl-script
               secret:
