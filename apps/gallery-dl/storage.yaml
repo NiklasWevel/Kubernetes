@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gallery-dl-config-pvc
+  namespace: gallery-dl
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: "share"
+  volumeName: gallery-dl-config-pv
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gallery-dl-niklas-pvc
+  namespace: gallery-dl
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: "share"
+  volumeName: gallery-dl-niklas-pv
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gallery-dl-chiara-pvc
+  namespace: gallery-dl
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: "share"
+  volumeName: gallery-dl-chiara-pv
