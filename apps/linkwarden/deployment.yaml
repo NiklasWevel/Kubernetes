@@ -8,6 +8,7 @@ metadata:
     app: linkwarden
   annotations:
     ignore-check.kube-linter.io/run-as-non-root: "linkwarden/linkwarden requires root"
+    ignore-check.kube-linter.io/no-read-only-root-fs: "linkwarden/linkwarden requires writable filesystem"
 spec:
   replicas: 1
   strategy:
@@ -49,7 +50,7 @@ spec:
           securityContext:
             runAsNonRoot: false
             allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
+            readOnlyRootFilesystem: false
             seccompProfile:
               type: "RuntimeDefault"
 
@@ -70,11 +71,7 @@ spec:
             - name: linkwarden-data
               mountPath: /data/data
               subPath: data
-            - name: linkwarden-tmp
-              mountPath: /tmp
       volumes:
         - name: linkwarden-data
           persistentVolumeClaim:
             claimName: linkwarden-pvc
-        - name: linkwarden-tmp
-          emptyDir: {}
