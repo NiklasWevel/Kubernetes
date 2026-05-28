@@ -66,7 +66,7 @@ spec:
             initialDelaySeconds: 30
             periodSeconds: 10
             failureThreshold: 3
-            
+
           volumeMounts:
             - name: linkwarden-data
               mountPath: /data
@@ -74,7 +74,7 @@ spec:
             - name: linkwarden-tmp
               mountPath: /tmp
             - name: linkwarden-root-cache
-              mountPath: /root/.cache     
+              mountPath: /root/.cache
             - name: linkwarden-cache
               mountPath: /usr/local/share/.cache
 
