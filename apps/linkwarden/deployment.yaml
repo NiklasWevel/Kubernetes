@@ -68,7 +68,7 @@ spec:
             failureThreshold: 3
           volumeMounts:
             - name: linkwarden-data
-              mountPath: /data/data
+              mountPath: /data
               subPath: data
             - name: linkwarden-tmp
               mountPath: /tmp
