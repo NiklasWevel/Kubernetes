@@ -69,7 +69,7 @@ spec:
 
           volumeMounts:
             - name: linkwarden-data
-              mountPath: /data
+              mountPath: /data/data
               subPath: data
             - name: linkwarden-tmp
               mountPath: /tmp
