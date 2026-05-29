@@ -1,0 +1,14 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: slskd-lan
+  namespace: slskd
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`slskd.wevelsiep.com`)
+      kind: Rule
+      services:
+        - name: slskd-http
+          port: 80
