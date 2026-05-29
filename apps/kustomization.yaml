@@ -17,6 +17,7 @@ resources:
   - prowlarr
   - radarr
   - seerr
+  - slskd
   - sonarr
   - wikijs
   - yt-dlp
