@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - cluster.yaml
-  - database-credentials.yaml
-  - database-superuser.yaml
+  - secret.yaml
   - database.yaml
   - backup.yaml
