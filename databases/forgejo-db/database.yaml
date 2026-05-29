@@ -1,0 +1,21 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: forgejo-db
+  namespace: forgejo-db
+spec:
+  name: forgejo-db
+  owner: forgejo-user
+  cluster:
+    name: forgejo-postgres-cluster
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: forgejo-log-db
+  namespace: forgejo-db
+spec:
+  name: forgejo-log-db
+  owner: forgejo-user
+  cluster:
+    name: forgejo-postgres-cluster
