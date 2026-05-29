@@ -1,0 +1,191 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: slskd-configmap-secret
+  namespace: slskd
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: vault-global
+    kind: ClusterSecretStore
+  target:
+    name: slskd-configmap-secret
+    template:
+      engineVersion: v2
+      templateFrom:
+        - configMap:
+            name: slskd-configmap
+            items:
+              - key: slskd.yml
+  data:
+    - secretKey: soulseek_username
+      remoteRef:
+        key: apps/slskd
+        property: soulseek_username
+    - secretKey: soulseek_password
+      remoteRef:
+        key: apps/slskd
+        property: soulseek_password
+    - secretKey: slskd_username
+      remoteRef:
+        key: apps/slskd
+        property: slskd_username
+    - secretKey: slskd_password
+      remoteRef:
+        key: apps/slskd
+        property: slskd_password
+    - secretKey: slskd_api_key
+      remoteRef:
+        key: apps/slskd
+        property: slskd_api_key
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: slskd-configmap
+  namespace: slskd
+data:
+  slskd.yml: |
+    debug: false
+    headless: false
+    remote_configuration: false
+    remote_file_management: false
+    instance_name: default
+    flags:
+      no_logo: false
+      no_start: false
+      no_config_watch: false
+      no_connect: false
+      no_share_scan: false
+      force_share_scan: false
+      force_migrations: false
+      no_version_check: false
+      log_sql: false
+      log_unobserved_exceptions: false
+      experimental: false
+      volatile: false
+      case_sensitive_reg_ex: false
+      legacy_windows_tcp_keepalive: false
+      optimistic_relay_file_info: false
+    relay:
+      enabled: false
+      mode: controller
+      controller:
+        address: ~
+        ignore_certificate_errors: false
+        api_key: ~
+        secret: ~
+        downloads: false
+      agents: {}
+    permissions:
+      file:
+        mode: ~
+    directories:
+      incomplete: /downloads/incomplete
+      downloads: /downloads/finished
+    shares:
+      directories: []
+      filters: []
+      cache:
+        storage_mode: memory
+        workers: 16
+        retention: ~
+    soulseek:
+      address: vps.slsknet.org
+      port: 2271
+      username: {{ .soulseek_username }}
+      password: {{ .soulseek_password }}
+      listen_ip_address: 0.0.0.0
+      listen_port: 50300
+      diagnostic_level: Info
+      distributed_network:
+        disabled: false
+        disable_children: false
+        child_limit: 25
+        logging: false
+    web:
+      authentication:
+        disabled: false
+        username: {{ .slskd_username }}
+        password: {{ .slskd_password }}
+        jwt:
+          key: ~
+          ttl: 604800000
+        api_keys:
+          my_api_key:
+            key: {{ .slskd_api_key }}
+            role: readwrite
+            cidr: 0.0.0.0/0,::/0
+    transfers:
+      upload:
+        slots: 10
+        speed_limit: 2147483647
+        limits:
+          queued:
+            files: ~
+            megabytes: ~
+            failures: ~
+          daily:
+            files: ~
+            megabytes: ~
+            failures: ~
+          weekly:
+            files: ~
+            megabytes: ~
+            failures: ~
+      download:
+        slots: 2147483647
+        speed_limit: 2147483647
+      groups:
+        default:
+          upload:
+            priority: 1
+            strategy: roundrobin
+            slots: 2147483647
+            speed_limit: 2147483647
+            limits:
+              queued:
+                files: ~
+                megabytes: ~
+                failures: ~
+              daily:
+                files: ~
+                megabytes: ~
+                failures: ~
+              weekly:
+                files: ~
+                megabytes: ~
+                failures: ~
+        leechers:
+          thresholds:
+            files: 1
+            directories: 1
+          upload:
+            priority: 1
+            strategy: roundrobin
+            slots: 2147483647
+            speed_limit: 2147483647
+            limits:
+              queued:
+                files: ~
+                megabytes: ~
+                failures: ~
+              daily:
+                files: ~
+                megabytes: ~
+                failures: ~
+              weekly:
+                files: ~
+                megabytes: ~
+    integrations:
+      vpn:
+        enabled: false
+        port_forwarding: false
+        polling_interval: 2500
+        gluetun:
+          url: http://localhost:8000
+          timeout: 1000
+          auth: none
+          api_key: ~
+          username: ~
+          password: ~

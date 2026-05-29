@@ -1,0 +1,137 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: slskd
+  namespace: slskd
+  labels:
+    app: slskd
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: slskd
+  template:
+    metadata:
+      labels:
+        app: slskd
+    spec:
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      initContainers:
+        - name: gluetun
+          restartPolicy: Always
+          image: ghcr.io/qdm12/gluetun:v3.41.1
+          envFrom:
+            - secretRef:
+                name: gluetun-secret
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "200m"
+              memory: "512Mi"
+          securityContext:
+            runAsUser: 0
+            runAsNonRoot: false
+            allowPrivilegeEscalation: true
+            readOnlyRootFilesystem: false
+            capabilities:
+              add:
+                - NET_ADMIN
+                - NET_RAW
+                - CHOWN
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - /bin/sh
+                  - -c
+                  - "ip rule del table 51820 2>/dev/null; ip -6 rule del table 51820 2>/dev/null; exit 0"
+
+          volumeMounts:
+            - name: gluetun-data
+              mountPath: /gluetun
+            - name: tun-device
+              mountPath: /dev/net/tun
+            - name: gluetun-tmp
+              mountPath: /tmp/gluetun
+
+      containers:
+        - name: slskd
+          image: docker.wevelsiep.com/slskd/slskd:0.25.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5030
+            - containerPort: 50300
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            seccompProfile:
+              type: "RuntimeDefault"
+            capabilities:
+              drop:
+                - ALL
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5030
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5030
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 3
+
+          volumeMounts:
+            - name: slskd-configmap
+              mountPath: /app/slskd.yml
+              subPath: slskd.yml
+            - name: slskd-data
+              mountPath: /app
+            - name: slskd-downloads
+              mountPath: /downloads
+            - name: dotnet-tmp
+              mountPath: /.net
+            - name: tmp
+              mountPath: /tmp
+
+      volumes:
+        - name: slskd-configmap
+          secret:
+            secretName: slskd-configmap-secret
+        - name: slskd-data
+          persistentVolumeClaim:
+            claimName: slskd-data-pvc
+        - name: slskd-downloads
+          persistentVolumeClaim:
+            claimName: slskd-downloads-pvc
+        - name: dotnet-tmp
+          emptyDir: {}
+        - name: tmp
+          emptyDir: {}
+        - name: gluetun-tmp
+          emptyDir: {}
+        - name: gluetun-data
+          emptyDir: {}
+        - name: tun-device
+          hostPath:
+            path: /dev/net/tun
