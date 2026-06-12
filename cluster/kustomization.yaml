@@ -6,6 +6,7 @@ resources:
   - infrastructure-system-upgrade.yaml
   - infrastructure-namespaces.yaml
   - infrastructure-cilium.yaml
+  - infrastructure-clusterrolebinding.yaml
   - infrastructure-longhorn.yaml
   - infrastructure-nvidia.yaml
   - infrastructure-sealed-secrets.yaml
