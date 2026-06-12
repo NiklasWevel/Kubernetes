@@ -27,37 +27,30 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
 
-      # Lidarr checks if it can write to config.xml on start. Copy from read-only Secret into emptyDir first.
-      initContainers:
-        - name: config-init
-          image: busybox:1.38.0
-          resources:
-            requests:
-              cpu: "10m"
-              memory: "16Mi"
-            limits:
-              cpu: "10m"
-              memory: "16Mi"
-          command:
-            - sh
-            - -c
-            - cp /secret/config.xml /config/config.xml
-          securityContext:
-            runAsNonRoot: true
-            allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
-            capabilities:
-              drop: [ALL]
-          volumeMounts:
-            - name: lidarr-configmap
-              mountPath: /secret
-            - name: lidarr-config
-              mountPath: /config
-
       containers:
         - name: lidarr
           image: ghcr.io/home-operations/lidarr:3.1.2
           imagePullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: lidarr-config-secret   
+          env:
+            - name: LIDARR__APP__INSTANCENAME
+              value: lidarr
+            - name: LIDARR__AUTH__METHOD
+              value: forms
+            - name: LIDARR__AUTH__REQUIRED
+              value: DisabledForLocalAddresses
+            - name: LIDARR__LOG__LEVEL
+              value: info
+            - name: LIDARR__POSTGRES__HOST
+              value: lidarr-postgres-cluster-rw.lidarr-db.svc.cluster.local
+            - name: LIDARR__POSTGRES__PORT
+              value: "5432"
+            - name: LIDARR__POSTGRES__MAINDB
+              value: lidarr-db
+            - name: LIDARR__POSTGRES__LOGDB
+              value: lidarr-log-db        
           ports:
             - containerPort: 8686
           resources:
@@ -71,6 +64,8 @@ spec:
             runAsNonRoot: true
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ALL]       
             seccompProfile:
               type: "RuntimeDefault"
           readinessProbe:
@@ -89,9 +84,6 @@ spec:
           volumeMounts:
             - name: lidarr-config
               mountPath: /config
-            - name: lidarr-configmap
-              mountPath: /config/config.xml
-              subPath: config.xml
             - name: lidarr-media-cover
               mountPath: /config/MediaCover
             - name: lidarr-media
@@ -102,9 +94,6 @@ spec:
       volumes:
         - name: lidarr-config
           emptyDir: {}
-        - name: lidarr-configmap
-          secret:
-            secretName: lidarr-configmap-secret
         - name: lidarr-media-cover
           persistentVolumeClaim:
             claimName: lidarr-pvc

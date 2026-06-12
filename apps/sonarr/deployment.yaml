@@ -30,6 +30,26 @@ spec:
         - name: sonarr
           image: ghcr.io/home-operations/sonarr:4.0.17
           imagePullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: sonarr-config-secret   
+          env:
+            - name: SONARR__APP__INSTANCENAME
+              value: sonarr
+            - name: SONARR__AUTH__METHOD
+              value: forms
+            - name: SONARR__AUTH__REQUIRED
+              value: DisabledForLocalAddresses
+            - name: SONARR__LOG__LEVEL
+              value: info
+            - name: SONARR__POSTGRES__HOST
+              value: sonarr-postgres-cluster-rw.sonarr-db.svc.cluster.local
+            - name: SONARR__POSTGRES__PORT
+              value: "5432"
+            - name: SONARR__POSTGRES__MAINDB
+              value: sonarr-db
+            - name: SONARR__POSTGRES__LOGDB
+              value: sonarr-log-db        
           ports:
             - containerPort: 8989
           resources:
@@ -43,6 +63,8 @@ spec:
             runAsNonRoot: true
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ALL]       
             seccompProfile:
               type: "RuntimeDefault"
           readinessProbe:
@@ -61,9 +83,6 @@ spec:
           volumeMounts:
             - name: sonarr-config
               mountPath: /config
-            - name: sonarr-configmap
-              mountPath: /config/config.xml
-              subPath: config.xml
             - name: sonarr-media-cover
               mountPath: /config/MediaCover
             - name: sonarr-media
@@ -74,9 +93,6 @@ spec:
       volumes:
         - name: sonarr-config
           emptyDir: {}
-        - name: sonarr-configmap
-          secret:
-            secretName: sonarr-configmap-secret
         - name: sonarr-media-cover
           persistentVolumeClaim:
             claimName: sonarr-pvc
