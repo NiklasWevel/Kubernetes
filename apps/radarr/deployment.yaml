@@ -1,4 +1,3 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -27,37 +26,30 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
 
-      # Radarr checks if it can write to config.xml on start. Copy from read-only Secret into emptyDir first.
-      initContainers:
-        - name: config-init
-          image: busybox:1.38.0
-          resources:
-            requests:
-              cpu: "10m"
-              memory: "16Mi"
-            limits:
-              cpu: "10m"
-              memory: "16Mi"
-          command:
-            - sh
-            - -c
-            - cp /secret/config.xml /config/config.xml
-          securityContext:
-            runAsNonRoot: true
-            allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
-            capabilities:
-              drop: [ALL]
-          volumeMounts:
-            - name: radarr-configmap
-              mountPath: /secret
-            - name: radarr-config
-              mountPath: /config
-
       containers:
         - name: radarr
-          image: ghcr.io/home-operations/radarr:6.2
+          image: ghcr.io/home-operations/radarr:6.2.1
           imagePullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: radarr-config-secret
+          env:
+            - name: RADARR__APP__INSTANCENAME
+              value: radarr
+            - name: RADARR__AUTH__METHOD
+              value: forms
+            - name: RADARR__AUTH__REQUIRED
+              value: DisabledForLocalAddresses
+            - name: RADARR__LOG__LEVEL
+              value: info
+            - name: RADARR__POSTGRES__HOST
+              value: radarr-postgres-cluster-rw.radarr-db.svc.cluster.local
+            - name: RADARR__POSTGRES__PORT
+              value: "5432"
+            - name: RADARR__POSTGRES__MAINDB
+              value: radarr-db
+            - name: RADARR__POSTGRES__LOGDB
+              value: radarr-log-db
           ports:
             - containerPort: 7878
           resources:
@@ -71,6 +63,8 @@ spec:
             runAsNonRoot: true
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ALL]
             seccompProfile:
               type: "RuntimeDefault"
           readinessProbe:
@@ -89,9 +83,6 @@ spec:
           volumeMounts:
             - name: radarr-config
               mountPath: /config
-            - name: radarr-configmap
-              mountPath: /config/config.xml
-              subPath: config.xml
             - name: radarr-media-cover
               mountPath: /config/MediaCover
             - name: radarr-media
@@ -102,9 +93,6 @@ spec:
       volumes:
         - name: radarr-config
           emptyDir: {}
-        - name: radarr-configmap
-          secret:
-            secretName: radarr-configmap-secret
         - name: radarr-media-cover
           persistentVolumeClaim:
             claimName: radarr-pvc

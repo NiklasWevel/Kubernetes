@@ -29,6 +29,26 @@ spec:
         - name: prowlarr
           image: ghcr.io/home-operations/prowlarr:2.4.0
           imagePullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: prowlarr-config-secret
+          env:
+            - name: PROWLARR__APP__INSTANCENAME
+              value: prowlarr
+            - name: PROWLARR__AUTH__METHOD
+              value: forms
+            - name: PROWLARR__AUTH__REQUIRED
+              value: DisabledForLocalAddresses
+            - name: PROWLARR__LOG__LEVEL
+              value: info
+            - name: PROWLARR__POSTGRES__HOST
+              value: prowlarr-postgres-cluster-rw.prowlarr-db.svc.cluster.local
+            - name: PROWLARR__POSTGRES__PORT
+              value: "5432"
+            - name: PROWLARR__POSTGRES__MAINDB
+              value: prowlarr-db
+            - name: PROWLARR__POSTGRES__LOGDB
+              value: prowlarr-log-db
           ports:
             - containerPort: 9696
           resources:
@@ -42,6 +62,8 @@ spec:
             runAsNonRoot: true
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ALL]
             seccompProfile:
               type: "RuntimeDefault"
           readinessProbe:
@@ -60,13 +82,7 @@ spec:
           volumeMounts:
             - name: prowlarr-config
               mountPath: /config
-            - name: prowlarr-configmap
-              mountPath: /config/config.xml
-              subPath: config.xml
 
       volumes:
         - name: prowlarr-config
           emptyDir: {}
-        - name: prowlarr-configmap
-          secret:
-            secretName: prowlarr-configmap-secret
