@@ -33,7 +33,7 @@ spec:
           imagePullPolicy: IfNotPresent
           envFrom:
             - secretRef:
-                name: lidarr-config-secret   
+                name: lidarr-config-secret
           env:
             - name: LIDARR__APP__INSTANCENAME
               value: lidarr
@@ -50,7 +50,7 @@ spec:
             - name: LIDARR__POSTGRES__MAINDB
               value: lidarr-db
             - name: LIDARR__POSTGRES__LOGDB
-              value: lidarr-log-db        
+              value: lidarr-log-db
           ports:
             - containerPort: 8686
           resources:
@@ -65,7 +65,7 @@ spec:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
             capabilities:
-              drop: [ALL]       
+              drop: [ALL]
             seccompProfile:
               type: "RuntimeDefault"
           readinessProbe:

@@ -32,7 +32,7 @@ spec:
           imagePullPolicy: IfNotPresent
           envFrom:
             - secretRef:
-                name: radarr-config-secret   
+                name: radarr-config-secret
           env:
             - name: RADARR__APP__INSTANCENAME
               value: radarr
@@ -49,7 +49,7 @@ spec:
             - name: RADARR__POSTGRES__MAINDB
               value: radarr-db
             - name: RADARR__POSTGRES__LOGDB
-              value: radarr-log-db                        
+              value: radarr-log-db
           ports:
             - containerPort: 7878
           resources:
@@ -64,7 +64,7 @@ spec:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
             capabilities:
-              drop: [ALL]            
+              drop: [ALL]
             seccompProfile:
               type: "RuntimeDefault"
           readinessProbe:

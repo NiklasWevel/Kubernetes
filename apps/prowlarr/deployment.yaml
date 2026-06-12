@@ -31,7 +31,7 @@ spec:
           imagePullPolicy: IfNotPresent
           envFrom:
             - secretRef:
-                name: prowlarr-config-secret   
+                name: prowlarr-config-secret
           env:
             - name: PROWLARR__APP__INSTANCENAME
               value: prowlarr
@@ -48,7 +48,7 @@ spec:
             - name: PROWLARR__POSTGRES__MAINDB
               value: prowlarr-db
             - name: PROWLARR__POSTGRES__LOGDB
-              value: prowlarr-log-db    
+              value: prowlarr-log-db
           ports:
             - containerPort: 9696
           resources:
@@ -63,7 +63,7 @@ spec:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
             capabilities:
-              drop: [ALL]   
+              drop: [ALL]
             seccompProfile:
               type: "RuntimeDefault"
           readinessProbe:
