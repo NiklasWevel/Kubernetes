@@ -25,7 +25,7 @@ spec:
 
       containers:
         - name: deemix
-          image: ghcr.io/bambanah/deemix:v4.5.2
+          image: ghcr.io/bambanah/deemix:v4.6.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 6595
