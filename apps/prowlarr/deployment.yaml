@@ -36,7 +36,7 @@ spec:
             - name: PROWLARR__APP__INSTANCENAME
               value: prowlarr
             - name: PROWLARR__AUTH__METHOD
-              value: forms
+              value: Forms
             - name: PROWLARR__AUTH__REQUIRED
               value: DisabledForLocalAddresses
             - name: PROWLARR__LOG__LEVEL
