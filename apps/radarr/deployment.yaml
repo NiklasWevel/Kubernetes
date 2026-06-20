@@ -37,7 +37,7 @@ spec:
             - name: RADARR__APP__INSTANCENAME
               value: radarr
             - name: RADARR__AUTH__METHOD
-              value: forms
+              value: Forms
             - name: RADARR__AUTH__REQUIRED
               value: DisabledForLocalAddresses
             - name: RADARR__LOG__LEVEL
