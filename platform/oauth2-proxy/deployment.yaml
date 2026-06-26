@@ -16,6 +16,7 @@ spec:
       labels:
         app: oauth2
     spec:
+      enableServiceLinks: false
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000

@@ -19,6 +19,7 @@ spec:
       labels:
         app: comfyui
     spec:
+      enableServiceLinks: false
       nodeSelector:
         nvidia.com/gpu.present: "true"
       runtimeClassName: nvidia

@@ -20,6 +20,7 @@ spec:
       labels:
         app: bentopdf
     spec:
+      enableServiceLinks: false
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000

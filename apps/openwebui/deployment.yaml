@@ -20,6 +20,7 @@ spec:
       labels:
         app: openwebui
     spec:
+      enableServiceLinks: false
       securityContext:
         runAsUser: 0
         runAsGroup: 0
