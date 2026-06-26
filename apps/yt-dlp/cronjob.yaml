@@ -41,9 +41,9 @@ spec:
                 - name: music
                   mountPath: /music
                 - name: cache
-                  mountPath: /cache
-                - name: tmp
-                  mountPath: /tmp
+                  mountPath: /.cache/yt-dlp
+                - name: cache2
+                  mountPath: /cache/
                 - name: home-cache
                   mountPath: /root/.cache
           volumes:
@@ -62,7 +62,7 @@ spec:
                 claimName: yt-dlp-music-pvc
             - name: cache
               emptyDir: {}
-            - name: tmp
+            - name: cache2
               emptyDir: {}
             - name: home-cache
               emptyDir: {}
