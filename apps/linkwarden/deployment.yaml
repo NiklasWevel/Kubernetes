@@ -24,6 +24,7 @@ spec:
       labels:
         app: linkwarden
     spec:
+      enableServiceLinks: false
       securityContext:
         runAsUser: 0
         runAsGroup: 0
