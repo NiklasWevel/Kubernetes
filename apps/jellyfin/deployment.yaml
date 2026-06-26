@@ -21,7 +21,7 @@ spec:
       nodeSelector:
         nvidia.com/gpu.present: "true"
       runtimeClassName: nvidia
-      enableServiceLinks: false      
+      enableServiceLinks: false
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
