@@ -21,6 +21,7 @@ spec:
       labels:
         app: sonarr
     spec:
+      enableServiceLinks: false
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
@@ -28,7 +29,7 @@ spec:
 
       containers:
         - name: sonarr
-          image: ghcr.io/home-operations/sonarr:4.0.18
+          image: ghcr.io/home-operations/sonarr:4.0.17
           imagePullPolicy: IfNotPresent
           envFrom:
             - secretRef:
@@ -37,7 +38,7 @@ spec:
             - name: SONARR__APP__INSTANCENAME
               value: sonarr
             - name: SONARR__AUTH__METHOD
-              value: forms
+              value: Forms
             - name: SONARR__AUTH__REQUIRED
               value: DisabledForLocalAddresses
             - name: SONARR__LOG__LEVEL
@@ -74,10 +75,8 @@ spec:
             initialDelaySeconds: 15
             periodSeconds: 10
           livenessProbe:
-            httpGet:
-              path: /ping
+            tcpSocket:
               port: 8989
-            initialDelaySeconds: 30
             periodSeconds: 10
             failureThreshold: 3
           volumeMounts:

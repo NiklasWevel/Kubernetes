@@ -21,6 +21,7 @@ spec:
       labels:
         app: seerr
     spec:
+      enableServiceLinks: false
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000

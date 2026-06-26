@@ -20,6 +20,7 @@ spec:
       labels:
         app: deemix
     spec:
+      enableServiceLinks: false
       securityContext:
         fsGroup: 1000
 
