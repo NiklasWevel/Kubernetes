@@ -31,6 +31,108 @@ data:
       --cbz \
       --verbose \
       --destination "/downloads/chiara"
+
+    run_gallery_dl \
+      --config /config/config.json \
+      --input-file /config/comics-input.txt \
+      --download-archive "postgresql://{{ .postgresUser }}:{{ .postgresPassword }}@gallery-dl-postgres-cluster-rw.gallery-dl-db.svc.cluster.local:5432/gallery-dl-db" \
+      --option "lang=en" \
+      --verbose \
+      --destination "/downloads/comics-tmp"
+
+    python /scripts/tag.py
+    find /downloads/comics-tmp -type f -name "*.cbz" -exec mv {} /downloads/comics \; 2>/dev/null || true
+
+  tag.py: |
+    import os
+    import json
+    import zipfile
+    import tempfile
+    import xml.etree.ElementTree as ET
+    from datetime import datetime
+
+    def json_to_comicinfo_xml(json_data):
+        today = datetime.now()
+
+        root = ET.Element("ComicInfoXml")
+        ET.SubElement(root, "Title").text = json_data.get("title", "")
+        ET.SubElement(root, "Year").text = str(today.year)
+        ET.SubElement(root, "Month").text = str(today.month)
+        ET.SubElement(root, "Day").text = str(today.day)
+        ET.SubElement(root, "Writer").text = ", ".join(json_data.get("artist", []) + json_data.get("group", []))
+        ET.SubElement(root, "Translator")
+        ET.SubElement(root, "Publisher").text = json_data.get("category", "")
+        ET.SubElement(root, "Genre").text = json_data.get("type", "")
+
+        tags = []
+        for prefix, key in [
+            ("character", "characters"),
+            ("parody", "parody"),
+            ("tag", "tags"),
+            ("language", "language"),
+        ]:
+            value = json_data.get(key)
+            if isinstance(value, list):
+                tags.extend(f"{prefix}: {item}" for item in value)
+            elif value:
+                tags.append(f"{prefix}: {value}")
+        ET.SubElement(root, "Tags").text = ", ".join(tags)
+
+        category = json_data.get("category", "").strip("/")
+        subcategory = json_data.get("subcategory", "").strip("/")
+        gallery_id = str(json_data.get("gallery_id", "")).strip("/")
+
+        web_parts = [part for part in [category, subcategory, gallery_id] if part]
+        if web_parts:
+            ET.SubElement(root, "Web").text = "https://" + "/".join(web_parts) + "/"
+        else:
+            ET.SubElement(root, "Web")
+
+        return ET.tostring(root, encoding="utf-8", method="xml").decode("utf-8")
+
+    def process_cbz_files(directory):
+        print(f"Suche nach .cbz-Dateien in {directory}...")
+
+        for root_dir, _, files in os.walk(directory):
+            for filename in files:
+                if filename.endswith(".cbz"):
+                    cbz_path = os.path.join(root_dir, filename)
+                    print(f"Gefunden: {cbz_path}")
+
+                    with tempfile.TemporaryDirectory(dir="/downloads/comics-tmp") as temp_dir:
+                        with zipfile.ZipFile(cbz_path, 'r') as zip_ref:
+                            zip_ref.extractall(temp_dir)
+
+                        json_path = os.path.join(temp_dir, "info.json")
+                        if not os.path.exists(json_path):
+                            print(f"info.json fehlt in {cbz_path}, überspringe...")
+                            continue
+
+                        print(f"info.json gefunden: {json_path}")
+
+                        with open(json_path, 'r', encoding='utf-8') as json_file:
+                            json_data = json.load(json_file)
+
+                        xml_content = json_to_comicinfo_xml(json_data)
+                        xml_path = os.path.join(temp_dir, "ComicInfo.xml")
+
+                        print(f"Erstelle ComicInfo.xml: {xml_path}")
+                        with open(xml_path, 'w', encoding='utf-8') as xml_file:
+                            xml_file.write(xml_content)
+
+                        print(f"Erstelle neue CBZ-Datei: {cbz_path}")
+                        with zipfile.ZipFile(cbz_path, 'w', zipfile.ZIP_DEFLATED) as zip_out:
+                            for temp_root, _, temp_files in os.walk(temp_dir):
+                                for file in temp_files:
+                                    file_path = os.path.join(temp_root, file)
+                                    arcname = os.path.relpath(file_path, temp_dir)
+                                    zip_out.write(file_path, arcname)
+
+                    print(f"{cbz_path} wurde erfolgreich aktualisiert.")
+
+    if __name__ == "__main__":
+        directory = "/downloads/comics-tmp"
+        process_cbz_files(directory)
 ---
 apiVersion: external-secrets.io/v1
 kind: ExternalSecret
@@ -51,6 +153,7 @@ spec:
             name: gallery-dl-script
             items:
               - key: gallery-dl.sh
+              - key: tag.py
   data:
     - secretKey: postgresUser
       remoteRef:
