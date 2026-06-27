@@ -14,7 +14,7 @@ spec:
       template:
         spec:
           restartPolicy: OnFailure
-          enableServiceLinks: false          
+          enableServiceLinks: false
           securityContext:
             runAsNonRoot: true
             runAsUser: 1000

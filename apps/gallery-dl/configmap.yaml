@@ -42,7 +42,7 @@ data:
 
     python /scripts/tag.py
     find /downloads/comics-tmp -type f -name "*.cbz" -exec mv {} /downloads/comics \; 2>/dev/null || true
-    
+
   tag.py: |
     import os
     import json
