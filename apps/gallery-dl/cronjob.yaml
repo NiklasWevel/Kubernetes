@@ -49,6 +49,10 @@ spec:
                   mountPath: /downloads/niklas
                 - name: dl-chiara
                   mountPath: /downloads/chiara
+                - name: dl-comics
+                  mountPath: /downloads/comics
+                - name: dl-comics-tmp
+                  mountPath: /downloads/comics-tmp
 
           volumes:
             - name: gallery-dl-script
@@ -64,3 +68,8 @@ spec:
             - name: dl-chiara
               persistentVolumeClaim:
                 claimName: gallery-dl-chiara-pvc
+            - name: dl-comics
+              persistentVolumeClaim:
+                claimName: gallery-dl-comics-pvc
+            - name: dl-comics-tmp
+              emptyDir: {}

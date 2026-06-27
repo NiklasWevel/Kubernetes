@@ -39,3 +39,17 @@ spec:
       storage: 10Gi
   storageClassName: "share"
   volumeName: gallery-dl-chiara-pv
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gallery-dl-comics-pvc
+  namespace: gallery-dl
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: "share"
+  volumeName: gallery-dl-comics-pv
