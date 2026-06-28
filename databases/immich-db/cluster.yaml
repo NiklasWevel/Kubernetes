@@ -1,0 +1,40 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: immich-postgres-cluster
+  namespace: immich-db
+spec:
+  instances: 2
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16-1.1.1
+  storage:
+    storageClass: "local-path"
+    size: 10Gi
+
+  postgresql:
+    shared_preload_libraries:
+      - "vchord.so"
+
+  bootstrap:
+    initdb:
+      database: immich-db
+      owner: immich-user
+      postInitApplicationSQL:
+        - CREATE EXTENSION IF NOT EXISTS vchord CASCADE;
+        - CREATE EXTENSION IF NOT EXISTS earthdistance CASCADE;
+
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: s3-garage
+
+  superuserSecret:
+    name: postgres-superlogin
+
+  managed:
+    roles:
+      - name: immich-user
+        ensure: present
+        login: true
+        passwordSecret:
+          name: immich-db-secret

@@ -1,0 +1,28 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: immich-ml-pvc
+  namespace: immich
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: "share"
+  volumeName: immich-ml-pv
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: immich-data-pvc
+  namespace: immich
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: "share"
+  volumeName: immich-data-pv

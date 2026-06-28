@@ -4,6 +4,7 @@ resources:
   - autobrr-db
   - forgejo-db
   - gallery-dl-db
+  - immich-db
   - lidarr-db
   - linkwarden-db
   - openwebui-db
