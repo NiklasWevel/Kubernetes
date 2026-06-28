@@ -5,8 +5,8 @@ metadata:
   namespace: traefik
 spec:
   secretName: niklas-pixel-tls
-  duration: 8760h  # 1y
-  renewBefore: 360h  # 15d
+  duration: 8760h # 1y
+  renewBefore: 360h # 15d
   commonName: niklas@pixel
   subject:
     organizations:
