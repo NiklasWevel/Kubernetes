@@ -66,13 +66,13 @@ spec:
             initialDelaySeconds: 60
             periodSeconds: 10
             failureThreshold: 3
-            
+
           volumeMounts:
             - name: data
               mountPath: /cache
               subPath: model-cache
             - name: tmp
-              mountPath: /tmp              
+              mountPath: /tmp
             - name: matplotlib-config
               mountPath: /.config/matplotlib
             - name: matplotlib-cache
@@ -90,4 +90,4 @@ spec:
         - name: matplotlib-config
           emptyDir: {}
         - name: matplotlib-cache
-          emptyDir: {}          
+          emptyDir: {}
