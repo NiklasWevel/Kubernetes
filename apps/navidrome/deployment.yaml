@@ -31,11 +31,11 @@ spec:
             - containerPort: 4533
           resources:
             requests:
-              cpu: "500m"
+              cpu: "100m"
               memory: "500Mi"
             limits:
               cpu: "1.0"
-              memory: "2G"
+              memory: "2Gi"
           securityContext:
             runAsNonRoot: true
             allowPrivilegeEscalation: false

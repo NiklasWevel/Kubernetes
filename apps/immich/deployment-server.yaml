@@ -18,10 +18,9 @@ spec:
       labels:
         app: immich-server
     spec:
-      nodeSelector:
-        nvidia.com/gpu.present: "true"
-      runtimeClassName: nvidia
       enableServiceLinks: false
+      nodeSelector:
+        kubernetes.io/hostname: k3master01
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
@@ -50,12 +49,11 @@ spec:
                 name: immich-config-secret
           resources:
             requests:
-              cpu: "250m"
+              cpu: "500m"
               memory: "512Mi"
             limits:
               cpu: "4"
               memory: "8Gi"
-              nvidia.com/gpu: "1"
           securityContext:
             runAsNonRoot: false
             allowPrivilegeEscalation: false
@@ -68,6 +66,7 @@ spec:
               port: 2283
             initialDelaySeconds: 30
             periodSeconds: 10
+            timeoutSeconds: 5
           livenessProbe:
             httpGet:
               path: /api/server/ping
@@ -75,6 +74,7 @@ spec:
             initialDelaySeconds: 60
             periodSeconds: 10
             failureThreshold: 3
+            timeoutSeconds: 5
 
           volumeMounts:
             - name: data
