@@ -25,6 +25,13 @@ spec:
           containers:
             - name: yt-dlp
               image: docker.wevelsiep.com/jauderho/yt-dlp:2026.06.09
+              resources:
+                requests:
+                  cpu: "100m"
+                  memory: "128Mi"
+                limits:
+                  cpu: "500m"
+                  memory: "512Mi"
               command: ["/bin/sh", "/scripts/ytdlp.sh"]
               securityContext:
                 allowPrivilegeEscalation: false
