@@ -28,7 +28,7 @@ spec:
 
       containers:
         - name: houndarr
-          image: ghcr.io/av1155/houndarr:v1.12.0
+          image: ghcr.io/av1155/houndarr:v1.12.1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8877
