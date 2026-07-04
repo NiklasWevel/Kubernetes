@@ -2,7 +2,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - autobrr-db
-  - forgejo-db
   - gallery-dl-db
   - immich-db
   - lidarr-db
@@ -14,3 +13,4 @@ resources:
   - seerr-db
   - sonarr-db
   - wikijs-db
+#- forgejo-db
