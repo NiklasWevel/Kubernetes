@@ -5,6 +5,7 @@ metadata:
   namespace: cert-manager
 spec:
   interval: 10m
+  timeout: 10m
   chart:
     spec:
       chart: cert-manager
@@ -13,6 +14,9 @@ spec:
         kind: HelmRepository
         name: cert-manager
         namespace: flux-system
+  upgrade:
+    remediation:
+      retries: 3
   values:
     installCRDs: true
     extraArgs:

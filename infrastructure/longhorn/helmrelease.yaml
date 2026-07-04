@@ -5,6 +5,7 @@ metadata:
   namespace: longhorn-system
 spec:
   interval: 1h
+  timeout: 10m
   chart:
     spec:
       chart: longhorn
@@ -13,3 +14,6 @@ spec:
         kind: HelmRepository
         name: longhorn-repo
         namespace: flux-system
+  upgrade:
+    remediation:
+      retries: 3

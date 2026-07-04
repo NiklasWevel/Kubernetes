@@ -5,6 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
+  timeout: 10m
   releaseName: cnpg
   targetNamespace: cnpg-system
   install:
@@ -12,6 +13,8 @@ spec:
     crds: Create
   upgrade:
     crds: CreateReplace
+    remediation:
+      retries: 3
   chart:
     spec:
       chart: cloudnative-pg
@@ -28,6 +31,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
+  timeout: 10m
   releaseName: plugin-barman-cloud
   targetNamespace: cnpg-system
   chart:
@@ -44,12 +48,14 @@ spec:
       retries: 3
   upgrade:
     crds: CreateReplace
+    remediation:
+      retries: 3
   values:
     additionalArgs:
       - --log-level=debug
     resources:
       requests:
-        cpu: 50m
+        cpu: 250m
         memory: 64Mi
       limits:
         memory: 256Mi
