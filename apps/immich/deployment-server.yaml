@@ -21,8 +21,6 @@ spec:
       nodeSelector:
         kubernetes.io/hostname: k3master01
       enableServiceLinks: false
-      nodeSelector:
-        kubernetes.io/hostname: k3master01
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
