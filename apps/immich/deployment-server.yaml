@@ -19,8 +19,7 @@ spec:
         app: immich-server
     spec:
       nodeSelector:
-        nvidia.com/gpu.present: "true"
-      runtimeClassName: nvidia
+        kubernetes.io/hostname: k3master01
       enableServiceLinks: false
       securityContext:
         runAsUser: 1000
@@ -50,12 +49,11 @@ spec:
                 name: immich-config-secret
           resources:
             requests:
-              cpu: "250m"
+              cpu: "1"
               memory: "512Mi"
             limits:
               cpu: "4"
               memory: "8Gi"
-              nvidia.com/gpu: "1"
           securityContext:
             runAsNonRoot: false
             allowPrivilegeEscalation: false
