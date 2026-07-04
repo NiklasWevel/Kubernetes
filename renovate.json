@@ -9,7 +9,8 @@
     "kustomize",
     "kubernetes",
     "regex",
-    "custom.regex"
+    "custom.regex",
+    "flux"
   ],
   "schedule": ["before 8am"],
   "timezone": "Europe/Berlin",
@@ -39,9 +40,18 @@
     {
       "matchDatasources": ["custom.k3s"],
       "automerge": false
+    },
+    {
+      "description": "Helm chart updates in flux HelmReleases: automerge patch only",
+      "matchDatasources": ["helm"],
+      "matchUpdateTypes": ["patch"],
+      "automerge": true
     }
   ],
   "kubernetes": {
+    "managerFilePatterns": ["/\\.ya?ml$/"]
+  },
+  "flux": {
     "managerFilePatterns": ["/\\.ya?ml$/"]
   },
   "regexManagers": [
