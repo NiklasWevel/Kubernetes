@@ -8,8 +8,8 @@
     "helmfile",
     "kustomize",
     "kubernetes",
-    "regex",
-    "custom.regex"
+    "custom.regex",
+    "flux"
   ],
   "schedule": ["before 8am"],
   "timezone": "Europe/Berlin",
@@ -39,24 +39,20 @@
     {
       "matchDatasources": ["custom.k3s"],
       "automerge": false
+    },
+    {
+      "description": "Helm chart updates in flux HelmReleases: automerge patch only",
+      "matchDatasources": ["helm"],
+      "matchUpdateTypes": ["patch"],
+      "automerge": true
     }
   ],
   "kubernetes": {
     "managerFilePatterns": ["/\\.ya?ml$/"]
   },
-  "regexManagers": [
-    {
-      "description": "Update docker.wevelsiep.com images using docker.io tags, but keep docker.wevelsiep.com in YAML",
-      "fileMatch": ["\\.ya?ml$"],
-      "matchStrings": [
-        "image:\\s*docker\\.wevelsiep\\.com\\/(?<depName>[^\\s:\"']+):(?<currentValue>[^\\s\"']+)"
-      ],
-      "datasourceTemplate": "docker",
-      "versioningTemplate": "docker",
-      "depNameTemplate": "{{depName}}",
-      "autoReplaceStringTemplate": "image: docker.wevelsiep.com/{{depName}}:{{newValue}}"
-    }
-  ],
+  "flux": {
+    "managerFilePatterns": ["/\\.ya?ml$/"]
+  },
   "customDatasources": {
     "k3s": {
       "defaultRegistryUrlTemplate": "https://update.k3s.io/v1-release/channels",
@@ -66,6 +62,18 @@
     }
   },
   "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Update docker.wevelsiep.com images using docker.io tags, but keep docker.wevelsiep.com in YAML",
+      "managerFilePatterns": ["/\\.ya?ml$/"],
+      "matchStrings": [
+        "image:\\s*docker\\.wevelsiep\\.com\\/(?<depName>[^\\s:\"']+):(?<currentValue>[^\\s\"']+)"
+      ],
+      "datasourceTemplate": "docker",
+      "versioningTemplate": "docker",
+      "depNameTemplate": "{{depName}}",
+      "autoReplaceStringTemplate": "image: docker.wevelsiep.com/{{depName}}:{{newValue}}"
+    },
     {
       "customType": "regex",
       "managerFilePatterns": ["/infrastructure/system-upgrade/plans/.+\\.ya?ml$/"],

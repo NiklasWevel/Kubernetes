@@ -8,10 +8,11 @@ spec:
   releaseName: external-secrets
   targetNamespace: external-secrets
   interval: 10m
+  timeout: 10m
   chart:
     spec:
       chart: external-secrets
-      version: 0.18.2
+      version: 2.7.0
       sourceRef:
         kind: HelmRepository
         name: external-secrets
@@ -20,3 +21,6 @@ spec:
     installCRDs: false
   install:
     createNamespace: true
+  upgrade:
+    remediation:
+      retries: 3

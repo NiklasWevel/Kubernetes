@@ -6,4 +6,5 @@ resources:
   - namespace.yaml
   - secret-app.yaml
   - secret-database.yaml
+  - secretstore.yaml
   - service.yaml
