@@ -5,6 +5,7 @@ metadata:
   namespace: kube-system
 spec:
   interval: 10m
+  timeout: 10m
   chart:
     spec:
       chart: cilium
@@ -12,6 +13,9 @@ spec:
         kind: HelmRepository
         name: cilium
         namespace: flux-system
+  upgrade:
+    remediation:
+      retries: 3
   values:
     k8sServiceHost: 192.168.20.20
     k8sServicePort: 6443

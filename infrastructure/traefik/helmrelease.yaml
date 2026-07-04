@@ -5,6 +5,7 @@ metadata:
   namespace: traefik
 spec:
   interval: 10m
+  timeout: 10m
   chart:
     spec:
       chart: traefik
@@ -16,6 +17,8 @@ spec:
     crds: Create
   upgrade:
     crds: CreateReplace
+    remediation:
+      retries: 3
   valuesFrom:
     - kind: ConfigMap
       name: traefik-values

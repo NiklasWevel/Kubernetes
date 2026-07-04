@@ -8,6 +8,7 @@ spec:
   releaseName: external-secrets
   targetNamespace: external-secrets
   interval: 10m
+  timeout: 10m
   chart:
     spec:
       chart: external-secrets
@@ -20,3 +21,6 @@ spec:
     installCRDs: false
   install:
     createNamespace: true
+  upgrade:
+    remediation:
+      retries: 3
