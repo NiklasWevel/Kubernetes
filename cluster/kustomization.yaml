@@ -9,7 +9,7 @@ resources:
   - infrastructure-clusterrolebinding.yaml
   - infrastructure-longhorn.yaml
   - infrastructure-nvidia.yaml
-  - infrastructure-intel-gpu.yaml
+#- infrastructure-intel-gpu.yaml
   - infrastructure-sealed-secrets.yaml
   - infrastructure-external-secrets.yaml
   - infrastructure-smb-csi.yaml
