@@ -5,6 +5,11 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.19.0
+    kustomize.toolkit.fluxcd.io/prune: disabled
+    meta.helm.sh/release-name: plugin-barman-cloud
+    meta.helm.sh/release-namespace: cnpg-system
+  labels:
+    app.kubernetes.io/managed-by: Helm
   name: objectstores.barmancloud.cnpg.io
 spec:
   group: barmancloud.cnpg.io
@@ -702,8 +707,12 @@ spec:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+    meta.helm.sh/release-name: plugin-barman-cloud
+    meta.helm.sh/release-namespace: cnpg-system
   labels:
-    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: plugin-barman-cloud
   name: plugin-barman-cloud
   namespace: cnpg-system
@@ -830,6 +839,12 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+    meta.helm.sh/release-name: plugin-barman-cloud
+    meta.helm.sh/release-namespace: cnpg-system
+  labels:
+    app.kubernetes.io/managed-by: Helm
   name: plugin-barman-cloud
 rules:
   - apiGroups:
@@ -928,8 +943,12 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+    meta.helm.sh/release-name: plugin-barman-cloud
+    meta.helm.sh/release-namespace: cnpg-system
   labels:
-    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: plugin-barman-cloud
   name: plugin-barman-cloud-binding
 roleRef:
@@ -944,8 +963,7 @@ subjects:
 apiVersion: v1
 data:
   SIDECAR_IMAGE: |
-    Z2hjci5pby9jbG91ZG5hdGl2ZS1wZy9wbHVnaW4tYmFybWFuLWNsb3VkLXNpZGVjYXI6dj
-    AuMTEuMA==
+    Z2hjci5pby9jbG91ZG5hdGl2ZS1wZy9wbHVnaW4tYmFybWFuLWNsb3VkLXNpZGVjYXI6djAuMTMuMA==
 kind: Secret
 metadata:
   name: plugin-barman-cloud-52ggkcd52d
@@ -959,8 +977,12 @@ metadata:
     cnpg.io/pluginClientSecret: barman-cloud-client-tls
     cnpg.io/pluginPort: "9090"
     cnpg.io/pluginServerSecret: barman-cloud-server-tls
+    kustomize.toolkit.fluxcd.io/prune: disabled
+    meta.helm.sh/release-name: plugin-barman-cloud
+    meta.helm.sh/release-namespace: cnpg-system
   labels:
     app: barman-cloud
+    app.kubernetes.io/managed-by: Helm
     cnpg.io/pluginName: barman-cloud.cloudnative-pg.io
   name: barman-cloud
   namespace: cnpg-system
@@ -1053,6 +1075,12 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+    meta.helm.sh/release-name: plugin-barman-cloud
+    meta.helm.sh/release-namespace: cnpg-system
+  labels:
+    app.kubernetes.io/managed-by: Helm
   name: barman-cloud-client
   namespace: cnpg-system
 spec:
@@ -1071,6 +1099,12 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+    meta.helm.sh/release-name: plugin-barman-cloud
+    meta.helm.sh/release-namespace: cnpg-system
+  labels:
+    app.kubernetes.io/managed-by: Helm
   name: barman-cloud-server
   namespace: cnpg-system
 spec:
