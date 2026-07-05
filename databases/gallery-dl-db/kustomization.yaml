@@ -6,3 +6,4 @@ resources:
   - secret.yaml
   - database.yaml
   - backup.yaml
+  - secretstore.yaml
