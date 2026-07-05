@@ -8,3 +8,4 @@ resources:
   - ingress.yaml
   - service.yaml
   - storage.yaml
+  - secretstore.yaml

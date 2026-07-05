@@ -7,5 +7,6 @@ resources:
   - ingress.yaml
   - namespace.yaml
   - secret.yaml
+  - secretstore.yaml
   - service.yaml
   - storage.yaml
