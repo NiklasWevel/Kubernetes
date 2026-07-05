@@ -4,4 +4,5 @@ resources:
   - configmap.yaml
   - cronjob.yaml
   - namespace.yaml
+  - secretstore.yaml
   - storage.yaml
