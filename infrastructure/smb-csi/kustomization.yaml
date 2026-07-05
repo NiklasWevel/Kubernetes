@@ -5,3 +5,4 @@ resources:
   - helmrelease.yaml
   - secret.yaml
   - namespace.yaml
+  - secretstore.yaml

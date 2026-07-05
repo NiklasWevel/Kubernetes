@@ -7,4 +7,6 @@ resources:
   - ingress-wan.yaml
   - middleware.yaml
   - namespace.yaml
+  - secret.yaml
+  - secretstore.yaml
   - service.yaml
