@@ -28,7 +28,7 @@ spec:
 
       containers:
         - name: bentopdf
-          image: docker.wevelsiep.com/bentopdfteam/bentopdf-simple:2.8.4
+          image: docker.wevelsiep.com/bentopdfteam/bentopdf-simple:2.8.6
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
