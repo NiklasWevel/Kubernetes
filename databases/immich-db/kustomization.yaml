@@ -6,3 +6,4 @@ resources:
   - database.yaml
   - namespace.yaml
   - secret.yaml
+  - secretstore.yaml
