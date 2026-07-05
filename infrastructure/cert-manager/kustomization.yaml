@@ -6,3 +6,4 @@ resources:
   - helmrelease.yaml
   - deployment-crs.yaml
   - secret.yaml
+  - secretstore.yaml
