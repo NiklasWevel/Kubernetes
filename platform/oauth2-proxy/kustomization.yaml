@@ -8,6 +8,5 @@ resources:
   - middleware.yaml
   - namespace.yaml
   - secret.yaml
-  - secretstore.yaml  
+  - secretstore.yaml
   - service.yaml
-
