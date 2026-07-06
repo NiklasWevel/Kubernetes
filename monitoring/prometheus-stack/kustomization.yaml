@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - namespace.yaml
+  - helmrepository.yaml
+  - secretstore.yaml
+  - secret-grafana.yaml
+  - helmrelease.yaml
+
+configMapGenerator:
+  - name: prometheus-stack-values
+    files:
+      - values.yaml=values.yaml
+configurations:
+  - kustomizeconfig.yaml
