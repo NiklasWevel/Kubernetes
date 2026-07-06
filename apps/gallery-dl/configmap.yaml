@@ -133,4 +133,3 @@ data:
     if __name__ == "__main__":
         directory = "/downloads/comics-tmp"
         process_cbz_files(directory)
-

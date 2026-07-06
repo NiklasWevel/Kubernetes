@@ -36,7 +36,7 @@ grafana:
       searchNamespace: ALL
   grafana.ini:
     server:
-      root_url: 'https://grafana.wevelsiep.com'
+      root_url: "https://grafana.wevelsiep.com"
     auth.anonymous:
       enabled: false
     security:
@@ -120,12 +120,12 @@ alertmanager:
       routes:
         - matchers:
             - alertname = Watchdog
-          receiver: 'null'
+          receiver: "null"
     receivers:
-      - name: 'null'
+      - name: "null"
       - name: ntfy
         webhook_configs:
-          - url: 'http://webhook.webhook.svc.cluster.local/hook'
+          - url: "http://webhook.webhook.svc.cluster.local/hook"
             send_resolved: true
     inhibit_rules:
       - source_matchers:
@@ -147,7 +147,6 @@ prometheus-node-exporter:
     limits:
       cpu: 500m
       memory: 256Mi
-
 
 kubeStateMetrics:
   enabled: true
