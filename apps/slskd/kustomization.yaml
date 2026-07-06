@@ -6,6 +6,7 @@ resources:
   - ingress.yaml
   - namespace.yaml
   - secret-gluetun.yaml
+  - secret-slskd.yaml
   - secretstore.yaml
   - service.yaml
   - storage.yaml
