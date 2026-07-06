@@ -24,7 +24,7 @@ spec:
               type: RuntimeDefault
           containers:
             - name: yt-dlp
-              image: docker.wevelsiep.com/jauderho/yt-dlp:2026.06.09
+              image: docker.wevelsiep.com/jauderho/yt-dlp:2026.07.04
               resources:
                 requests:
                   cpu: "100m"

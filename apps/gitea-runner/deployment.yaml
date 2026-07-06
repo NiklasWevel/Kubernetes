@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: gitea-runner
-          image: docker.wevelsiep.com/gitea/act_runner:0.3
+          image: docker.wevelsiep.com/gitea/act_runner:0.6
           imagePullPolicy: IfNotPresent
           command:
             [
