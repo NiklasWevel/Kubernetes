@@ -8,7 +8,6 @@ resources:
   - gitea-runner
   - houndarr
   - immich
-  - jellyfin
   - lidarr
   - linkwarden
   - navidrome
@@ -24,3 +23,4 @@ resources:
   - yt-dlp
 #  - comfyui
 #  - homepage
+#  - jellyfin
