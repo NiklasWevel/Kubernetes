@@ -1,6 +1,8 @@
 grafana:
   enabled: true
   defaultDashboardsTimezone: Europe/Berlin
+  deploymentStrategy:
+    type: Recreate
   admin:
     existingSecret: grafana-admin
     userKey: admin-user
