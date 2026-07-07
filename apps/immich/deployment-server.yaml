@@ -53,7 +53,7 @@ spec:
               memory: "1Gi"
             limits:
               cpu: "4"
-              memory: "6Gi"
+              memory: "4Gi"
           securityContext:
             runAsNonRoot: false
             allowPrivilegeEscalation: false
