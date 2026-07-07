@@ -46,12 +46,12 @@ tlsStore:
     defaultCertificate:
       secretName: wildcard-cert
 
-logs:
-  general:
-    level: INFO
-  access:
-    enabled: true
-    format: common
+log:
+  level: INFO
+
+accessLog:
+  enabled: true
+  format: common
 
 providers:
   kubernetesCRD:
