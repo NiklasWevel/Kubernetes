@@ -49,11 +49,11 @@ spec:
                 name: immich-config-secret
           resources:
             requests:
-              cpu: "1"
-              memory: "512Mi"
+              cpu: "500m"
+              memory: "1Gi"
             limits:
               cpu: "4"
-              memory: "8Gi"
+              memory: "6Gi"
           securityContext:
             runAsNonRoot: false
             allowPrivilegeEscalation: false
