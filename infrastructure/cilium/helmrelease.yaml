@@ -5,7 +5,7 @@ metadata:
   namespace: kube-system
 spec:
   interval: 10m
-  timeout: 10m
+  timeout: 15m
   chart:
     spec:
       chart: cilium
@@ -39,9 +39,6 @@ spec:
 
     l2announcements:
       enabled: true
-
-    loadBalancer:
-      mode: "l2"
 
     k8sClientRateLimit:
       qps: 50
