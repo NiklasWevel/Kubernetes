@@ -9,6 +9,7 @@ resources:
 
 configMapGenerator:
   - name: prometheus-stack-values
+    namespace: monitoring
     files:
       - values.yaml=values.yaml
 configurations:
