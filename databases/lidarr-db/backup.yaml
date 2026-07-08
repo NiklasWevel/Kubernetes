@@ -4,7 +4,7 @@ metadata:
   name: backup-cnpg
   namespace: lidarr-db
 spec:
-  schedule: "0 0 0 * * *"
+  schedule: "0 15 0 * * *"
   backupOwnerReference: self
   cluster:
     name: lidarr-postgres-cluster

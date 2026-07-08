@@ -4,7 +4,7 @@ metadata:
   name: backup-cnpg
   namespace: gallery-dl-db
 spec:
-  schedule: "0 0 0 * * *"
+  schedule: "0 5 0 * * *"
   backupOwnerReference: self
   cluster:
     name: gallery-dl-postgres-cluster
