@@ -4,7 +4,8 @@ metadata:
   name: gallery-dl-postgres-cluster
   namespace: gallery-dl-db
 spec:
-  instances: 2
+  instances: 1
+  enablePDB: false
   resources:
     requests:
       memory: "256Mi"

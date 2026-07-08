@@ -4,7 +4,8 @@ metadata:
   name: lidarr-postgres-cluster
   namespace: lidarr-db
 spec:
-  instances: 2
+  instances: 1
+  enablePDB: false
   resources:
     requests:
       memory: "128Mi"

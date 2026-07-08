@@ -4,7 +4,7 @@ metadata:
   name: backup-cnpg
   namespace: linkwarden-db
 spec:
-  schedule: "0 0 0 * * *"
+  schedule: "0 20 0 * * *"
   backupOwnerReference: self
   cluster:
     name: linkwarden-postgres-cluster
