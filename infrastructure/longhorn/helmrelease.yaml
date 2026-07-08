@@ -17,3 +17,6 @@ spec:
   upgrade:
     remediation:
       retries: 3
+  values:
+    defaultSettings:
+      guaranteedInstanceManagerCPU: 5
