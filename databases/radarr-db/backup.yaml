@@ -4,7 +4,7 @@ metadata:
   name: backup-cnpg
   namespace: radarr-db
 spec:
-  schedule: "0 0 0 * * *"
+  schedule: "0 40 0 * * *"
   backupOwnerReference: self
   cluster:
     name: radarr-postgres-cluster
