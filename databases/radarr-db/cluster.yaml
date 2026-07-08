@@ -4,7 +4,8 @@ metadata:
   name: radarr-postgres-cluster
   namespace: radarr-db
 spec:
-  instances: 2
+  instances: 1
+  enablePDB: false
   resources:
     requests:
       memory: "128Mi"
