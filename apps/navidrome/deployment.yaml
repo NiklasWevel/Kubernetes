@@ -25,7 +25,7 @@ spec:
 
       containers:
         - name: navidrome
-          image: docker.wevelsiep.com/deluan/navidrome:0.62.0
+          image: docker.wevelsiep.com/deluan/navidrome:0.63.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 4533
