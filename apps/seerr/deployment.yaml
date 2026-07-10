@@ -59,17 +59,21 @@ spec:
               mountPath: /app/config
             - name: seerr-logs
               mountPath: /app/config/logs
+          startupProbe:
+            httpGet:
+              path: /api/v1/status
+              port: 5055
+            periodSeconds: 10
+            failureThreshold: 30
           readinessProbe:
             httpGet:
               path: /api/v1/status
               port: 5055
-            initialDelaySeconds: 10
             periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /api/v1/status
               port: 5055
-            initialDelaySeconds: 30
             periodSeconds: 10
             failureThreshold: 3
 
