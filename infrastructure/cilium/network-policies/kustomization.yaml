@@ -4,5 +4,5 @@ resources:
   - egress-apiserver.yaml
   - egress-dns.yaml
   - egress-s3.yaml
-  - ingress-cnpg-operator.yaml
+  - ingress-cnpg.yaml
   - ingress-monitoring.yaml
