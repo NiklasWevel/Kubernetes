@@ -32,7 +32,7 @@ spec:
 
       containers:
         - name: linkwarden
-          image: ghcr.io/linkwarden/linkwarden:v2.14.1
+          image: ghcr.io/linkwarden/linkwarden:v2.15.1
           imagePullPolicy: IfNotPresent
           envFrom:
             - secretRef:
