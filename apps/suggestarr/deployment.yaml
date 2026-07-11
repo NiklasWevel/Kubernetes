@@ -1,0 +1,81 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: suggestarr
+  namespace: suggestarr
+  labels:
+    app: suggestarr
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: suggestarr
+  template:
+    metadata:
+      labels:
+        app: suggestarr
+    spec:
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+
+      containers:
+        - name: suggestarr
+          image: ciuse99/suggestarr:v2.9.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "250Mi"
+            limits:
+              cpu: "500m"
+              memory: "1Gi"
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            seccompProfile:
+              type: "RuntimeDefault"
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: suggestarr-config
+              mountPath: /app/config/config_files
+            - name: suggestarr-tmp
+              mountPath: /tmp
+          startupProbe:
+            httpGet:
+              path: /api/health/live
+              port: 5000
+            periodSeconds: 10
+            failureThreshold: 30
+          readinessProbe:
+            httpGet:
+              path: /api/health/live
+              port: 5000
+            periodSeconds: 10
+            timeoutSeconds: 5
+          livenessProbe:
+            tcpSocket:
+              port: 5000
+            periodSeconds: 10
+            failureThreshold: 3
+
+      volumes:
+        - name: suggestarr-config
+          persistentVolumeClaim:
+            claimName: suggestarr-config-pvc
+        - name: suggestarr-tmp
+          emptyDir:
+            sizeLimit: 32Mi

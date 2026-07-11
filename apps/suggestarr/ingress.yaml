@@ -1,0 +1,14 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: suggestarr-lan
+  namespace: suggestarr
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`suggestarr.wevelsiep.com`)
+      kind: Rule
+      services:
+        - name: suggestarr
+          port: 80
