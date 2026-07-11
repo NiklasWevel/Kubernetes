@@ -15,3 +15,10 @@ spec:
         - ports:
             - port: "8000"
               protocol: TCP
+    - fromEntities:
+        - kube-apiserver
+        - remote-node
+      toPorts:
+        - ports:
+            - port: "8000"
+              protocol: TCP
