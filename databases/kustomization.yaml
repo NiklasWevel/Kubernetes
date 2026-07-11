@@ -12,5 +12,6 @@ resources:
   - radarr-db
   - seerr-db
   - sonarr-db
+  - suggestarr-db
   - wikijs-db
 #- forgejo-db
