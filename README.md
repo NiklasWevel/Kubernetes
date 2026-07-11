@@ -1,6 +1,6 @@
 # My Kubernetes GitOps Repository
 
-This is my personal Kubernetes learning project.
+This is my personal Kubernetes learning project running on my home infrastructure. I'm using it daily, constantly adding and removing things.
 
 > ⚠️ This repository is **rapidly changing** and also used for testing new ideas and configurations.
 
@@ -8,10 +8,11 @@ This is my personal Kubernetes learning project.
 
 - ~~Migrate my entire Proxmox homelab into Kubernetes~~
 - [x] Rely entirely on GitOps and Infrastructure as Code using [FluxCD](https://fluxcd.io/)
-- [x] Keep everything public - use [Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets) and [External Secrets](https://external-secrets.io/) to protect sensitive data
+- [x] Keep everything public - use ~~[Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets)~~ and [External Secrets](https://external-secrets.io/) with individual SecretStores to protect sensitive data
 - [x] Implement a CI/CD pipeline to lint/prettier the configuration files
-- [x] Implement [NVIDIA Container Toolkit ](https://nvidia.github.io/libnvidia-container/) to run GPU workloads in the cluster
-- [ ] Make the cluster reachable from the internet while using [PocketID](https://pocketid.com/) to authenticate with passkeys
+- [x] Implement [NVIDIA Container Toolkit](https://nvidia.github.io/libnvidia-container/) to run GPU workloads in the cluster
+- [ ] Implement [Intel Device Plugin](https://github.com/intel/intel-device-plugins-for-kubernetes/) to run GPU workloads in the cluster
+- [x] Make the cluster reachable from the internet while using [PocketID](https://pocketid.com/) to authenticate with passkeys
 
 
 ## Repository Structure
@@ -38,13 +39,14 @@ These components are required outside of the Kubernetes cluster:
 
 1. An NFS server for persistent volumes  
 2. A [HashiCorp Vault](https://www.vaultproject.io/) instance for secrets management  
-3. [Caddy](https://caddyserver.com/) as a reverse proxy to reach the cluster in the first place
+3. [Caddy](https://caddyserver.com/) as a reverse proxy to reach the cluster and other homelab services in the first place
 4. A public domain to enable SSL via DNS challenge (in my case Cloudflare + cert-manager)
+5. Gitea + runner outside the cluster for various tasks like building Docker images or running Terraform against the HashiCorp Vault
 
 These components are optional:
 
-1. A [private Docker Hub Proxy Cache](https://hub.docker.com/_/registry) ,  so I don't run into the new Docker pull limit when I restart the cluster multiple times.
-2. A [S3 compatible storage backend](https://github.com/deuxfleurs-org/garage) for the cloud native postgres backups jobs. I'm using Garage with a simple GUI. 
+1. A [private Docker Hub Proxy Cache](https://hub.docker.com/_/registry), so I don't run into the new Docker pull limit when I restart the cluster multiple times.
+2. An [S3 compatible storage backend](https://github.com/deuxfleurs-org/garage) for the CloudNative Postgres backups jobs. I'm using Garage with a simple GUI. 
 
 ## Homelab Hardware
 
@@ -52,7 +54,7 @@ Currently, the cluster is running on three virtual machines in my three node Pro
 
 | Hostname     | Cores | RAM   | GPU       |
 |--------------|-------|-------|-----------|
-| K3-CP-01     | 2     | 16GB  |           |
+| K3-CP-01     | 10    | 40GB  |           |
 | K3-Node-01   | 5     | 48GB  | RTX A2000 |
 | K3-Node-02   | 5     | 48GB  | RTX A2000 |
 
@@ -62,12 +64,12 @@ Currently, the cluster is running on three virtual machines in my three node Pro
 - The cluster runs in an isolated VLAN.
 - The support components like NFS, reverse proxy, vault etc. run in the same VLAN.
 - ~~All hostnames in this repository are used internally - the cluster is not accessible from the internet.~~
-- The cluster will be accessible from the internet. Soon™.
+- Selected services are reachable from the internet through Traefik, mTLS and/or authenticated via PocketID.
 - [Traefik](https://traefik.io/traefik/) acts as the reverse proxy and handles TLS termination for incoming traffic to the cluster.
 
 ## Storage
 
-Storage is not part of this repository:
+NFS/SMB storage is not part of this repository:
 
 1. It depends heavily on the specific environment
 
