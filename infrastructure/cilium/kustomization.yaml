@@ -7,4 +7,3 @@ resources:
   - ip-pool.yaml
   - kustomization-network-policies.yaml
   - l2announcement.yaml
-  - policies.yaml
