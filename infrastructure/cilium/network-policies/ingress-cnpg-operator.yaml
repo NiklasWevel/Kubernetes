@@ -1,0 +1,17 @@
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: allow-cnpg-operator-ingress
+spec:
+  endpointSelector:
+    matchExpressions:
+      - key: io.cilium.k8s.namespace.labels.network-cnpg-operator-ingress
+        operator: Exists
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: cnpg-system
+      toPorts:
+        - ports:
+            - port: "8000"
+              protocol: TCP
