@@ -1,0 +1,16 @@
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: allow-s3-egress
+spec:
+  endpointSelector:
+    matchExpressions:
+      - key: io.cilium.k8s.namespace.labels.network-s3-egress
+        operator: Exists
+  egress:
+    - toFQDNs:
+        - matchName: "s3.wevelsiep.com"
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP

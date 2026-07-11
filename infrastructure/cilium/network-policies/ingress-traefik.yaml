@@ -5,7 +5,7 @@ metadata:
 spec:
   endpointSelector:
     matchExpressions:
-      - key: io.cilium.k8s.namespace.labels.network-policy-traefik-ingress
+      - key: io.cilium.k8s.namespace.labels.network-traefik-ingress
         operator: Exists
   ingress:
     - fromEndpoints:

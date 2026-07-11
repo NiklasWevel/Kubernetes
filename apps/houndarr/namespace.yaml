@@ -3,4 +3,5 @@ kind: Namespace
 metadata:
   name: houndarr
   labels:
-    network-policy-strict: "true"
+    network-dns-egress: "true"
+    network-monitoring-ingress: "true"
