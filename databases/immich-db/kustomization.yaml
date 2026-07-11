@@ -5,5 +5,6 @@ resources:
   - cluster.yaml
   - database.yaml
   - namespace.yaml
+  - network-policy.yaml
   - secret.yaml
   - secretstore.yaml
