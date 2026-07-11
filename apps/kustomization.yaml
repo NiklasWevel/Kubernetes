@@ -20,6 +20,7 @@ resources:
   - slskd
   - sonarr
   - suggestarr
+  - unpackerr
   - wikijs
   - yt-dlp
 #  - comfyui

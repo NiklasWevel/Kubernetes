@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: unpackerr-config
+  namespace: unpackerr
+data:
+  TZ: "Europe/Berlin"
+  UN_QUIET: "false"
+  UN_DEBUG: "false"
+  UN_ERROR_STDERR: "false"
+  UN_LOG_QUEUES: "1m"
+  UN_LOG_FILES: "10"
+  UN_LOG_FILE_MB: "10"
+  UN_INTERVAL: "2m"
+  UN_START_DELAY: "1m"
+  UN_RETRY_DELAY: "5m"
+  UN_MAX_RETRIES: "3"
+  UN_PARALLEL: "1"
+  UN_ACTIVITY: "false"
+  # Webserver
+  UN_WEBSERVER_METRICS: "true"
+  UN_WEBSERVER_LISTEN_ADDR: "0.0.0.0:5656"
+  # Sonarr
+  UN_SONARR_0_URL: "http://sonarr.sonarr.svc.cluster.local"
+  UN_SONARR_0_TIMEOUT: "10s"
+  UN_SONARR_0_DELETE_DELAY: "15m"
+  # Radarr
+  UN_RADARR_0_URL: "http://radarr.radarr.svc.cluster.local"
+  UN_RADARR_0_TIMEOUT: "10s"
+  UN_RADARR_0_DELETE_DELAY: "15m"
+  # Lidarr
+  UN_LIDARR_0_URL: "http://lidarr.lidarr.svc.cluster.local"
+  UN_LIDARR_0_TIMEOUT: "10s"
+  UN_LIDARR_0_DELETE_DELAY: "15m"
+  # Whisparr
+  UN_WHISPARR_0_URL: "http://whisparr.whisparr.svc.cluster.local"
+  UN_WHISPARR_0_TIMEOUT: "10s"
+  UN_WHISPARR_0_DELETE_DELAY: "15m"
+  # Webhook
+  UN_WEBHOOK_0_URL: "https://ntfy.niwev.de/Unpackerr"
+  UN_WEBHOOK_0_SILENT: "true"

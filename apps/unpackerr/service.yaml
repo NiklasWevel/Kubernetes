@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: unpackerr
+  namespace: unpackerr
+  labels:
+    app: unpackerr
+spec:
+  selector:
+    app: unpackerr
+  ports:
+    - name: metrics
+      port: 80
+      targetPort: 5656

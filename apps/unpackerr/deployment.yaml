@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: unpackerr
+  namespace: unpackerr
+  labels:
+    app: unpackerr
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: unpackerr
+  template:
+    metadata:
+      labels:
+        app: unpackerr
+    spec:
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+
+      containers:
+        - name: unpackerr
+          image: golift/unpackerr:0.15.2
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: unpackerr-config
+            - secretRef:
+                name: unpackerr-secret
+          ports:
+            - containerPort: 5656
+          resources:
+            requests:
+              cpu: "25m"
+              memory: "64Mi"
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ALL]
+            seccompProfile:
+              type: "RuntimeDefault"
+          readinessProbe:
+            httpGet:
+              path: /metrics
+              port: 5656
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /metrics
+              port: 5656
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 3
+          volumeMounts:
+            - name: unpackerr-seedbox
+              mountPath: /downloads
+
+      volumes:
+        - name: unpackerr-seedbox
+          persistentVolumeClaim:
+            claimName: unpackerr-seedbox-pvc
