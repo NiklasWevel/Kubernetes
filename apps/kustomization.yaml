@@ -19,6 +19,7 @@ resources:
   - seerr
   - slskd
   - sonarr
+  - suggestarr
   - wikijs
   - yt-dlp
 #  - comfyui
