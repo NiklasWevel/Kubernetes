@@ -7,3 +7,4 @@ resources:
   - database.yaml
   - backup.yaml
   - secretstore.yaml
+  - network-policy.yaml
