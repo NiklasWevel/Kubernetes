@@ -1,10 +1,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - namespace.yaml
-  - cluster.yaml
-  - secret.yaml
-  - database.yaml
   - backup.yaml
+  - cluster.yaml
+  - cnp-egress.yaml
+  - cnp-ingress.yaml
+  - database.yaml
+  - namespace.yaml
+  - secret.yaml
   - secretstore.yaml
-  - network-policy.yaml

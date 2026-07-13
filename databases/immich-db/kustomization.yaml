@@ -3,8 +3,9 @@ kind: Kustomization
 resources:
   - backup.yaml
   - cluster.yaml
+  - cnp-egress.yaml
+  - cnp-ingress.yaml
   - database.yaml
   - namespace.yaml
-  - network-policy.yaml
   - secret.yaml
   - secretstore.yaml
