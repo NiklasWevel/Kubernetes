@@ -1,0 +1,28 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: goldilocks
+  namespace: flux-system
+spec:
+  interval: 10m
+  timeout: 10m
+  releaseName: goldilocks
+  targetNamespace: goldilocks
+  install:
+    createNamespace: true
+    crds: Create
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  chart:
+    spec:
+      chart: goldilocks
+      version: "10.4.1"
+      sourceRef:
+        kind: HelmRepository
+        name: fairwinds-repo
+        namespace: flux-system
+  values:
+    vpa:
+      enabled: true
