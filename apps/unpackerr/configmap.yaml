@@ -39,3 +39,4 @@ data:
   # Webhook
   UN_WEBHOOK_0_URL: "https://ntfy.niwev.de/Unpackerr"
   UN_WEBHOOK_0_SILENT: "true"
+  UN_WEBHOOK_0_EVENTS: "3,4"
