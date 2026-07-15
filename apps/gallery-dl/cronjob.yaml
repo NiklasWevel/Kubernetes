@@ -43,8 +43,10 @@ spec:
               volumeMounts:
                 - name: gallery-dl-script
                   mountPath: /scripts
-                - name: config
+                - name: gallery-dl-config
                   mountPath: /config
+                - name: input
+                  mountPath: /input
                 - name: dl-niklas
                   mountPath: /downloads/niklas
                 - name: dl-chiara
@@ -59,9 +61,13 @@ spec:
               secret:
                 secretName: gallery-dl-script-secret
                 defaultMode: 0755
-            - name: config
+            - name: gallery-dl-config
+              secret:
+                secretName: gallery-dl-config-secret
+                defaultMode: 0444
+            - name: input
               persistentVolumeClaim:
-                claimName: gallery-dl-config-pvc
+                claimName: gallery-dl-pvc
             - name: dl-niklas
               persistentVolumeClaim:
                 claimName: gallery-dl-niklas-pvc

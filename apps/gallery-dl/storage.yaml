@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: gallery-dl-config-pvc
+  name: gallery-dl-pvc
   namespace: gallery-dl
 spec:
   accessModes:

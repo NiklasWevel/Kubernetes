@@ -16,7 +16,7 @@ data:
 
     run_gallery_dl \
       --config /config/config.json \
-      --input-file /config/niklas-input.txt \
+      --input-file /input/niklas-input.txt \
       --download-archive "postgresql://{{ .postgresUser }}:{{ .postgresPassword }}@gallery-dl-postgres-cluster-rw.gallery-dl-db.svc.cluster.local:5432/gallery-dl-db" \
       --option "lang=en" \
       --cbz \
@@ -25,7 +25,7 @@ data:
 
     run_gallery_dl \
       --config /config/config.json \
-      --input-file /config/chiara-input.txt \
+      --input-file /input/chiara-input.txt \
       --download-archive "postgresql://{{ .postgresUser }}:{{ .postgresPassword }}@gallery-dl-postgres-cluster-rw.gallery-dl-db.svc.cluster.local:5432/gallery-dl-db" \
       --option "lang=en" \
       --cbz \
@@ -34,7 +34,7 @@ data:
 
     run_gallery_dl \
       --config /config/config.json \
-      --input-file /config/comics-input.txt \
+      --input-file /input/comics-input.txt \
       --download-archive "postgresql://{{ .postgresUser }}:{{ .postgresPassword }}@gallery-dl-postgres-cluster-rw.gallery-dl-db.svc.cluster.local:5432/gallery-dl-db" \
       --option "lang=en" \
       --verbose \
