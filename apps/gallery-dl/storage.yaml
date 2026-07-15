@@ -10,7 +10,7 @@ spec:
     requests:
       storage: 10Gi
   storageClassName: "share"
-  volumeName: gallery-dl-config-pv
+  volumeName: gallery-dl-pv
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
