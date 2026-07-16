@@ -14,4 +14,4 @@ resources:
   - sonarr-db
   - suggestarr-db
   - wikijs-db
-#- forgejo-db
+# - forgejo-db
