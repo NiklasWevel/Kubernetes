@@ -1,0 +1,10 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-db-egress
+  namespace: autobrr-db
+spec:
+  endpointSelector: {}
+  egress:
+    - toEndpoints:
+        - {}
