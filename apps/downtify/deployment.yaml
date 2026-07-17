@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: downtify
+  namespace: downtify
+  labels:
+    app: downtify
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: downtify
+  template:
+    metadata:
+      labels:
+        app: downtify
+    spec:
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+
+      containers:
+        - name: downtify
+          image: ghcr.io/henriquesebastiao/downtify:2.9.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "100Mi"
+            limits:
+              cpu: "500m"
+              memory: "500Mi"
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            seccompProfile:
+              type: "RuntimeDefault"
+            capabilities:
+              drop:
+                - ALL
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            failureThreshold: 3
+          volumeMounts:
+            - name: downtify-data
+              mountPath: /data
+            - name: downtify-download-pvc
+              mountPath: /downloads
+
+      volumes:
+        - name: downtify-data
+          emptyDir:
+            sizeLimit: 1Gi
+        - name: downtify-download-pvc
+          persistentVolumeClaim:
+            claimName: downtify-download-pvc

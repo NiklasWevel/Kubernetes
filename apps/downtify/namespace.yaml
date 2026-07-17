@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: downtify
+  labels:
+    network-dns-egress: "true"
+    network-monitoring-ingress: "true"
+    network-world-egress: "true"
