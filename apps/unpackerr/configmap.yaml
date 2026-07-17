@@ -17,26 +17,21 @@ data:
   UN_MAX_RETRIES: "3"
   UN_PARALLEL: "1"
   UN_ACTIVITY: "false"
-  # Webserver
   UN_WEBSERVER_METRICS: "true"
   UN_WEBSERVER_LISTEN_ADDR: "0.0.0.0:5656"
-  # Sonarr
   UN_SONARR_0_URL: "http://sonarr.sonarr.svc.cluster.local"
   UN_SONARR_0_TIMEOUT: "10s"
   UN_SONARR_0_DELETE_DELAY: "15m"
-  # Radarr
   UN_RADARR_0_URL: "http://radarr.radarr.svc.cluster.local"
   UN_RADARR_0_TIMEOUT: "10s"
   UN_RADARR_0_DELETE_DELAY: "15m"
-  # Lidarr
   UN_LIDARR_0_URL: "http://lidarr.lidarr.svc.cluster.local"
   UN_LIDARR_0_TIMEOUT: "10s"
   UN_LIDARR_0_DELETE_DELAY: "15m"
-  # Whisparr
   UN_WHISPARR_0_URL: "http://whisparr.whisparr.svc.cluster.local"
   UN_WHISPARR_0_TIMEOUT: "10s"
   UN_WHISPARR_0_DELETE_DELAY: "15m"
-  # Webhook
   UN_WEBHOOK_0_URL: "https://ntfy.niwev.de/Unpackerr"
   UN_WEBHOOK_0_SILENT: "true"
-  UN_WEBHOOK_0_EVENTS: "3,4"
+  UN_WEBHOOK_0_EVENTS_0: "3"
+  UN_WEBHOOK_0_EVENTS_1: "4"
