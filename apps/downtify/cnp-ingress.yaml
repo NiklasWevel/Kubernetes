@@ -2,7 +2,7 @@ apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
   name: allow-traefik-ingress
-  namespace: deemix
+  namespace: downtify
 spec:
   endpointSelector: {}
 
@@ -12,5 +12,5 @@ spec:
             io.kubernetes.pod.namespace: traefik
       toPorts:
         - ports:
-            - port: "6595"
+            - port: "8000"
               protocol: TCP
