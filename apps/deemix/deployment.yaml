@@ -22,12 +22,15 @@ spec:
     spec:
       enableServiceLinks: false
       securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
         fsGroup: 1000
 
       containers:
         - name: deemix
           image: ghcr.io/bambanah/deemix:v4.6.0
           imagePullPolicy: IfNotPresent
+          command: ["node", "/app/packages/webui/dist/main.js"]
           ports:
             - containerPort: 6595
           resources:
@@ -38,16 +41,12 @@ spec:
               cpu: "500m"
               memory: "1Gi"
           securityContext:
-            runAsNonRoot: false
-            allowPrivilegeEscalation: true
-            readOnlyRootFilesystem: false
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
             seccompProfile:
               type: "RuntimeDefault"
             capabilities:
-              add:
-                - SETUID
-                - SETGID
-                - CHOWN
               drop:
                 - ALL
           readinessProbe:
@@ -66,8 +65,16 @@ spec:
           volumeMounts:
             - name: deemix-media-pvc
               mountPath: /downloads
+            - name: empty
+              subPath: config
+              mountPath: /config
+            - name: empty
+              subPath: tmp
+              mountPath: /tmp
 
       volumes:
         - name: deemix-media-pvc
           persistentVolumeClaim:
             claimName: deemix-media-pvc
+        - name: empty
+          emptyDir: {}
