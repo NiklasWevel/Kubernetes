@@ -4,7 +4,7 @@ resources:
   - autobrr
   - bentopdf
   - deemix
-  - downtify  
+  - downtify
   - gallery-dl
   - gitea-runner
   - houndarr
