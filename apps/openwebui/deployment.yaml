@@ -28,7 +28,7 @@ spec:
 
       containers:
         - name: openwebui
-          image: docker.wevelsiep.com/openwebui/open-webui:0.9.5-slim
+          image: ghcr.io/open-webui/open-webui:0.10.2-slim
           imagePullPolicy: IfNotPresent
           envFrom:
             - secretRef:
