@@ -76,7 +76,7 @@ spec:
 
       containers:
         - name: slskd
-          image: docker.wevelsiep.com/slskd/slskd:0.25.1
+          image: docker.wevelsiep.com/slskd/slskd:0.26.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5030
