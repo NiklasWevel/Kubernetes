@@ -22,7 +22,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: ntfy
-          image: docker.wevelsiep.com/binwiederhier/ntfy:v2.26.0
+          image: docker.wevelsiep.com/binwiederhier/ntfy:v2.26.3
           imagePullPolicy: IfNotPresent
           args: ["serve"]
           envFrom:
