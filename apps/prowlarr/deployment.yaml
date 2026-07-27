@@ -28,7 +28,7 @@ spec:
 
       containers:
         - name: prowlarr
-          image: ghcr.io/home-operations/prowlarr:2.5.2
+          image: ghcr.io/home-operations/prowlarr:2.6.0
           imagePullPolicy: IfNotPresent
           envFrom:
             - secretRef:
