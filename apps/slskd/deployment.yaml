@@ -27,7 +27,7 @@ spec:
       initContainers:
         - name: gluetun
           restartPolicy: Always
-          image: ghcr.io/qdm12/gluetun:v3.41.2
+          image: ghcr.io/qdm12/gluetun:v3.41.3
           envFrom:
             - secretRef:
                 name: gluetun-secret
