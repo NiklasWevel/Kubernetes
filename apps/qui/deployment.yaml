@@ -67,7 +67,7 @@ spec:
             - name: qui-seedbox
               mountPath: /mnt/Seedbox
             - name: qui-data
-              mountPath: /data              
+              mountPath: /data
             - name: qui-icons
               mountPath: /config/tracker-icons
       volumes:
