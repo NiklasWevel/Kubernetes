@@ -9,6 +9,7 @@ resources:
   - openwebui-db
   - pocketid-db
   - prowlarr-db
+  - qui-db
   - radarr-db
   - seerr-db
   - sonarr-db
