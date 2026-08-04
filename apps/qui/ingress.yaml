@@ -1,0 +1,14 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: qui-lan
+  namespace: qui
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`qui.wevelsiep.com`)
+      kind: Rule
+      services:
+        - name: qui
+          port: 80

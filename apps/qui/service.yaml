@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: qui
+  namespace: qui
+spec:
+  selector:
+    app: qui
+  ports:
+    - port: 80
+      targetPort: 7476
