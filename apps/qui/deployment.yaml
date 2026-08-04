@@ -67,7 +67,7 @@ spec:
             - name: qui-seedbox
               mountPath: /mnt/Seedbox
             - name: qui-tmp
-              mountPath: /tmp
+              mountPath: /config/tracker-icons
       volumes:
         - name: qui-config
           secret:
@@ -75,5 +75,5 @@ spec:
         - name: qui-seedbox
           persistentVolumeClaim:
             claimName: qui-seedbox-pvc
-        - name: qui-tmp
+        - name: qui-icons
           emptyDir: {}
