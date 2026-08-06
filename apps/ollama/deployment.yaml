@@ -30,7 +30,7 @@ spec:
 
       containers:
         - name: ollama
-          image: docker.wevelsiep.com/ollama/ollama:0.32.5
+          image: docker.wevelsiep.com/ollama/ollama:0.32.6
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 11434
