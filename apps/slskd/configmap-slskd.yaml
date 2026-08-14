@@ -47,7 +47,7 @@ data:
         - /music
       filters: []
       cache:
-        storage_mode: memory
+        storage_mode: disk
         workers: 16
         retention: ~
     soulseek:
