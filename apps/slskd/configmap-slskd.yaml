@@ -48,7 +48,7 @@ data:
       filters: []
       cache:
         storage_mode: disk
-        workers: 16
+        workers: 4
         retention: ~
     soulseek:
       address: vps.slsknet.org
