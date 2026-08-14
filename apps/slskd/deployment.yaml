@@ -87,7 +87,7 @@ spec:
               memory: "384Mi"
             limits:
               cpu: "500m"
-              memory: "1Gi"
+              memory: "2Gi"
           securityContext:
             runAsNonRoot: true
             allowPrivilegeEscalation: false
