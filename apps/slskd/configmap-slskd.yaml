@@ -43,7 +43,8 @@ data:
       incomplete: /downloads/incomplete
       downloads: /downloads/finished
     shares:
-      directories: []
+      directories:
+        - /music
       filters: []
       cache:
         storage_mode: memory

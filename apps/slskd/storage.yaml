@@ -26,3 +26,17 @@ spec:
     requests:
       storage: 1Gi
   storageClassName: longhorn-retain
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: slskd-library-pvc
+  namespace: slskd
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: "share"
+  volumeName: slskd-library-pv
