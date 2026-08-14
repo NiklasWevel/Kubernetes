@@ -10,5 +10,5 @@ spec:
     - match: Host(`slskd.wevelsiep.com`)
       kind: Rule
       services:
-        - name: slskd-http
+        - name: slskd
           port: 80
