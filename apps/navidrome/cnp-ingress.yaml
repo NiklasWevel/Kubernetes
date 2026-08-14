@@ -14,3 +14,20 @@ spec:
         - ports:
             - port: "4533"
               protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-needle-ingress
+  namespace: navidrome
+spec:
+  endpointSelector: {}
+
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: droppedneedle
+      toPorts:
+        - ports:
+            - port: "4533"
+              protocol: TCP
