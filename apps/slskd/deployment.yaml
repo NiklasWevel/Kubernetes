@@ -97,17 +97,22 @@ spec:
             capabilities:
               drop:
                 - ALL
-          readinessProbe:
+          startupProbe:
             httpGet:
               path: /health
               port: 5030
             initialDelaySeconds: 15
             periodSeconds: 10
+            failureThreshold: 90
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5030
+            periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /health
               port: 5030
-            initialDelaySeconds: 30
             periodSeconds: 10
             failureThreshold: 3
 
