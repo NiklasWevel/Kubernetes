@@ -119,6 +119,9 @@ spec:
               mountPath: /app
             - name: slskd-downloads
               mountPath: /downloads
+            - name: slskd-library
+              mountPath: /music
+              readOnly: true
             - name: dotnet-tmp
               mountPath: /.net
             - name: tmp
@@ -134,6 +137,9 @@ spec:
         - name: slskd-downloads
           persistentVolumeClaim:
             claimName: slskd-downloads-pvc
+        - name: slskd-library
+          persistentVolumeClaim:
+            claimName: slskd-library-pvc
         - name: dotnet-tmp
           emptyDir: {}
         - name: tmp
