@@ -26,7 +26,7 @@ spec:
   ingress:
     - fromEndpoints:
         - matchLabels:
-            io.kubernetes.pod.namespace: droppedneedle
+            io.kubernetes.pod.namespace: needle
       toPorts:
         - ports:
             - port: "4533"
