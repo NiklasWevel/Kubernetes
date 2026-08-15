@@ -22,6 +22,7 @@ spec:
             fsGroup: 1000
             seccompProfile:
               type: RuntimeDefault
+
           initContainers:
             - name: pot-provider
               image: brainicism/bgutil-ytdlp-pot-provider:1.3.1
@@ -49,6 +50,7 @@ spec:
                 capabilities:
                   drop:
                     - ALL
+
           containers:
             - name: yt-dlp
               image: git.wevelsiep.com/niklas/yt-dlp:latest
@@ -61,6 +63,9 @@ spec:
                   cpu: "500m"
                   memory: "512Mi"
               command: ["/bin/sh", "/scripts/ytdlp.sh"]
+              env:
+                - name: DENO_DIR
+                  value: /cache/deno
               securityContext:
                 allowPrivilegeEscalation: false
                 readOnlyRootFilesystem: true
