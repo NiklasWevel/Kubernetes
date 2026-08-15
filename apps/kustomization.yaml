@@ -5,6 +5,7 @@ resources:
   - bentopdf
   - deemix
   - downtify
+  - droppedneedle
   - gallery-dl
   - gitea-runner
   - houndarr
