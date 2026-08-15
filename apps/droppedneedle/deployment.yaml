@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: needle
+  namespace: needle
+  labels:
+    app: needle
+
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: needle
+  template:
+    metadata:
+      labels:
+        app: needle
+    spec:
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+
+      containers:
+        - name: needle
+          image: ghcr.io/droppedneedle/droppedneedle:v2.4.1
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: needle-env
+          ports:
+            - containerPort: 8688
+          resources:
+            requests:
+              cpu: "150m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "512Mi"
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8688
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8688
+            initialDelaySeconds: 90
+            periodSeconds: 10
+            failureThreshold: 3
+          volumeMounts:
+            - name: needle-cache
+              mountPath: /app/cache
+            - name: needle-data
+              mountPath: /music
+              subPath: 40-49_Medien/45_Musik
+            - name: needle-data
+              mountPath: /downloads
+              subPath: 50-59_Downloads/52_Downloads/52.02_Slskd
+            - name: needle-db
+              mountPath: /app/config
+
+      volumes:
+        - name: needle-cache
+          persistentVolumeClaim:
+            claimName: needle-config-pvc
+        - name: needle-data
+          persistentVolumeClaim:
+            claimName: needle-data-pvc
+        - name: needle-db
+          persistentVolumeClaim:
+            claimName: needle-db-pvc
+

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: needle-env
+  namespace: needle
+data:
+  PUID: "1000"
+  PGID: "1000"
+  PORT: "8688"
+  TZ: "Europe/Berlin"
+  SLSKD_DOWNLOADS_PATH: "/downloads"
