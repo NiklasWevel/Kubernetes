@@ -28,7 +28,7 @@ spec:
 
       containers:
         - name: homepage
-          image: docker.wevelsiep.com/gethomepage/homepage:v1.13.2
+          image: docker.wevelsiep.com/gethomepage/homepage:v2.0.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
