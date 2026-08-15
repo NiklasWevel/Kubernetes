@@ -1,0 +1,25 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-egress-needle
+  namespace: needle
+spec:
+  endpointSelector: {}
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: lidarr
+            app: lidarr
+      toPorts:
+        - ports:
+            - port: "8686"
+              protocol: TCP
+
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: navidrome
+            app: navidrome
+      toPorts:
+        - ports:
+            - port: "4533"
+              protocol: TCP
