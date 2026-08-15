@@ -24,8 +24,8 @@ spec:
               type: RuntimeDefault
           containers:
             - name: gallery-dl
-              image: git.wevelsiep.com/niklas/gallery-dl:sha-4d9b492
-              imagePullPolicy: IfNotPresent
+              image: git.wevelsiep.com/niklas/gallery-dl:latest
+              imagePullPolicy: Always
               resources:
                 requests:
                   cpu: "100m"

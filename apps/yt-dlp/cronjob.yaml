@@ -22,9 +22,37 @@ spec:
             fsGroup: 1000
             seccompProfile:
               type: RuntimeDefault
+          initContainers:
+            - name: pot-provider
+              image: brainicism/bgutil-ytdlp-pot-provider:1.3.1
+              restartPolicy: Always
+              ports:
+                - containerPort: 4416
+              startupProbe:
+                tcpSocket:
+                  port: 4416
+                periodSeconds: 2
+                failureThreshold: 15
+              readinessProbe:
+                tcpSocket:
+                  port: 4416
+                periodSeconds: 5
+              resources:
+                requests:
+                  cpu: "50m"
+                  memory: "64Mi"
+                limits:
+                  cpu: "250m"
+                  memory: "256Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
           containers:
             - name: yt-dlp
-              image: docker.wevelsiep.com/jauderho/yt-dlp:2026.07.04
+              image: git.wevelsiep.com/niklas/yt-dlp:latest
+              imagePullPolicy: Always
               resources:
                 requests:
                   cpu: "100m"
