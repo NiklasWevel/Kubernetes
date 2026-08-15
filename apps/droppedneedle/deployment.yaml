@@ -84,4 +84,3 @@ spec:
         - name: needle-db
           persistentVolumeClaim:
             claimName: needle-db-pvc
-
