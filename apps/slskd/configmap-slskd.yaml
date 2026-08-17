@@ -43,11 +43,12 @@ data:
       incomplete: /downloads/incomplete
       downloads: /downloads/finished
     shares:
-      directories: []
+      directories:
+        - /music
       filters: []
       cache:
-        storage_mode: memory
-        workers: 16
+        storage_mode: disk
+        workers: 4
         retention: ~
     soulseek:
       address: vps.slsknet.org

@@ -28,7 +28,7 @@ spec:
 
       containers:
         - name: downtify
-          image: ghcr.io/henriquesebastiao/downtify:2.9.1
+          image: ghcr.io/henriquesebastiao/downtify:2.10.1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
