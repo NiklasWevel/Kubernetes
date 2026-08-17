@@ -26,7 +26,7 @@ spec:
 
       containers:
         - name: needle
-          image: ghcr.io/droppedneedle/droppedneedle:v2.4.1
+          image: ghcr.io/droppedneedle/droppedneedle:v2.6.0
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
@@ -73,6 +73,8 @@ spec:
               subPath: 50-59_Downloads/52_Downloads/52.02_Slskd
             - name: needle-db
               mountPath: /app/config
+            - name: needle-tmp
+              mountPath: /tmp
 
       volumes:
         - name: needle-cache
@@ -84,3 +86,6 @@ spec:
         - name: needle-db
           persistentVolumeClaim:
             claimName: needle-db-pvc
+        - name: needle-tmp
+          emptyDir: {}
+
