@@ -14,7 +14,7 @@ data:
       --break-per-input \
       --ignore-errors \
       --sponsorblock-remove default,-filler \
-      --extractor-args "youtube:player_client=web_safari,mweb,tv" \
+      --extractor-args "youtube:player_client=web,web_safari,mweb,tv" \
       --cookies /data/cookies.txt \
       --download-archive /data/archivplaylistmp3.txt \
       --paths home:/music \
@@ -28,7 +28,7 @@ data:
       --break-per-input \
       --ignore-errors \
       --sponsorblock-remove default,-filler \
-      --extractor-args "youtube:player_client=web_safari,mweb,tv" \
+      --extractor-args "youtube:player_client=web,web_safari,mweb,tv" \
       --cookies /data/cookies.txt \
       --download-archive /data/archivplaylistmp4.txt \
       --paths home:/video \
@@ -42,7 +42,7 @@ data:
       --break-per-input \
       --ignore-errors \
       --sponsorblock-remove default,-filler \
-      --extractor-args "youtube:player_client=web_safari,mweb,tv" \
+      --extractor-args "youtube:player_client=web,web_safari,mweb,tv" \
       --dateafter now-7days --match-filter "duration>180 & !is_live & !was_live" \
       --cookies /data/cookies.txt \
       --download-archive /data/archivchannelmp4.txt \
@@ -57,7 +57,7 @@ data:
       --break-per-input \
       --ignore-errors \
       --sponsorblock-remove default,-filler \
-      --extractor-args "youtube:player_client=web_safari,mweb,tv" \
+      --extractor-args "youtube:player_client=web,web_safari,mweb,tv" \
       --dateafter now-7days --match-filter "duration>120" \
       --cookies /data/cookies.txt \
       --download-archive /data/archivchannelmp3.txt \
