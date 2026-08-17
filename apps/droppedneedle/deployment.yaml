@@ -88,4 +88,3 @@ spec:
             claimName: needle-db-pvc
         - name: needle-tmp
           emptyDir: {}
-
