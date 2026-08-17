@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mp3-tagger-script
+  namespace: mp3-tagger
+data:
+  tag.py: |
+    import logging
+    import os
+    import eyed3
+
+    eyed3.log.setLevel(logging.ERROR)
+
+    BASE_PATH = "/music"
+
+    for artist in sorted(os.listdir(BASE_PATH)):
+        artist_path = os.path.join(BASE_PATH, artist)
+        if not os.path.isdir(artist_path):
+            continue
+
+        for root, _, files in os.walk(artist_path):
+            for name in files:
+                if not name.lower().endswith(".mp3"):
+                    continue
+
+                path = os.path.join(root, name)
+
+                try:
+                    audio = eyed3.load(path)
+                    if audio is None:
+                        print(f"skip (unreadable): {path}")
+                        continue
+
+                    if audio.tag is None:
+                        audio.initTag()
+
+                    if audio.tag.artist == artist:
+                        continue
+
+                    audio.tag.artist = artist
+                    audio.tag.save()
+                    print(f"tagged: {path} -> {artist}")
+                except Exception as e:
+                    print(f"error: {path}: {e}")

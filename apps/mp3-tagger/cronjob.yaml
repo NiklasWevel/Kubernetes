@@ -1,0 +1,62 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: mp3-tagger
+  namespace: mp3-tagger
+spec:
+  schedule: "0 15 * * *"
+  timeZone: "Europe/Berlin"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 5
+  failedJobsHistoryLimit: 5
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          enableServiceLinks: false
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            seccompProfile:
+              type: RuntimeDefault
+          containers:
+            - name: mp3-tagger
+              image: python:3.12-slim
+              resources:
+                requests:
+                  cpu: "100m"
+                  memory: "128Mi"
+                limits:
+                  cpu: "500m"
+                  memory: "256Mi"
+              command: ["/bin/sh", "-c"]
+              args:
+                - |
+                  pip install --quiet --no-cache-dir --target=/tmp/deps eyed3
+                  PYTHONPATH=/tmp/deps python3 -u /scripts/tag.py
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop:
+                    - ALL
+              volumeMounts:
+                - name: mp3-tagger-script
+                  mountPath: /scripts
+                - name: music
+                  mountPath: /music
+                  subPath: 40-49_Medien/45_Musik
+                - name: tmp
+                  mountPath: /tmp
+          volumes:
+            - name: mp3-tagger-script
+              configMap:
+                name: mp3-tagger-script
+            - name: music
+              persistentVolumeClaim:
+                claimName: mp3-tagger-pvc
+            - name: tmp
+              emptyDir: {}
