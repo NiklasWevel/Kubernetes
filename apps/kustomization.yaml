@@ -12,6 +12,7 @@ resources:
   - immich
   - lidarr
   - linkwarden
+  - mp3-tagger
   - navidrome
   - ollama
   - openwebui
