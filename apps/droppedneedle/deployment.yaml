@@ -36,10 +36,10 @@ spec:
           resources:
             requests:
               cpu: "150m"
-              memory: "256Mi"
+              memory: "512Mi"
             limits:
               cpu: "1"
-              memory: "512Mi"
+              memory: "1Gi"
           securityContext:
             runAsNonRoot: true
             allowPrivilegeEscalation: false
@@ -55,12 +55,15 @@ spec:
               port: 8688
             initialDelaySeconds: 30
             periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
           livenessProbe:
             httpGet:
               path: /health
               port: 8688
             initialDelaySeconds: 90
-            periodSeconds: 10
+            periodSeconds: 20
+            timeoutSeconds: 5
             failureThreshold: 3
           volumeMounts:
             - name: needle-cache
