@@ -34,10 +34,14 @@ data:
                     if audio.tag is None:
                         audio.initTag()
 
-                    if audio.tag.artist == artist:
+                    if (
+                        audio.tag.artist == artist
+                        and audio.tag.album_artist == artist
+                    ):
                         continue
 
                     audio.tag.artist = artist
+                    audio.tag.album_artist = artist
                     audio.tag.save()
                     print(f"tagged: {path} -> {artist}")
                 except Exception as e:
