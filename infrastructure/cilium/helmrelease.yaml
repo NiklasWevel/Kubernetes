@@ -38,7 +38,7 @@ spec:
           enabled: true
           method: cronJob
           schedule: "0 3 1 * *"
-          certValidityDuration: 1095
+          certValidityDuration: 365
 
     externalIPs:
       enabled: true
