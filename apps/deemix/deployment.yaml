@@ -28,7 +28,7 @@ spec:
 
       containers:
         - name: deemix
-          image: ghcr.io/bambanah/deemix:v4.6.0
+          image: ghcr.io/bambanah/deemix:v4.7.0
           imagePullPolicy: IfNotPresent
           command: ["node", "/app/packages/webui/dist/main.js"]
           ports:
