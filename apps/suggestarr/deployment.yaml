@@ -29,7 +29,7 @@ spec:
 
       containers:
         - name: suggestarr
-          image: ciuse99/suggestarr:v2.12.0
+          image: ciuse99/suggestarr:v2.13.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5000
