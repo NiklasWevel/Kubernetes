@@ -28,7 +28,7 @@ spec:
 
       containers:
         - name: openwebui
-          image: ghcr.io/open-webui/open-webui:v0.11.1
+          image: ghcr.io/open-webui/open-webui:v0.11.3
           imagePullPolicy: IfNotPresent
           envFrom:
             - secretRef:
