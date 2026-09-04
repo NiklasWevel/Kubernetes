@@ -13,6 +13,7 @@
   ],
   "schedule": ["before 8am"],
   "timezone": "Europe/Berlin",
+  "prHourlyLimit": 0,
   "commitMessageAction": "update",
   "packageRules": [
     {
