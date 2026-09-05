@@ -39,6 +39,18 @@ spec:
               value: "-1"
           ports:
             - containerPort: 11434
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - /bin/sh
+                  - -c
+                  - |
+                    for i in $(seq 1 60); do
+                      ollama ps >/dev/null 2>&1 && break
+                      sleep 5
+                    done
+                    ollama run qwen3:4b-instruct "" >/dev/null 2>&1 || true
           resources:
             requests:
               cpu: "150m"
