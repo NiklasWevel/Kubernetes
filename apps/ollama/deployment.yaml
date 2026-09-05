@@ -32,6 +32,11 @@ spec:
         - name: ollama
           image: docker.wevelsiep.com/ollama/ollama:0.33.3
           imagePullPolicy: IfNotPresent
+          env:
+            - name: OLLAMA_CONTEXT_LENGTH
+              value: "8192"
+            - name: OLLAMA_KEEP_ALIVE
+              value: "-1"
           ports:
             - containerPort: 11434
           resources:
