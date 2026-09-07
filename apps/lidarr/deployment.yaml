@@ -30,7 +30,7 @@ spec:
 
       containers:
         - name: lidarr
-          image: ghcr.io/home-operations/lidarr:3.1.4
+          image: ghcr.io/home-operations/lidarr:3.1.5
           imagePullPolicy: IfNotPresent
           envFrom:
             - secretRef:
