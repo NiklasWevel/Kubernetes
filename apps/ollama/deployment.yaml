@@ -30,7 +30,7 @@ spec:
 
       containers:
         - name: ollama
-          image: docker.wevelsiep.com/ollama/ollama:0.33.3
+          image: docker.wevelsiep.com/ollama/ollama:0.34.0
           imagePullPolicy: IfNotPresent
           env:
             - name: OLLAMA_CONTEXT_LENGTH
