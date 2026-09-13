@@ -43,7 +43,7 @@ spec:
             - name: PROWLARR__SERVER__ALLOWEDHOSTS
               value: "*"
             - name: PROWLARR__SERVER__TRUSTEDNETWORKS
-              value: 10.42.0.0/16          
+              value: 10.42.0.0/16
             - name: PROWLARR__LOG__LEVEL
               value: info
             - name: PROWLARR__POSTGRES__HOST
@@ -89,7 +89,7 @@ spec:
               mountPath: /config
             - name: tmp
               mountPath: /tmp
-              
+
       volumes:
         - name: prowlarr-config
           emptyDir: {}
