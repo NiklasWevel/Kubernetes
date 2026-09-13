@@ -42,6 +42,10 @@ spec:
               value: Forms
             - name: LIDARR__AUTH__REQUIRED
               value: DisabledForLocalAddresses
+            - name: LIDARR__SERVER__ALLOWEDHOSTS
+              value: "*"
+            - name: LIDARR__SERVER__TRUSTEDNETWORKS
+              value: 10.42.0.0/16
             - name: LIDARR__LOG__LEVEL
               value: info
             - name: LIDARR__POSTGRES__HOST

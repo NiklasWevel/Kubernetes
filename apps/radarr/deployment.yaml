@@ -41,6 +41,10 @@ spec:
               value: Forms
             - name: RADARR__AUTH__REQUIRED
               value: DisabledForLocalAddresses
+            - name: RADARR__SERVER__ALLOWEDHOSTS
+              value: "*"
+            - name: RADARR__SERVER__TRUSTEDNETWORKS
+              value: 10.42.0.0/16           
             - name: RADARR__LOG__LEVEL
               value: info
             - name: RADARR__POSTGRES__HOST
