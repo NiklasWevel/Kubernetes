@@ -92,7 +92,7 @@ spec:
               mountPath: /downloads
             - name: tmp
               mountPath: /tmp
-              
+
       volumes:
         - name: radarr-config
           emptyDir: {}

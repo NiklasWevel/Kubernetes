@@ -85,7 +85,7 @@ spec:
               mountPath: /config
             - name: tmp
               mountPath: /tmp
-              
+
       volumes:
         - name: prowlarr-config
           emptyDir: {}

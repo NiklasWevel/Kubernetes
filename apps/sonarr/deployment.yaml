@@ -90,7 +90,7 @@ spec:
               mountPath: /downloads
             - name: tmp
               mountPath: /tmp
-              
+
       volumes:
         - name: sonarr-config
           emptyDir: {}
