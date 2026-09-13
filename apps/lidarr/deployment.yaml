@@ -91,6 +91,8 @@ spec:
               mountPath: /media
             - name: lidarr-seedbox
               mountPath: /downloads
+            - name: tmp
+              mountPath: /tmp
 
       volumes:
         - name: lidarr-config
@@ -104,3 +106,5 @@ spec:
         - name: lidarr-seedbox
           persistentVolumeClaim:
             claimName: lidarr-seedbox-pvc
+        - name: tmp
+          emptyDir: {}
