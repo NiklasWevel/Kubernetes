@@ -88,6 +88,8 @@ spec:
               mountPath: /media
             - name: sonarr-seedbox
               mountPath: /downloads
+            - name: tmp
+              mountPath: /tmp
 
       volumes:
         - name: sonarr-config
@@ -101,3 +103,5 @@ spec:
         - name: sonarr-seedbox
           persistentVolumeClaim:
             claimName: sonarr-seedbox-pvc
+        - name: tmp
+          emptyDir: {}

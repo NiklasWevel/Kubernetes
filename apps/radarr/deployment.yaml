@@ -90,6 +90,8 @@ spec:
               mountPath: /media
             - name: radarr-seedbox
               mountPath: /downloads
+            - name: tmp
+              mountPath: /tmp
 
       volumes:
         - name: radarr-config
@@ -103,3 +105,5 @@ spec:
         - name: radarr-seedbox
           persistentVolumeClaim:
             claimName: radarr-seedbox-pvc
+        - name: tmp
+          emptyDir: {}
