@@ -41,6 +41,10 @@ spec:
               value: Forms
             - name: SONARR__AUTH__REQUIRED
               value: DisabledForLocalAddresses
+            - name: SONARR__SERVER__ALLOWEDHOSTS
+              value: "*"
+            - name: SONARR__SERVER__TRUSTEDNETWORKS
+              value: 10.42.0.0/16
             - name: SONARR__LOG__LEVEL
               value: info
             - name: SONARR__POSTGRES__HOST
