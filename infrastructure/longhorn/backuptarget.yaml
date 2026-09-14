@@ -4,5 +4,5 @@ metadata:
   name: default
   namespace: longhorn-system
 spec:
-  backupTargetURL: s3://longhorn-backup@garage/
+  backupTargetURL: s3://longhorn-backup@us-east-1/
   credentialSecret: longhorn-backup-secret
