@@ -7,5 +7,6 @@ resources:
   - namespace.yaml
   - secretstore.yaml
   - secret.yaml
+  - backuptarget.yaml
   - cnp-egress.yaml
   - recurringjob.yaml

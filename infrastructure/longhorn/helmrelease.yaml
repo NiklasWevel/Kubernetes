@@ -20,5 +20,3 @@ spec:
   values:
     defaultSettings:
       guaranteedInstanceManagerCPU: 5
-      backupTarget: s3://longhorn-backup@garage/
-      backupTargetCredentialSecret: longhorn-backup-secret
