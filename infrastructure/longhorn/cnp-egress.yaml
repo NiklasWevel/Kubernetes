@@ -1,0 +1,10 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-longhorn-egress
+  namespace: longhorn-system
+spec:
+  endpointSelector: {}
+  egress:
+    - toEndpoints:
+        - {}

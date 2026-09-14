@@ -5,3 +5,7 @@ resources:
   - helmrepository.yaml
   - ingress.yaml
   - namespace.yaml
+  - secretstore.yaml
+  - secret.yaml
+  - cnp-egress.yaml
+  - recurringjob.yaml
