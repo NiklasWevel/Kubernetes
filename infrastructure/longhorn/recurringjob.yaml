@@ -1,0 +1,13 @@
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: backup-critical
+  namespace: longhorn-system
+spec:
+  name: backup-critical
+  task: backup
+  groups:
+    - critical
+  cron: "0 2 * * *"
+  retain: 7
+  concurrency: 2
