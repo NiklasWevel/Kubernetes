@@ -9,4 +9,4 @@ resources:
   - secret.yaml
   - backuptarget.yaml
   - cnp-egress.yaml
-  - recurringjob.yaml
+  #- recurringjob.yaml
