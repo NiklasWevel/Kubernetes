@@ -4,5 +4,6 @@ resources:
   - cluster-policy-patch.yaml
   - configmap.yaml
   - helmrelease.yaml
+  - runtimeclass.yaml
   - helmrepository.yaml
   - namespace.yaml

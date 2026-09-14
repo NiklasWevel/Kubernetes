@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - ../cert-manager/namespace.yaml
   - ../external-secrets/namespace.yaml
+  - ../local-path/namespace.yaml
   - ../longhorn/namespace.yaml
   - ../nvidia/namespace.yaml
   - ../smb-csi/namespace.yaml

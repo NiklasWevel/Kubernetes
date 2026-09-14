@@ -1,46 +1,28 @@
-## 1. Add the NVIDIA repo
+# NVIDIA GPU on Talos
 
-```bash
-curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
+The NVIDIA driver and the container toolkit are **not** managed by the gpu-operator on Talos.
+Both are baked into the node image as system extensions (worker Image Factory schematic):
 
-curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
-  sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
-  sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
-```
+- `siderolabs/nonfree-kmod-nvidia-production`
+- `siderolabs/nvidia-container-toolkit-production`
 
----
+The kernel modules (`nvidia`, `nvidia_uvm`, `nvidia_drm`, `nvidia_modeset`) are loaded via the
+worker machine config, which is maintained outside of this repository.
 
-## 2. Update packages and install NVIDIA components
+The gpu-operator therefore runs with `driver.enabled: false` and `toolkit.enabled: false` and only
+manages the device plugin (with the time-slicing config from `configmap.yaml`), DCGM exporter and
+node feature discovery. The `nvidia` RuntimeClass is provided by `runtimeclass.yaml` in this
+directory; the matching containerd runtime comes from the toolkit extension on the host.
 
-```bash
-sudo apt update
-sudo apt install -y nvidia-driver-550-server nvidia-container-toolkit nvidia-container-runtime
-```
+## Upgrading the driver
 
----
+Driver upgrades happen through a new Image Factory schematic / Talos upgrade
+(`talosctl upgrade --image factory.talos.dev/installer/<schematic>:<version>`), not through apt or
+the operator.
 
-## 3. Remove K3s Containerd config files (K3s will regenerate them when restarting)
+## Test
 
-```bash
-sudo rm /var/lib/rancher/k3s/agent/etc/containerd/config.toml.tmpl
-sudo rm /var/lib/rancher/k3s/agent/etc/containerd/config.toml
-```
-
----
-
-## 4. Restart the K3s agent
-
-```bash
-sudo systemctl restart k3s-agent
-```
-
-> After the restart, K3s will regenerate the `config.toml` and detect the NVIDIA runtime if correctly installed.
-
----
-
-## 5.Test
-
-You can now deploy a test pod that uses the GPU.
+You can deploy a test pod that uses the GPU:
 
 ```yaml
 apiVersion: v1
@@ -69,3 +51,6 @@ spec:
     nvidia.com/gpu.present: "true"
   runtimeClassName: nvidia
 ```
+
+With time-slicing enabled (`configmap.yaml`, 4 replicas) each physical GPU shows up as
+4 allocatable `nvidia.com/gpu` units.

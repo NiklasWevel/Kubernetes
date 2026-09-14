@@ -37,7 +37,7 @@ This is my personal Kubernetes learning project running on my home infrastructur
 
 These components are required outside of the Kubernetes cluster:
 
-1. An NFS server for persistent volumes  
+1. An SMB server for persistent volumes  
 2. A [HashiCorp Vault](https://www.vaultproject.io/) instance for secrets management  
 3. [Caddy](https://caddyserver.com/) as a reverse proxy to reach the cluster and other homelab services in the first place
 4. A public domain to enable SSL via DNS challenge (in my case Cloudflare + cert-manager)
@@ -52,17 +52,17 @@ These components are optional:
 
 Currently, the cluster is running on three virtual machines in my three node Proxmox setup:
 
-| Hostname     | Cores | RAM   | GPU       |
-|--------------|-------|-------|-----------|
-| K3-CP-01     | 10    | 40GB  |           |
-| K3-Node-01   | 5     | 48GB  | RTX A2000 |
-| K3-Node-02   | 5     | 48GB  | RTX A2000 |
+| Hostname      | Cores | RAM   | GPU       |
+|---------------|-------|-------|-----------|
+| talos-cp-01   | 10    | 40GB  |           |
+| talos-node-01 | 5     | 48GB  | RTX A2000 |
+| talos-node-02 | 5     | 48GB  | RTX A2000 |
 
 
 ## Networking
 
 - The cluster runs in an isolated VLAN.
-- The support components like NFS, reverse proxy, vault etc. run in the same VLAN.
+- The support components like SMB, reverse proxy, vault etc. run in the same VLAN.
 - ~~All hostnames in this repository are used internally - the cluster is not accessible from the internet.~~
 - Selected services are reachable from the internet through Traefik, mTLS and/or authenticated via PocketID.
 - [Traefik](https://traefik.io/traefik/) acts as the reverse proxy and handles TLS termination for incoming traffic to the cluster.
@@ -77,16 +77,37 @@ NFS/SMB storage is not part of this repository:
 
 ## Cluster Initialization
 
-### Install K3s (Control Plane)
+The cluster runs on [Talos Linux](https://www.talos.dev/). The Image Factory schematics and the
+machine config patches are not part of this repository:
+
+1. They depend heavily on the specific environment
+
+2. I prefer not to publicly expose my infrastructure details
+
+### Install Talos
 
 ```bash
-curl -sfL https://get.k3s.io | sh -s - \
-  --flannel-backend=none \
-  --disable-kube-proxy \
-  --disable servicelb \
-  --disable-network-policy \
-  --disable traefik \
-  --cluster-init
+talosctl gen config <cluster-name> https://<controlplane-ip>:6443 \
+  --config-patch @patch-all.yaml \
+  --config-patch-control-plane @patch-controlplane.yaml \
+  --config-patch-worker @patch-worker.yaml
+
+talosctl apply-config --insecure -n <controlplane-ip> --file controlplane.yaml
+talosctl apply-config --insecure -n <node-ip> --file worker.yaml
+
+talosctl bootstrap -n <controlplane-ip>
+talosctl kubeconfig -n <controlplane-ip>
+```
+
+### Install Cilium (once, adopted by Flux afterwards)
+
+Talos ships without CNI (`cni: none`), but Flux needs a CNI to run — install Cilium once with
+the exact values from [infrastructure/cilium/helmrelease.yaml](infrastructure/cilium/helmrelease.yaml),
+the Flux HelmRelease adopts it on the first reconcile:
+
+```bash
+helm template cilium cilium/cilium --version 1.20.1 \
+  --namespace kube-system -f cilium-bootstrap-values.yaml | kubectl apply -f -
 ```
 
 ### Bootstrap FluxCD
