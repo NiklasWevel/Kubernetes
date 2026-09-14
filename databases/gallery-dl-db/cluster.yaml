@@ -17,11 +17,18 @@ spec:
     storageClass: "local-path-delete"
     size: 10Gi
 
-  plugins:
-    - name: barman-cloud.cloudnative-pg.io
-      isWALArchiver: true
-      parameters:
-        barmanObjectName: s3-garage
+  bootstrap:
+    recovery:
+      source: s3-garage
+      recoveryTarget:
+        backupID: "REPLACE_WITH_BACKUP_ID"
+
+  externalClusters:
+    - name: s3-garage
+      plugin:
+        name: barman-cloud.cloudnative-pg.io
+        parameters:
+          barmanObjectName: s3-garage
 
   superuserSecret:
     name: postgres-superlogin

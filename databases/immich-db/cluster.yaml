@@ -22,18 +22,17 @@ spec:
       - "vchord.so"
 
   bootstrap:
-    initdb:
-      database: immich-db
-      owner: immich-user
-      postInitApplicationSQL:
-        - CREATE EXTENSION IF NOT EXISTS vchord CASCADE;
-        - CREATE EXTENSION IF NOT EXISTS earthdistance CASCADE;
+    recovery:
+      source: s3-garage
+      recoveryTarget:
+        backupID: "REPLACE_WITH_BACKUP_ID"
 
-  plugins:
-    - name: barman-cloud.cloudnative-pg.io
-      isWALArchiver: true
-      parameters:
-        barmanObjectName: s3-garage
+  externalClusters:
+    - name: s3-garage
+      plugin:
+        name: barman-cloud.cloudnative-pg.io
+        parameters:
+          barmanObjectName: s3-garage
 
   superuserSecret:
     name: postgres-superlogin
