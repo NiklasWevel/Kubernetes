@@ -28,7 +28,7 @@ spec:
 
       containers:
         - name: cloudflare-ddns
-          image: docker.wevelsiep.com/favonia/cloudflare-ddns:1.17.0
+          image: docker.wevelsiep.com/favonia/cloudflare-ddns:1.17.1
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
