@@ -24,7 +24,7 @@ spec:
 
       containers:
         - name: wikijs
-          image: ghcr.io/requarks/wiki:2.5.314
+          image: ghcr.io/requarks/wiki:2.5.315
           imagePullPolicy: IfNotPresent
           envFrom:
             - secretRef:
