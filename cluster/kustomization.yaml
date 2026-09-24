@@ -8,8 +8,10 @@ resources:
   - infrastructure-cilium-ingress.yaml
   - infrastructure-clusterrolebinding.yaml
   - infrastructure-longhorn.yaml
+  - infrastructure-longhorn-config.yaml
   - infrastructure-local-path.yaml
   - infrastructure-nvidia.yaml
+  - infrastructure-nvidia-config.yaml
   - infrastructure-intel-gpu.yaml
   - infrastructure-external-secrets.yaml
   - infrastructure-smb-csi.yaml

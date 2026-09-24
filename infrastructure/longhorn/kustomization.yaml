@@ -3,10 +3,8 @@ kind: Kustomization
 resources:
   - helmrelease.yaml
   - helmrepository.yaml
-  - ingress.yaml
   - namespace.yaml
   - secretstore.yaml
   - secret.yaml
-  - backuptarget.yaml
   - cnp-egress.yaml
   #- recurringjob.yaml
