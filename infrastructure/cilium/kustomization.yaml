@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
   - helmrelease.yaml
   - helmrepository.yaml
-  - ingress.yaml
   - ip-pool.yaml
   - kustomization-network-policies.yaml
   - l2announcement.yaml

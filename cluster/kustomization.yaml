@@ -5,6 +5,7 @@ resources:
   - repository-kuberneteshidden.yaml
   - infrastructure-namespaces.yaml
   - infrastructure-cilium.yaml
+  - infrastructure-cilium-ingress.yaml
   - infrastructure-clusterrolebinding.yaml
   - infrastructure-longhorn.yaml
   - infrastructure-local-path.yaml
