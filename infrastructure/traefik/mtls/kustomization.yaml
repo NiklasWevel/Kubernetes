@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: traefik
 resources:
   - mtls-cert-niklas-pixel.yaml
+  - mtls-cert-niklas-desktop.yaml
   - mtls-client-ca-certificate.yaml
   - mtls-client-ca-issuer.yaml
   - tlsoption-mtls-required.yaml
