@@ -4,6 +4,7 @@ metadata:
   name: apps-hidden
   namespace: flux-system
 spec:
+  suspend: true
   interval: 5m0s
   path: ./apps
   prune: true
