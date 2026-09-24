@@ -13,7 +13,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: traefik
-        namespace: flux-system
+        namespace: traefik
   install:
     crds: Create
   upgrade:
