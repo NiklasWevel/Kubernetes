@@ -9,7 +9,7 @@ spec:
   resources:
     requests:
       storage: 10Gi
-  storageClassName: ""
+  storageClassName: share
   volumeName: radarr-pv
 ---
 apiVersion: v1
@@ -23,7 +23,7 @@ spec:
   resources:
     requests:
       storage: 10Gi
-  storageClassName: ""
+  storageClassName: share
   volumeName: radarr-media-pv
 ---
 apiVersion: v1
@@ -37,5 +37,5 @@ spec:
   resources:
     requests:
       storage: 10Gi
-  storageClassName: ""
+  storageClassName: share
   volumeName: radarr-seedbox-pv
