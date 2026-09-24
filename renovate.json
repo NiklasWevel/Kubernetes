@@ -42,6 +42,10 @@
       "matchDatasources": ["helm"],
       "matchUpdateTypes": ["patch"],
       "automerge": true
+    },
+    {
+      "matchDepNames": ["siderolabs/talos"],
+      "automerge": false
     }
   ],
   "kubernetes": {
@@ -62,6 +66,16 @@
       "versioningTemplate": "docker",
       "depNameTemplate": "{{depName}}",
       "autoReplaceStringTemplate": "image: docker.wevelsiep.com/{{depName}}:{{newValue}}"
+    },
+    {
+      "customType": "regex",
+      "description": "Track Talos releases via the Image Factory installer reference",
+      "managerFilePatterns": ["/^talos/patches/.+\\.ya?ml$/"],
+      "matchStrings": [
+        "factory\\.talos\\.dev/(?:installer|metal-installer)/[a-f0-9]+:(?<currentValue>v[\\d.]+)"
+      ],
+      "depNameTemplate": "siderolabs/talos",
+      "datasourceTemplate": "github-releases"
     }
   ]
 }

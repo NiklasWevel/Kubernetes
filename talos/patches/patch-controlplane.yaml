@@ -1,0 +1,38 @@
+apiVersion: v1alpha1
+kind: HostnameConfig
+$patch: delete
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: talos-cp-01
+---
+apiVersion: v1alpha1
+kind: KubeNodeConfig
+$patch: delete
+---
+apiVersion: v1alpha1
+kind: KubeNodeConfig
+labels:
+  node-role.kubernetes.io/control-plane: ""
+---
+apiVersion: v1alpha1
+kind: KubeAuthenticationConfig
+configuration:
+  anonymous:
+    enabled: true
+    conditions:
+      - path: /livez
+      - path: /readyz
+      - path: /healthz
+      - path: /.well-known/openid-configuration
+      - path: /openid/v1/jwks
+  jwt: []
+---
+apiVersion: v1alpha1
+kind: UnattendedInstallConfig
+installer:
+  image: factory.talos.dev/metal-installer/88d1f7a5c4f1d3aba7df787c448c1d3d008ed29cfb34af53fa0df4336a56040b:v1.14.0
+provisioning:
+  diskSelector:
+    match: disk.dev_path == "/dev/sda"
+  wipe: false
