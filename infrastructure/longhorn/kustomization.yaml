@@ -7,4 +7,3 @@ resources:
   - secretstore.yaml
   - secret.yaml
   - cnp-egress.yaml
-  #- recurringjob.yaml

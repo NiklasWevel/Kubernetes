@@ -8,6 +8,6 @@ spec:
   task: backup
   groups:
     - critical
-  cron: "0 2 * * *"
+  cron: "0 5 * * *"
   retain: 7
   concurrency: 2
