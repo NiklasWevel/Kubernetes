@@ -3,11 +3,11 @@ kind: Kustomization
 resources:
   - flux-system/
   - repository-kuberneteshidden.yaml
-  - infrastructure-system-upgrade.yaml
   - infrastructure-namespaces.yaml
   - infrastructure-cilium.yaml
   - infrastructure-clusterrolebinding.yaml
   - infrastructure-longhorn.yaml
+  - infrastructure-local-path.yaml
   - infrastructure-nvidia.yaml
   - infrastructure-intel-gpu.yaml
   - infrastructure-external-secrets.yaml

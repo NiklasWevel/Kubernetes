@@ -18,8 +18,6 @@ spec:
       labels:
         app: immich-server
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: k3master01
       enableServiceLinks: false
       securityContext:
         runAsUser: 1000
