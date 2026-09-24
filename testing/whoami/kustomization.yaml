@@ -3,5 +3,8 @@ kind: Kustomization
 resources:
   - deployment.yaml
   - ingress.yaml
+  - middleware.yaml
   - namespace.yaml
+  - secret.yaml
+  - secretstore.yaml
   - service.yaml
