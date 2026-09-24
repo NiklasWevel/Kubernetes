@@ -1,0 +1,16 @@
+machine:
+  kernel:
+    modules:
+      - name: nvidia
+      - name: nvidia_uvm
+      - name: nvidia_drm
+      - name: nvidia_modeset
+---
+apiVersion: v1alpha1
+kind: UnattendedInstallConfig
+installer:
+  image: factory.talos.dev/metal-installer/9a8df76df029257d6d1385ae9a72d79bc995af269f3521b5723b883f3407174a:v1.14.0
+provisioning:
+  diskSelector:
+    match: disk.dev_path == "/dev/sda"
+  wipe: false

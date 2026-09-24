@@ -1,0 +1,57 @@
+k8sServiceHost: localhost
+k8sServicePort: 7445
+kubeProxyReplacement: true
+
+securityContext:
+  capabilities:
+    ciliumAgent:
+      - CHOWN
+      - KILL
+      - NET_ADMIN
+      - NET_RAW
+      - IPC_LOCK
+      - SYS_ADMIN
+      - SYS_RESOURCE
+      - PERFMON
+      - BPF
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+    cleanCiliumState:
+      - NET_ADMIN
+      - SYS_ADMIN
+      - SYS_RESOURCE
+
+cgroup:
+  autoMount:
+    enabled: false
+  hostRoot: /sys/fs/cgroup
+
+rollOutPods: true
+rollOutCiliumPods: true
+
+ipam:
+  mode: "kubernetes"
+hubble:
+  enabled: true
+  relay:
+    enabled: true
+  ui:
+    enabled: true
+  tls:
+    auto:
+      enabled: true
+      method: cronJob
+      schedule: "0 3 1 * *"
+      certValidityDuration: 365
+
+externalIPs:
+  enabled: true
+
+l2announcements:
+  enabled: true
+
+k8sClientRateLimit:
+  qps: 50
+  burst: 200

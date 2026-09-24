@@ -1,0 +1,45 @@
+machine:
+  kubelet:
+    image: ghcr.io/siderolabs/kubelet:v1.36.4
+    extraMounts:
+      - destination: /var/lib/longhorn
+        type: bind
+        source: /var/lib/longhorn
+        options:
+          - bind
+          - rshared
+          - rw
+      - destination: /var/mnt/local-path-provisioner
+        type: bind
+        source: /var/mnt/local-path-provisioner
+        options:
+          - bind
+          - rshared
+          - rw
+  registries:
+    mirrors:
+      docker.io:
+        endpoints:
+          - https://docker.wevelsiep.com
+cluster:
+  proxy:
+    disabled: true
+---
+apiVersion: v1alpha1
+kind: KubeletConfig
+$patch: delete
+---
+apiVersion: v1alpha1
+kind: KubeFlannelCNIConfig
+$patch: delete
+---
+apiVersion: v1alpha1
+kind: KubeProxyConfig
+$patch: delete
+---
+apiVersion: v1alpha1
+kind: KubeNetworkConfig
+podSubnets:
+  - 10.42.0.0/16
+serviceSubnets:
+  - 10.43.0.0/16

@@ -1,0 +1,3 @@
+creation_rules:
+  - path_regex: talos/secrets\.sops\.yaml$
+    age: age1ptuedjpu6qzk396hv3kpa46mp6mkenvh99d28qpkpsak0vwxdu7sl3tg2r
