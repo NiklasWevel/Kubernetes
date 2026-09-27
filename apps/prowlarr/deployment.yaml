@@ -41,7 +41,7 @@ spec:
             - name: PROWLARR__AUTH__REQUIRED
               value: DisabledForLocalAddresses
             - name: PROWLARR__SERVER__ALLOWEDHOSTS
-              value: "*"
+              value: prowlarr.wevelsiep.com,prowlarr.prowlarr,prowlarr.prowlarr.svc,prowlarr.prowlarr.svc.cluster.local,localhost
             - name: PROWLARR__SERVER__TRUSTEDNETWORKS
               value: 10.42.0.0/16
             - name: PROWLARR__LOG__LEVEL
@@ -75,12 +75,18 @@ spec:
             httpGet:
               path: /ping
               port: 9696
+              httpHeaders:
+                - name: Host
+                  value: localhost
             initialDelaySeconds: 15
             periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /ping
               port: 9696
+              httpHeaders:
+                - name: Host
+                  value: localhost
             initialDelaySeconds: 30
             periodSeconds: 10
             failureThreshold: 3

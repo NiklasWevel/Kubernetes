@@ -42,7 +42,7 @@ spec:
             - name: SONARR__AUTH__REQUIRED
               value: DisabledForLocalAddresses
             - name: SONARR__SERVER__ALLOWEDHOSTS
-              value: "*"
+              value: sonarr.wevelsiep.com,sonarr.sonarr,sonarr.sonarr.svc,sonarr.sonarr.svc.cluster.local,localhost
             - name: SONARR__SERVER__TRUSTEDNETWORKS
               value: 10.42.0.0/16
             - name: SONARR__LOG__LEVEL
@@ -76,6 +76,9 @@ spec:
             httpGet:
               path: /ping
               port: 8989
+              httpHeaders:
+                - name: Host
+                  value: localhost
             initialDelaySeconds: 15
             periodSeconds: 10
           livenessProbe:

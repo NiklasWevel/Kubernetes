@@ -42,7 +42,7 @@ spec:
             - name: RADARR__AUTH__REQUIRED
               value: DisabledForLocalAddresses
             - name: RADARR__SERVER__ALLOWEDHOSTS
-              value: "*"
+              value: radarr.wevelsiep.com,radarr.radarr,radarr.radarr.svc,radarr.radarr.svc.cluster.local,localhost
             - name: RADARR__SERVER__TRUSTEDNETWORKS
               value: 10.42.0.0/16
             - name: RADARR__LOG__LEVEL
@@ -76,12 +76,18 @@ spec:
             httpGet:
               path: /ping
               port: 7878
+              httpHeaders:
+                - name: Host
+                  value: localhost
             initialDelaySeconds: 15
             periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /ping
               port: 7878
+              httpHeaders:
+                - name: Host
+                  value: localhost
             initialDelaySeconds: 30
             periodSeconds: 10
             failureThreshold: 3

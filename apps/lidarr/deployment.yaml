@@ -43,7 +43,7 @@ spec:
             - name: LIDARR__AUTH__REQUIRED
               value: DisabledForLocalAddresses
             - name: LIDARR__SERVER__ALLOWEDHOSTS
-              value: "*"
+              value: lidarr.wevelsiep.com,lidarr.lidarr,lidarr.lidarr.svc,lidarr.lidarr.svc.cluster.local,localhost
             - name: LIDARR__SERVER__TRUSTEDNETWORKS
               value: 10.42.0.0/16
             - name: LIDARR__LOG__LEVEL
@@ -77,12 +77,18 @@ spec:
             httpGet:
               path: /ping
               port: 8686
+              httpHeaders:
+                - name: Host
+                  value: localhost
             initialDelaySeconds: 15
             periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /ping
               port: 8686
+              httpHeaders:
+                - name: Host
+                  value: localhost
             initialDelaySeconds: 30
             periodSeconds: 10
             failureThreshold: 3
