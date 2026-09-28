@@ -46,6 +46,11 @@
     {
       "matchDepNames": ["siderolabs/talos"],
       "automerge": false
+    },
+    {
+      "description": "kubelet must match the running control plane: merge only after talosctl upgrade-k8s, together with --kubernetes-version",
+      "matchPackageNames": ["ghcr.io/siderolabs/kubelet"],
+      "automerge": false
     }
   ],
   "kubernetes": {
