@@ -123,6 +123,9 @@ alertmanager:
         - matchers:
             - alertname = Watchdog
           receiver: "null"
+        - matchers:
+            - alertname = InfoInhibitor
+          receiver: "null"
     receivers:
       - name: "null"
       - name: ntfy
@@ -133,11 +136,23 @@ alertmanager:
       - source_matchers:
           - severity = critical
         target_matchers:
-          - severity = warning
+          - severity =~ warning|info
         equal:
-          - alertname
           - namespace
-          - service
+          - alertname
+      - source_matchers:
+          - severity = warning
+        target_matchers:
+          - severity = info
+        equal:
+          - namespace
+          - alertname
+      - source_matchers:
+          - alertname = InfoInhibitor
+        target_matchers:
+          - severity = info
+        equal:
+          - namespace
 
 nodeExporter:
   enabled: true
