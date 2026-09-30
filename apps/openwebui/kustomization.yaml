@@ -8,3 +8,4 @@ resources:
   - secret-database.yaml
   - secretstore.yaml
   - service.yaml
+  - storage.yaml

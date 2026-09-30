@@ -53,16 +53,28 @@ spec:
             readOnlyRootFilesystem: false
             seccompProfile:
               type: "RuntimeDefault"
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            periodSeconds: 10
+            failureThreshold: 30
           readinessProbe:
             httpGet:
               path: /health
               port: 8080
-            initialDelaySeconds: 0
             periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /health
               port: 8080
-            initialDelaySeconds: 60
             periodSeconds: 10
             failureThreshold: 3
+          volumeMounts:
+            - name: openwebui-data
+              mountPath: /app/backend/data
+
+      volumes:
+        - name: openwebui-data
+          persistentVolumeClaim:
+            claimName: openwebui-pvc
