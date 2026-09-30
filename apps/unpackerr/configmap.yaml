@@ -31,7 +31,7 @@ data:
   UN_WHISPARR_0_URL: "http://whisparr.whisparr.svc.cluster.local"
   UN_WHISPARR_0_TIMEOUT: "10s"
   UN_WHISPARR_0_DELETE_DELAY: "15m"
-  UN_WEBHOOK_0_URL: "https://ntfy.niwev.de/Unpackerr"
+  UN_WEBHOOK_0_URL: "https://ntfy.wevelsiep.com/Unpackerr"
   UN_WEBHOOK_0_SILENT: "true"
   UN_WEBHOOK_0_EVENTS_0: "3"
   UN_WEBHOOK_0_EVENTS_1: "4"
