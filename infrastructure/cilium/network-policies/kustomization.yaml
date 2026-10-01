@@ -6,4 +6,5 @@ resources:
   - egress-s3.yaml
   - egress-world.yaml
   - ingress-cnpg.yaml
+  - ingress-homepage.yaml
   - ingress-monitoring.yaml

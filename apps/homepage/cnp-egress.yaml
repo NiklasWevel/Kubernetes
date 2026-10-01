@@ -1,0 +1,50 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-egress-homepage
+  namespace: homepage
+spec:
+  endpointSelector: {}
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: sonarr
+            app: sonarr
+      toPorts:
+        - ports:
+            - port: "8989"
+              protocol: TCP
+
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: radarr
+            app: radarr
+      toPorts:
+        - ports:
+            - port: "7878"
+              protocol: TCP
+
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: seerr
+            app: seerr
+      toPorts:
+        - ports:
+            - port: "5055"
+              protocol: TCP
+
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: navidrome
+            app: navidrome
+      toPorts:
+        - ports:
+            - port: "4533"
+              protocol: TCP
+
+    - toCIDR:
+        - 192.168.10.104/32
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
