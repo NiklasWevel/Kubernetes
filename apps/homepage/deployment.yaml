@@ -55,12 +55,18 @@ spec:
             httpGet:
               path: /api/healthcheck
               port: 3000
+              httpHeaders:
+                - name: Host
+                  value: start.wevelsiep.com
             initialDelaySeconds: 5
             periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /api/healthcheck
               port: 3000
+              httpHeaders:
+                - name: Host
+                  value: start.wevelsiep.com
             initialDelaySeconds: 15
             periodSeconds: 10
             failureThreshold: 3
