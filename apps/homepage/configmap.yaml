@@ -4,4 +4,4 @@ metadata:
   name: homepage
   namespace: homepage
 data:
-  HOMEPAGE_ALLOWED_HOSTS: "homepage.wevelsiep.com"
+  HOMEPAGE_ALLOWED_HOSTS: "start.wevelsiep.com"

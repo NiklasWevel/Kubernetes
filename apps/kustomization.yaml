@@ -8,6 +8,7 @@ resources:
   - droppedneedle
   - gallery-dl
   - gitea-runner
+  - homepage
   - houndarr
   - immich
   - lidarr
@@ -28,5 +29,4 @@ resources:
   - wikijs
   - yt-dlp
 #  - comfyui
-#  - homepage
 #  - jellyfin
