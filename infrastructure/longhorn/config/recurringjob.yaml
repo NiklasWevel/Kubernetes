@@ -1,13 +1,13 @@
 apiVersion: longhorn.io/v1beta2
 kind: RecurringJob
 metadata:
-  name: backup-critical
+  name: backup-garage-s3
   namespace: longhorn-system
 spec:
-  name: backup-critical
+  name: backup-garage-s3
   task: backup
   groups:
-    - critical
+    - garage-s3
   cron: "0 5 * * *"
   retain: 7
   concurrency: 2

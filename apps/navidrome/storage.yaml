@@ -19,6 +19,8 @@ metadata:
   namespace: navidrome
   labels:
     app.kubernetes.io/name: navidrome
+    recurring-job.longhorn.io/source: enabled
+    recurring-job-group.longhorn.io/garage-s3: enabled
 spec:
   accessModes:
     - ReadWriteOnce

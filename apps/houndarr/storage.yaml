@@ -5,6 +5,8 @@ metadata:
   namespace: houndarr
   labels:
     app.kubernetes.io/name: houndarr
+    recurring-job.longhorn.io/source: enabled
+    recurring-job-group.longhorn.io/garage-s3: enabled
 spec:
   accessModes:
     - ReadWriteOnce
