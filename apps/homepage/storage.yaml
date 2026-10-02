@@ -11,3 +11,59 @@ spec:
       storage: 10Gi
   storageClassName: share
   volumeName: homepage-pv
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: homepage-disk-00-2tb-pvc
+  namespace: homepage
+spec:
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: share
+  volumeName: homepage-disk-00-2tb-pv
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: homepage-disk-01-2tb-pvc
+  namespace: homepage
+spec:
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: share
+  volumeName: homepage-disk-01-2tb-pv
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: homepage-disk-pool-pvc
+  namespace: homepage
+spec:
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: share
+  volumeName: homepage-disk-pool-pv
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: homepage-disk-pool02-pvc
+  namespace: homepage
+spec:
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: share
+  volumeName: homepage-disk-pool02-pv

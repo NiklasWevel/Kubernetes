@@ -81,8 +81,36 @@ spec:
             - name: homepage
               mountPath: /app/public/images
               subPath: images
+            - name: disk-00-2tb
+              mountPath: /mnt/00_2tb
+              readOnly: true
+            - name: disk-01-2tb
+              mountPath: /mnt/01_2tb
+              readOnly: true
+            - name: disk-pool
+              mountPath: /mnt/pool
+              readOnly: true
+            - name: disk-pool02
+              mountPath: /mnt/pool02
+              readOnly: true
 
       volumes:
         - name: homepage
           persistentVolumeClaim:
             claimName: homepage-pvc
+        - name: disk-00-2tb
+          persistentVolumeClaim:
+            claimName: homepage-disk-00-2tb-pvc
+            readOnly: true
+        - name: disk-01-2tb
+          persistentVolumeClaim:
+            claimName: homepage-disk-01-2tb-pvc
+            readOnly: true
+        - name: disk-pool
+          persistentVolumeClaim:
+            claimName: homepage-disk-pool-pvc
+            readOnly: true
+        - name: disk-pool02
+          persistentVolumeClaim:
+            claimName: homepage-disk-pool02-pvc
+            readOnly: true
