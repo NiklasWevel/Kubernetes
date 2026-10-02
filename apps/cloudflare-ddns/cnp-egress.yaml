@@ -1,0 +1,14 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-egress-cloudflare
+  namespace: cloudflare-ddns
+spec:
+  endpointSelector: {}
+  egress:
+    - toFQDNs:
+        - matchName: "api.cloudflare.com"
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
