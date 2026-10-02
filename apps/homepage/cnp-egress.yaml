@@ -48,3 +48,10 @@ spec:
         - ports:
             - port: "443"
               protocol: TCP
+
+    - toFQDNs:
+        - matchName: "api.openweathermap.org"
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
