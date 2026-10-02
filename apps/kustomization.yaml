@@ -6,6 +6,7 @@ resources:
   - deemix
   - downtify
   - droppedneedle
+  - cloudflare-ddns
   - gallery-dl
   - gitea-runner
   - homepage
