@@ -3,6 +3,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: needle-config-pvc
   namespace: needle
+  labels:
+    recurring-job.longhorn.io/source: enabled
+    recurring-job-group.longhorn.io/garage-s3: enabled
 spec:
   accessModes:
     - ReadWriteOnce
@@ -32,6 +35,8 @@ metadata:
   namespace: needle
   labels:
     app.kubernetes.io/name: needle-db-pvc
+    recurring-job.longhorn.io/source: enabled
+    recurring-job-group.longhorn.io/garage-s3: enabled
 spec:
   accessModes:
     - ReadWriteOnce

@@ -19,6 +19,8 @@ metadata:
   namespace: slskd
   labels:
     app.kubernetes.io/name: slskd
+    recurring-job.longhorn.io/source: enabled
+    recurring-job-group.longhorn.io/garage-s3: enabled
 spec:
   accessModes:
     - ReadWriteMany
