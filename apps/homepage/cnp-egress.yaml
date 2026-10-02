@@ -49,6 +49,13 @@ spec:
             - port: "443"
               protocol: TCP
 
+    - toCIDR:
+        - 192.168.12.100/32
+      toPorts:
+        - ports:
+            - port: "8000"
+              protocol: TCP
+
     - toFQDNs:
         - matchName: "api.openweathermap.org"
       toPorts:
