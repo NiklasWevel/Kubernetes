@@ -34,5 +34,4 @@ spec:
         - name: whoami
           port: 80
       middlewares:
-        - name: oauth2-auth
-          namespace: oauth2
+        - name: oidc-auth
