@@ -20,3 +20,6 @@ spec:
   values:
     defaultSettings:
       guaranteedInstanceManagerCPU: 5
+      concurrentAutomaticEngineUpgradePerNodeLimit: 1
+    csi:
+      allowControllerSecretAccess: false
