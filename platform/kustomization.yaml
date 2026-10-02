@@ -4,4 +4,3 @@ kind: Kustomization
 resources:
   - cloudnative-pg
   - goldilocks
-  - oauth2-proxy
