@@ -1,6 +1,8 @@
 machine:
   kubelet:
     image: ghcr.io/siderolabs/kubelet:v1.36.4
+    extraConfig:
+      imageMaximumGCAge: 168h
     extraMounts:
       - destination: /var/lib/longhorn
         type: bind
