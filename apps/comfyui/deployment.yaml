@@ -30,7 +30,7 @@ spec:
 
       containers:
         - name: comfyui
-          image: docker.wevelsiep.com/yanwk/comfyui-boot:cu124-slim
+          image: yanwk/comfyui-boot:cu124-slim
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8188
