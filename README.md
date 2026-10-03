@@ -54,7 +54,7 @@ These components are required outside of the Kubernetes cluster:
 
 These components are optional:
 
-1. A [private Docker Hub Proxy Cache](https://hub.docker.com/_/registry), so I don't run into the new Docker pull limit when I restart the cluster multiple times.
+1. A [private Docker Hub Proxy Cache](https://hub.docker.com/_/registry), so I don't run into the new Docker pull limit when I restart the cluster multiple times. It is configured cluster-wide as a Talos registry mirror for `docker.io` (see [`talos/patches/patch-all.yaml`](talos/patches/patch-all.yaml)), so manifests and Helm charts keep their upstream image references and every Docker Hub pull transparently goes through the cache.
 2. An [S3 compatible storage backend](https://github.com/deuxfleurs-org/garage) for the CloudNative Postgres backups jobs. I'm using Garage with a simple GUI. 
 
 ## Homelab Hardware

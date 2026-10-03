@@ -17,13 +17,6 @@
   "commitMessageAction": "update",
   "packageRules": [
     {
-      "description": "Do not let kubernetes manager rewrite internal registry images to docker.io",
-      "matchManagers": ["kubernetes"],
-      "matchDatasources": ["docker"],
-      "matchPackageNames": ["/^docker\\.wevelsiep\\.com\\//"],
-      "enabled": false
-    },
-    {
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "automerge": true
@@ -60,18 +53,6 @@
     "managerFilePatterns": ["/\\.ya?ml$/"]
   },
   "customManagers": [
-    {
-      "customType": "regex",
-      "description": "Update docker.wevelsiep.com images using docker.io tags, but keep docker.wevelsiep.com in YAML",
-      "managerFilePatterns": ["/\\.ya?ml$/"],
-      "matchStrings": [
-        "image:\\s*docker\\.wevelsiep\\.com\\/(?<depName>[^\\s:\"']+):(?<currentValue>[^\\s\"']+)"
-      ],
-      "datasourceTemplate": "docker",
-      "versioningTemplate": "docker",
-      "depNameTemplate": "{{depName}}",
-      "autoReplaceStringTemplate": "image: docker.wevelsiep.com/{{depName}}:{{newValue}}"
-    },
     {
       "customType": "regex",
       "description": "Track Talos releases via the Image Factory installer reference",
