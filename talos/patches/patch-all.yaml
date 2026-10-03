@@ -16,11 +16,6 @@ machine:
           - bind
           - rshared
           - rw
-  registries:
-    mirrors:
-      docker.io:
-        endpoints:
-          - https://docker.wevelsiep.com
 cluster:
   proxy:
     disabled: true
@@ -49,3 +44,17 @@ kind: ResolverConfig
 searchDomains:
   domains: []
   disableDefault: true
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: docker.io
+endpoints:
+  - url: https://registry.wevelsiep.com/v2/dockerhub
+    overridePath: true
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: ghcr.io
+endpoints:
+  - url: https://registry.wevelsiep.com/v2/ghcr
+    overridePath: true
