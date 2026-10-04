@@ -130,7 +130,7 @@ alertmanager:
       - name: "null"
       - name: ntfy
         webhook_configs:
-          - url: "https://ntfy.wevelsiep.com/Prometheus?template=alertmanager"
+          - url: "https://ntfy.wevelsiep.com/Prometheus?template=k8s-alertmanager"
             send_resolved: true
     inhibit_rules:
       - source_matchers:
