@@ -26,6 +26,8 @@ spec:
   values:
     vpa:
       enabled: true
+      admissionController:
+        enabled: false
     controller:
       flags:
         on-by-default: "true"
