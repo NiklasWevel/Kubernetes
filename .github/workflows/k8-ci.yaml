@@ -67,7 +67,7 @@ jobs:
         run: yamllint . --format github
 
   kustomize-build:
-    name: Validate Kustomize build
+    name: Validate Flux manifests
     runs-on: ubuntu-latest
     needs: yamllint
     steps:
@@ -85,5 +85,64 @@ jobs:
           install -m 0755 kustomize /usr/local/bin/kustomize
           kustomize version
 
-      - name: Run kustomize build on cluster/
-        run: kustomize build ./cluster | tee kustomized.yaml
+      - name: Install kubeconform
+        env:
+          KUBECONFORM_VERSION: "0.8.0"
+        run: |
+          curl -fsSL "https://github.com/yannh/kubeconform/releases/download/v${KUBECONFORM_VERSION}/kubeconform-linux-amd64.tar.gz" \
+            | tar -xz kubeconform
+          install -m 0755 kubeconform /usr/local/bin/kubeconform
+          kubeconform -v
+
+      - name: Build and validate all Flux paths
+        run: |
+          k8s_version=$(grep -oP 'siderolabs/kubelet:v\K[\d.]+' talos/patches/patch-all.yaml)
+          failed=0
+          for path in $(python3 .github/scripts/flux-paths.py); do
+            echo "::group::${path}"
+            if ! kustomize build --load-restrictor LoadRestrictionsNone "${path}" > "${RUNNER_TEMP}/rendered.yaml"; then
+              echo "::error::kustomize build failed for ${path}"
+              failed=1
+            elif ! kubeconform -strict -summary -output text \
+                -kubernetes-version "${k8s_version}" \
+                -ignore-missing-schemas \
+                -schema-location default \
+                -schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json' \
+                "${RUNNER_TEMP}/rendered.yaml"; then
+              echo "::error::schema validation failed for ${path}"
+              failed=1
+            fi
+            echo "::endgroup::"
+          done
+          exit "${failed}"
+
+  talos-validate:
+    name: Validate Talos machine configs
+    runs-on: ubuntu-latest
+    needs: yamllint
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Install talosctl
+        run: |
+          talos_version=$(grep -oP 'metal-installer/[a-f0-9]+:\Kv[\d.]+' talos/patches/patch-worker.yaml)
+          curl -fsSL "https://github.com/siderolabs/talos/releases/download/${talos_version}/talosctl-linux-amd64" \
+            -o talosctl
+          install -m 0755 talosctl /usr/local/bin/talosctl
+          talosctl version --client --short
+
+      - name: Generate and validate configs with throwaway secrets
+        run: |
+          k8s_version=$(grep -oP 'siderolabs/kubelet:v\K[\d.]+' talos/patches/patch-all.yaml)
+          talosctl gen secrets -o "${RUNNER_TEMP}/secrets.yaml"
+          talosctl gen config homelab https://ci.invalid:6443 \
+            --with-secrets "${RUNNER_TEMP}/secrets.yaml" \
+            --kubernetes-version "${k8s_version}" \
+            --config-patch @talos/patches/patch-all.yaml \
+            --config-patch-control-plane @talos/patches/patch-controlplane.yaml \
+            --config-patch-worker @talos/patches/patch-worker.yaml \
+            --output "${RUNNER_TEMP}/talos"
+          talosctl validate --config "${RUNNER_TEMP}/talos/controlplane.yaml" --mode metal --strict
+          talosctl validate --config "${RUNNER_TEMP}/talos/worker.yaml" --mode metal --strict
