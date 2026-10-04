@@ -11,4 +11,5 @@ spec:
     kind: GitRepository
     name: flux-system
   dependsOn:
-    - name: apps
+    - name: platform
+    - name: infrastructure-longhorn
