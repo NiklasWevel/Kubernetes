@@ -28,5 +28,8 @@ spec:
       enabled: false
     devicePlugin:
       enabled: true
+      config:
+        name: time-slicing-config-all
+        default: any
     dcgmExporter:
       enabled: true
