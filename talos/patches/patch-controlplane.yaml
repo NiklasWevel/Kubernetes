@@ -63,3 +63,6 @@ portSelector:
   protocol: tcp
 ingress:
   - subnet: 10.42.0.0/16
+  - subnet: 192.168.20.11/32
+  - subnet: 192.168.20.12/32
+  - subnet: 192.168.20.13/32
