@@ -36,3 +36,30 @@ provisioning:
   diskSelector:
     match: disk.dev_path == "/dev/sda"
   wipe: false
+---
+cluster:
+  etcd:
+    extraArgs:
+      listen-metrics-urls: http://0.0.0.0:2381
+---
+apiVersion: v1alpha1
+kind: KubeControllerManagerConfig
+extraArgs:
+  bind-address: 0.0.0.0
+---
+apiVersion: v1alpha1
+kind: KubeSchedulerConfig
+extraArgs:
+  bind-address: 0.0.0.0
+---
+apiVersion: v1alpha1
+kind: NetworkRuleConfig
+name: controlplane-metrics-ingress
+portSelector:
+  ports:
+    - 2381
+    - 10257
+    - 10259
+  protocol: tcp
+ingress:
+  - subnet: 10.42.0.0/16
