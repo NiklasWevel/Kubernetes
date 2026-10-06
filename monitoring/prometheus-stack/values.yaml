@@ -159,10 +159,9 @@ nodeExporter:
 prometheus-node-exporter:
   resources:
     requests:
-      cpu: 200m
+      cpu: 20m
       memory: 64Mi
     limits:
-      cpu: 200m
       memory: 128Mi
 
 kubeStateMetrics:
