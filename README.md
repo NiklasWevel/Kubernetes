@@ -46,9 +46,9 @@ In the beginning I was using a sealed secret to mask my HashiVault token. That w
 
 These components are required outside of the Kubernetes cluster:
 
-1. An NFS server for persistent volumes  
+1. An SMB server for persistent volumes (static PVs via [csi-driver-smb](https://github.com/kubernetes-csi/csi-driver-smb))  
 2. A [HashiCorp Vault](https://www.vaultproject.io/) instance for secrets management  
-3. [Caddy](https://caddyserver.com/) as a reverse proxy to reach the cluster and other homelab services in the first place
+3. [Caddy](https://caddyserver.com/) as a reverse proxy for the cluster to reach external services
 4. A public domain to enable SSL via DNS challenge (in my case Cloudflare + cert-manager)
 5. Gitea + runner outside the cluster for various tasks like building Docker images or running Terraform against the HashiCorp Vault
 
@@ -71,14 +71,15 @@ Currently, the cluster is running on three virtual machines in my three node Pro
 ## Networking
 
 - The cluster runs in an isolated VLAN.
-- The support components like NFS, reverse proxy, vault etc. run in the same VLAN.
+- The SMB server runs in the same VLAN to avoid unnecessary routing for large files.
+- Everything else like Caddy, Vault, Gitea, S3, Registry runs in an isolated VLAN.
 - ~~All hostnames in this repository are used internally - the cluster is not accessible from the internet.~~
 - Selected services are reachable from the internet through Traefik, mTLS and/or authenticated via PocketID.
 - [Traefik](https://traefik.io/traefik/) acts as the reverse proxy and handles TLS termination for incoming traffic to the cluster.
 
 ## Storage
 
-NFS/SMB storage is not part of this repository:
+SMB storage is not part of this repository:
 
 1. It depends heavily on the specific environment
 
@@ -97,29 +98,33 @@ Boot the VMs from the [Image Factory](https://factory.talos.dev) ISOs built from
 [talos/schematic-worker.yaml](talos/schematic-worker.yaml), then:
 
 ```bash
-sops --decrypt talos/secrets.sops.yaml > secrets.yaml
+D=$(mktemp -d /tmp/talos.XXXX)
+sops --decrypt talos/secrets.sops.yaml > "$D/secrets.yaml"
 
 talosctl gen config homelab https://192.168.20.11:6443 \
-  --with-secrets secrets.yaml \
+  --with-secrets "$D/secrets.yaml" \
   --kubernetes-version 1.36.4 \
   --config-patch @talos/patches/patch-all.yaml \
   --config-patch-control-plane @talos/patches/patch-controlplane.yaml \
   --config-patch-worker @talos/patches/patch-worker.yaml \
-  --output configs/
+  --output "$D/configs"
 
-talosctl apply-config --insecure -n 192.168.20.11 --file configs/controlplane.yaml
-talosctl apply-config --insecure -n 192.168.20.12 --file configs/worker.yaml
-talosctl apply-config --insecure -n 192.168.20.13 --file configs/worker.yaml
+talosctl apply-config --insecure -n 192.168.20.11 --file "$D/configs/controlplane.yaml"
+talosctl apply-config --insecure -n 192.168.20.12 --file "$D/configs/worker.yaml"
+talosctl apply-config --insecure -n 192.168.20.13 --file "$D/configs/worker.yaml"
 
-talosctl bootstrap -n 192.168.20.11 -e 192.168.20.11 --talosconfig configs/talosconfig
-talosctl kubeconfig -n 192.168.20.11 -e 192.168.20.11 --talosconfig configs/talosconfig
+talosctl bootstrap -n 192.168.20.11 -e 192.168.20.11 --talosconfig "$D/configs/talosconfig"
+talosctl kubeconfig -n 192.168.20.11 -e 192.168.20.11 --talosconfig "$D/configs/talosconfig"
+talosctl config merge "$D/configs/talosconfig"
+
+rm -rf "$D"
 ```
 
 ### Install Cilium (once — Flux adopts it on first reconcile)
 
 ```bash
 helm repo add cilium https://helm.cilium.io/
-helm template cilium cilium/cilium --version 1.20.1 --namespace kube-system \
+helm template cilium cilium/cilium --version 1.20.2 --namespace kube-system \
   -f talos/cilium-bootstrap-values.yaml | kubectl apply -f -
 ```
 
