@@ -21,6 +21,7 @@ spec:
         app: autobrr
     spec:
       enableServiceLinks: false
+      automountServiceAccountToken: false
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
@@ -71,4 +72,5 @@ spec:
           secret:
             secretName: autobrr-config-secret
         - name: autobrr-tmp
-          emptyDir: {}
+          emptyDir:
+            sizeLimit: 512Mi

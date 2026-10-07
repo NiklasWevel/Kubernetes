@@ -21,6 +21,7 @@ spec:
         app: deemix
     spec:
       enableServiceLinks: false
+      automountServiceAccountToken: false
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
@@ -77,4 +78,5 @@ spec:
           persistentVolumeClaim:
             claimName: deemix-media-pvc
         - name: empty
-          emptyDir: {}
+          emptyDir:
+            sizeLimit: 512Mi

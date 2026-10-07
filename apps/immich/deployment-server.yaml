@@ -19,6 +19,7 @@ spec:
         app: immich-server
     spec:
       enableServiceLinks: false
+      automountServiceAccountToken: false
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
@@ -84,4 +85,5 @@ spec:
           persistentVolumeClaim:
             claimName: immich-data-pvc
         - name: tmp
-          emptyDir: {}
+          emptyDir:
+            sizeLimit: 512Mi

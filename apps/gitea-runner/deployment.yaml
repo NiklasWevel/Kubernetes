@@ -20,6 +20,8 @@ spec:
       labels:
         app: gitea-runner
     spec:
+      enableServiceLinks: false
+      automountServiceAccountToken: false
       containers:
         - name: gitea-runner
           image: gitea/act_runner:0.6

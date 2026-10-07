@@ -19,6 +19,7 @@ spec:
         app: needle
     spec:
       enableServiceLinks: false
+      automountServiceAccountToken: false
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
@@ -90,4 +91,5 @@ spec:
           persistentVolumeClaim:
             claimName: needle-db-pvc
         - name: needle-tmp
-          emptyDir: {}
+          emptyDir:
+            sizeLimit: 512Mi

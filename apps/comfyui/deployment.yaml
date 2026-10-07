@@ -20,6 +20,7 @@ spec:
         app: comfyui
     spec:
       enableServiceLinks: false
+      automountServiceAccountToken: false
       nodeSelector:
         nvidia.com/gpu.present: "true"
       runtimeClassName: nvidia

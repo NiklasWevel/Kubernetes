@@ -21,6 +21,7 @@ spec:
         app: openwebui
     spec:
       enableServiceLinks: false
+      automountServiceAccountToken: false
       securityContext:
         runAsUser: 0
         runAsGroup: 0

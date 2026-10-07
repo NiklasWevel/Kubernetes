@@ -12,6 +12,7 @@ spec:
     - fromEndpoints:
         - matchLabels:
             io.kubernetes.pod.namespace: traefik
+            app.kubernetes.io/name: traefik
         - matchLabels:
             io.kubernetes.pod.namespace: pocketid
       toPorts:

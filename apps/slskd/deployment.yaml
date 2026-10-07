@@ -20,6 +20,7 @@ spec:
         app: slskd
     spec:
       enableServiceLinks: false
+      automountServiceAccountToken: false
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
@@ -148,9 +149,11 @@ spec:
         - name: dotnet-tmp
           emptyDir: {}
         - name: tmp
-          emptyDir: {}
+          emptyDir:
+            sizeLimit: 512Mi
         - name: gluetun-tmp
-          emptyDir: {}
+          emptyDir:
+            sizeLimit: 512Mi
         - name: gluetun-data
           emptyDir: {}
         - name: tun-device

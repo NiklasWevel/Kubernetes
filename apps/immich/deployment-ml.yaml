@@ -18,6 +18,7 @@ spec:
       labels:
         app: immich-machine-learning
     spec:
+      automountServiceAccountToken: false
       nodeSelector:
         nvidia.com/gpu.present: "true"
       runtimeClassName: nvidia
@@ -84,7 +85,8 @@ spec:
           persistentVolumeClaim:
             claimName: immich-ml-pvc
         - name: tmp
-          emptyDir: {}
+          emptyDir:
+            sizeLimit: 512Mi
         - name: hf-home
           emptyDir: {}
         - name: matplotlib-config

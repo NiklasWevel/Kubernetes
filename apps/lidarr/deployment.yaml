@@ -23,6 +23,7 @@ spec:
         app: lidarr
     spec:
       enableServiceLinks: false
+      automountServiceAccountToken: false
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
@@ -117,4 +118,5 @@ spec:
           persistentVolumeClaim:
             claimName: lidarr-seedbox-pvc
         - name: tmp
-          emptyDir: {}
+          emptyDir:
+            sizeLimit: 512Mi
