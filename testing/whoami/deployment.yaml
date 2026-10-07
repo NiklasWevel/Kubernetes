@@ -15,6 +15,7 @@ spec:
       labels:
         app: whoami
     spec:
+      enableServiceLinks: false
       automountServiceAccountToken: false
       containers:
         - name: whoami
