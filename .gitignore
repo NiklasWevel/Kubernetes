@@ -1,5 +1,6 @@
 storage/
-secrets.yaml
-configs/
-talosconfig
-kubeconfig
+/secrets.yaml
+/talos/secrets.yaml
+/configs/
+/talosconfig
+/kubeconfig
