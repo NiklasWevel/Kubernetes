@@ -98,4 +98,5 @@ spec:
           persistentVolumeClaim:
             claimName: ollama-pvc
         - name: tmp
-          emptyDir: {}
+          emptyDir:
+            sizeLimit: 512Mi

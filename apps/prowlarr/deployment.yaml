@@ -101,4 +101,5 @@ spec:
         - name: prowlarr-config
           emptyDir: {}
         - name: tmp
-          emptyDir: {}
+          emptyDir:
+            sizeLimit: 512Mi

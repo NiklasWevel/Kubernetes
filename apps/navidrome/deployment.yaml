@@ -81,4 +81,5 @@ spec:
             claimName: navidrome-music-pvc
             readOnly: true
         - name: tmp
-          emptyDir: {}
+          emptyDir:
+            sizeLimit: 512Mi

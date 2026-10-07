@@ -85,4 +85,5 @@ spec:
           persistentVolumeClaim:
             claimName: immich-data-pvc
         - name: tmp
-          emptyDir: {}
+          emptyDir:
+            sizeLimit: 512Mi

@@ -91,4 +91,5 @@ spec:
           persistentVolumeClaim:
             claimName: needle-db-pvc
         - name: needle-tmp
-          emptyDir: {}
+          emptyDir:
+            sizeLimit: 512Mi

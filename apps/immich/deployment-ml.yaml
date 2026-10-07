@@ -85,7 +85,8 @@ spec:
           persistentVolumeClaim:
             claimName: immich-ml-pvc
         - name: tmp
-          emptyDir: {}
+          emptyDir:
+            sizeLimit: 512Mi
         - name: hf-home
           emptyDir: {}
         - name: matplotlib-config

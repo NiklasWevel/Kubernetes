@@ -118,4 +118,5 @@ spec:
           persistentVolumeClaim:
             claimName: lidarr-seedbox-pvc
         - name: tmp
-          emptyDir: {}
+          emptyDir:
+            sizeLimit: 512Mi

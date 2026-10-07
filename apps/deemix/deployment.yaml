@@ -78,4 +78,5 @@ spec:
           persistentVolumeClaim:
             claimName: deemix-media-pvc
         - name: empty
-          emptyDir: {}
+          emptyDir:
+            sizeLimit: 512Mi
