@@ -19,6 +19,7 @@ spec:
       labels:
         app: ollama
     spec:
+      automountServiceAccountToken: false
       nodeSelector:
         nvidia.com/gpu.present: "true"
       runtimeClassName: nvidia

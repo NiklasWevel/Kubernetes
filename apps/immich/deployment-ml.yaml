@@ -18,6 +18,7 @@ spec:
       labels:
         app: immich-machine-learning
     spec:
+      automountServiceAccountToken: false
       nodeSelector:
         nvidia.com/gpu.present: "true"
       runtimeClassName: nvidia
