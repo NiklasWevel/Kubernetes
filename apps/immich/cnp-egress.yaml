@@ -19,6 +19,7 @@ spec:
     - toEndpoints:
         - matchLabels:
             io.kubernetes.pod.namespace: traefik
+            app.kubernetes.io/name: traefik
       toPorts:
         - ports:
             - port: "443"
