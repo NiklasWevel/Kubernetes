@@ -4,5 +4,4 @@ metadata:
   name: navidrome
   labels:
     network-deny-egress: "true"
-    network-monitoring-ingress: "true"
     network-homepage-ingress: "true"
