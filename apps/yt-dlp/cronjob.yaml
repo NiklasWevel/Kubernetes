@@ -26,7 +26,7 @@ spec:
 
           initContainers:
             - name: pot-provider
-              image: brainicism/bgutil-ytdlp-pot-provider:2.0.1
+              image: brainicism/bgutil-ytdlp-pot-provider:2.0.2
               restartPolicy: Always
               ports:
                 - containerPort: 4416
