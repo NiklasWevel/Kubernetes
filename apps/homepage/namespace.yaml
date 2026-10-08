@@ -4,4 +4,3 @@ metadata:
   name: homepage
   labels:
     network-dns-egress: "true"
-    network-monitoring-ingress: "true"
