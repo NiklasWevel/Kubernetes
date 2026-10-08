@@ -5,3 +5,4 @@ metadata:
   labels:
     network-dns-egress: "true"
     network-world-egress: "true"
+    network-deny-ingress: "true"
