@@ -4,4 +4,3 @@ metadata:
   name: houndarr
   labels:
     network-dns-egress: "true"
-    network-monitoring-ingress: "true"
