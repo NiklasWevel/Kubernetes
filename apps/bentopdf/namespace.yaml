@@ -4,4 +4,3 @@ metadata:
   name: bentopdf
   labels:
     network-deny-egress: "true"
-    network-monitoring-ingress: "true"
