@@ -23,3 +23,12 @@ spec:
         - ports:
             - port: "4533"
               protocol: TCP
+
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: slskd
+            app: slskd
+      toPorts:
+        - ports:
+            - port: "5030"
+              protocol: TCP
