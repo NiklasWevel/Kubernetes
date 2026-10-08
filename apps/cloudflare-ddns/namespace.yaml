@@ -4,4 +4,4 @@ metadata:
   name: cloudflare-ddns
   labels:
     network-dns-egress: "true"
-    network-monitoring-ingress: "true"
+    network-deny-ingress: "true"
