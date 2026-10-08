@@ -3,5 +3,5 @@ kind: Namespace
 metadata:
   name: bentopdf
   labels:
-    network-dns-egress: "true"
+    network-deny-egress: "true"
     network-monitoring-ingress: "true"
