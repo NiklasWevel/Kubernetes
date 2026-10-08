@@ -3,6 +3,6 @@ kind: Namespace
 metadata:
   name: navidrome
   labels:
-    network-dns-egress: "true"
+    network-deny-egress: "true"
     network-monitoring-ingress: "true"
     network-homepage-ingress: "true"
