@@ -4,3 +4,4 @@ metadata:
   name: gitea-runner
   labels:
     pod-security.kubernetes.io/enforce: privileged
+    network-deny-ingress: "true"
