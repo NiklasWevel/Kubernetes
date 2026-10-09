@@ -1,0 +1,32 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-app-ingress
+  namespace: prowlarr
+spec:
+  endpointSelector: {}
+
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: traefik
+            app.kubernetes.io/name: traefik
+        - matchLabels:
+            io.kubernetes.pod.namespace: sonarr
+            app: sonarr
+        - matchLabels:
+            io.kubernetes.pod.namespace: radarr
+            app: radarr
+        - matchLabels:
+            io.kubernetes.pod.namespace: lidarr
+            app: lidarr
+        - matchLabels:
+            io.kubernetes.pod.namespace: whisparr
+            app: whisparr
+        - matchLabels:
+            io.kubernetes.pod.namespace: qui
+            app: qui
+      toPorts:
+        - ports:
+            - port: "9696"
+              protocol: TCP
