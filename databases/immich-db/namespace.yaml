@@ -3,8 +3,8 @@ kind: Namespace
 metadata:
   name: immich-db
   labels:
-    network-dns-egress: "true"
-    network-apiserver-egress: "true"
-    network-s3-egress: "true"
-    network-monitoring-ingress: "true"
-    network-cnpg-ingress: "true"
+    network-egress-apiserver: "true"
+    network-egress-dns: "true"
+    network-egress-s3: "true"
+    network-ingress-cnpg: "true"
+    network-ingress-monitoring: "true"
