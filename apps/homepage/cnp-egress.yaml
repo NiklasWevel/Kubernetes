@@ -33,15 +33,6 @@ spec:
             - port: "5055"
               protocol: TCP
 
-    - toEndpoints:
-        - matchLabels:
-            io.kubernetes.pod.namespace: navidrome
-            app: navidrome
-      toPorts:
-        - ports:
-            - port: "4533"
-              protocol: TCP
-
     - toCIDR:
         - 192.168.10.104/32
       toPorts:
