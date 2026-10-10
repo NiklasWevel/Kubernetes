@@ -3,5 +3,5 @@ kind: Namespace
 metadata:
   name: needle
   labels:
-    network-dns-egress: "true"
-    network-world-egress: "true"
+    network-egress-dns: "true"
+    network-egress-world: "true"
