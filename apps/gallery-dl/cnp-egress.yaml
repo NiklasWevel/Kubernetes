@@ -1,0 +1,15 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-egress-db
+  namespace: gallery-dl
+spec:
+  endpointSelector: {}
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: gallery-dl-db
+      toPorts:
+        - ports:
+            - port: "5432"
+              protocol: TCP
