@@ -3,6 +3,6 @@ kind: Namespace
 metadata:
   name: mp3-tagger
   labels:
-    network-dns-egress: "true"
-    network-world-egress: "true"
-    network-deny-ingress: "true"
+    network-egress-dns: "true"
+    network-egress-world: "true"
+    network-ingress-deny-all: "true"
