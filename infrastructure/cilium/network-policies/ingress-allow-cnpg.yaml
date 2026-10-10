@@ -1,11 +1,11 @@
 apiVersion: cilium.io/v2
 kind: CiliumClusterwideNetworkPolicy
 metadata:
-  name: allow-cnpg-ingress
+  name: ingress-allow-cnpg
 spec:
   endpointSelector:
     matchExpressions:
-      - key: io.cilium.k8s.namespace.labels.network-cnpg-ingress
+      - key: io.cilium.k8s.namespace.labels.network-ingress-cnpg
         operator: Exists
   ingress:
     - fromEndpoints:

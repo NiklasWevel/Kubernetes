@@ -1,11 +1,11 @@
 apiVersion: cilium.io/v2
 kind: CiliumClusterwideNetworkPolicy
 metadata:
-  name: allow-monitoring-ingress
+  name: ingress-allow-monitoring
 spec:
   endpointSelector:
     matchExpressions:
-      - key: io.cilium.k8s.namespace.labels.network-monitoring-ingress
+      - key: io.cilium.k8s.namespace.labels.network-ingress-monitoring
         operator: Exists
   ingress:
     - fromEndpoints:

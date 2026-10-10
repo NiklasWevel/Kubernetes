@@ -1,11 +1,11 @@
 apiVersion: cilium.io/v2
 kind: CiliumClusterwideNetworkPolicy
 metadata:
-  name: deny-egress
+  name: ingress-deny-all
 spec:
   endpointSelector:
     matchExpressions:
-      - key: io.cilium.k8s.namespace.labels.network-deny-egress
+      - key: io.cilium.k8s.namespace.labels.network-ingress-deny-all
         operator: Exists
-  egress:
+  ingress:
     - {}

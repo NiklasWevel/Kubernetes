@@ -1,11 +1,11 @@
 apiVersion: cilium.io/v2
 kind: CiliumClusterwideNetworkPolicy
 metadata:
-  name: allow-world-egress
+  name: egress-allow-world
 spec:
   endpointSelector:
     matchExpressions:
-      - key: io.cilium.k8s.namespace.labels.network-world-egress
+      - key: io.cilium.k8s.namespace.labels.network-egress-world
         operator: Exists
   egress:
     - toCIDRSet:

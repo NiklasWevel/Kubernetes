@@ -1,11 +1,11 @@
 apiVersion: cilium.io/v2
 kind: CiliumClusterwideNetworkPolicy
 metadata:
-  name: allow-s3-egress
+  name: egress-allow-s3
 spec:
   endpointSelector:
     matchExpressions:
-      - key: io.cilium.k8s.namespace.labels.network-s3-egress
+      - key: io.cilium.k8s.namespace.labels.network-egress-s3
         operator: Exists
   egress:
     - toFQDNs:
