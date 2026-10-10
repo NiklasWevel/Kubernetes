@@ -3,4 +3,4 @@ kind: Namespace
 metadata:
   name: navidrome
   labels:
-    network-deny-egress: "true"
+    network-egress-deny-all: "true"
