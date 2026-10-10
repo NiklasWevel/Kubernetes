@@ -4,6 +4,6 @@ metadata:
   name: longhorn-system
   labels:
     pod-security.kubernetes.io/enforce: privileged
-    network-dns-egress: "true"
-    network-apiserver-egress: "true"
-    network-s3-egress: "true"
+    network-egress-apiserver: "true"
+    network-egress-dns: "true"
+    network-egress-s3: "true"
