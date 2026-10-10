@@ -3,4 +3,4 @@ kind: Namespace
 metadata:
   name: unpackerr
   labels:
-    network-deny-ingress: "true"
+    network-ingress-deny-all: "true"
