@@ -3,5 +3,5 @@ kind: Namespace
 metadata:
   name: cloudflare-ddns
   labels:
-    network-dns-egress: "true"
-    network-deny-ingress: "true"
+    network-egress-dns: "true"
+    network-ingress-deny-all: "true"
