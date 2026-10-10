@@ -3,6 +3,6 @@ kind: Namespace
 metadata:
   name: jellyfin
   labels:
-    network-dns-egress: "true"
-    network-monitoring-ingress: "true"
-    network-world-egress: "true"
+    network-egress-dns: "true"
+    network-egress-world: "true"
+    network-ingress-monitoring: "true"
