@@ -4,3 +4,5 @@ metadata:
   name: yt-dlp
   labels:
     network-deny-ingress: "true"
+    network-dns-egress: "true"
+    network-world-egress: "true"
