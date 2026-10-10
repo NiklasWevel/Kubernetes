@@ -12,9 +12,6 @@ spec:
             io.kubernetes.pod.namespace: traefik
             app.kubernetes.io/name: traefik
         - matchLabels:
-            io.kubernetes.pod.namespace: homepage
-            app: homepage
-        - matchLabels:
             io.kubernetes.pod.namespace: houndarr
             app: houndarr
         - matchLabels:
