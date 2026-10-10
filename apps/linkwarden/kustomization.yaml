@@ -4,7 +4,7 @@ resources:
   - cnp-ingress.yaml
   - database-credentials.yaml
   - deployment.yaml
-  - ingress-lan.yaml
+  - ingress.yaml
   - namespace.yaml
   - secret.yaml
   - secretstore.yaml
