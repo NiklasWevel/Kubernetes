@@ -3,4 +3,4 @@ kind: Namespace
 metadata:
   name: deemix
   labels:
-    network-dns-egress: "true"
+    network-egress-dns: "true"
