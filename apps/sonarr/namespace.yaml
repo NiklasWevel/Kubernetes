@@ -3,4 +3,4 @@ kind: Namespace
 metadata:
   name: sonarr
   labels:
-    network-homepage-ingress: "true"
+    network-ingress-homepage: "true"
