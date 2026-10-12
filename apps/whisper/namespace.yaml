@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: whisper
+  labels:
+    network-egress-dns: "true"
+    network-egress-world: "true"
