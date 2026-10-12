@@ -40,7 +40,7 @@ spec:
             - name: LIDARR__APP__INSTANCENAME
               value: lidarr
             - name: LIDARR__AUTH__METHOD
-              value: Forms
+              value: External
             - name: LIDARR__AUTH__REQUIRED
               value: DisabledForLocalAddresses
             - name: LIDARR__SERVER__ALLOWEDHOSTS

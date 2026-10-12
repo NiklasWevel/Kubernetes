@@ -9,6 +9,25 @@ spec:
   routes:
     - match: Host(`prowlarr.wevelsiep.com`)
       kind: Rule
+      priority: 1
+      services:
+        - name: prowlarr
+          port: 80
+      middlewares:
+        - name: oidc-auth
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: prowlarr-lan-health
+  namespace: prowlarr
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`prowlarr.wevelsiep.com`) && Path(`/ping`)
+      kind: Rule
+      priority: 1000
       services:
         - name: prowlarr
           port: 80

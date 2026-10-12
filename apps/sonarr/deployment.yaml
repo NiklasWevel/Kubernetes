@@ -39,7 +39,7 @@ spec:
             - name: SONARR__APP__INSTANCENAME
               value: sonarr
             - name: SONARR__AUTH__METHOD
-              value: Forms
+              value: External
             - name: SONARR__AUTH__REQUIRED
               value: DisabledForLocalAddresses
             - name: SONARR__SERVER__ALLOWEDHOSTS
