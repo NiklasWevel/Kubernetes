@@ -31,7 +31,7 @@ spec:
 
       containers:
         - name: ollama
-          image: ollama/ollama:0.40.2
+          image: ollama/ollama:0.40.3
           imagePullPolicy: IfNotPresent
           env:
             - name: OLLAMA_CONTEXT_LENGTH
