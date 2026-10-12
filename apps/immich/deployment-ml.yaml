@@ -21,6 +21,7 @@ spec:
       automountServiceAccountToken: false
       nodeSelector:
         nvidia.com/gpu.present: "true"
+        kubernetes.io/hostname: talos-node-02
       runtimeClassName: nvidia
       enableServiceLinks: false
       dnsConfig:
