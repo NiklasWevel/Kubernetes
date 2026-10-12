@@ -39,7 +39,7 @@ spec:
             - name: RADARR__APP__INSTANCENAME
               value: radarr
             - name: RADARR__AUTH__METHOD
-              value: Forms
+              value: External
             - name: RADARR__AUTH__REQUIRED
               value: DisabledForLocalAddresses
             - name: RADARR__SERVER__ALLOWEDHOSTS

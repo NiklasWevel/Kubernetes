@@ -1,0 +1,45 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: oidc-auth
+  namespace: radarr
+spec:
+  plugin:
+    traefik-oidc-auth:
+      secret: urn:k8s:secret:radarr-oidc:ENCRYPTION_SECRET
+      provider:
+        url: https://pocketid.wevelsiep.com/
+        clientId: urn:k8s:secret:radarr-oidc:CLIENT_ID
+        clientSecret: urn:k8s:secret:radarr-oidc:CLIENT_SECRET
+        usePkce: true
+      scopes:
+        - openid
+        - profile
+        - email
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: radarr-oidc
+  namespace: radarr
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: vault-kubernetes
+    kind: SecretStore
+  target:
+    name: radarr-oidc
+    creationPolicy: Owner
+  data:
+    - secretKey: ENCRYPTION_SECRET
+      remoteRef:
+        key: apps/radarr
+        property: oidc_encryption_secret
+    - secretKey: CLIENT_ID
+      remoteRef:
+        key: apps/radarr
+        property: oidc_client_id
+    - secretKey: CLIENT_SECRET
+      remoteRef:
+        key: apps/radarr
+        property: oidc_client_secret
