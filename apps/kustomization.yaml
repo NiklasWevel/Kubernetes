@@ -27,6 +27,7 @@ resources:
   - sonarr
   - suggestarr
   - unpackerr
+  - whisper
   - wikijs
   - yt-dlp
 #  - comfyui

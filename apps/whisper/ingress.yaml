@@ -1,0 +1,14 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: whisper-lan
+  namespace: whisper
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`whisper.wevelsiep.com`)
+      kind: Rule
+      services:
+        - name: whisper
+          port: 80
