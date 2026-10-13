@@ -30,7 +30,7 @@ spec:
 
       containers:
         - name: sonarr
-          image: ghcr.io/home-operations/sonarr:4.0.20
+          image: ghcr.io/home-operations/sonarr:5.0.0
           imagePullPolicy: IfNotPresent
           envFrom:
             - secretRef:
