@@ -54,7 +54,7 @@ spec:
 
           containers:
             - name: yt-dlp
-              image: git.wevelsiep.com/niklas/yt-dlp:latest
+              image: registry.wevelsiep.com/niklas/yt-dlp:latest
               imagePullPolicy: Always
               resources:
                 requests:

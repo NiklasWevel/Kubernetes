@@ -30,7 +30,7 @@ spec:
 
       containers:
         - name: whisper
-          image: git.wevelsiep.com/niklas/whisper:latest
+          image: registry.wevelsiep.com/niklas/whisper:latest
           imagePullPolicy: Always
           env:
             - name: WHISPER_MODEL
