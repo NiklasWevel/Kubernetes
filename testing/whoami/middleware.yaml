@@ -16,3 +16,30 @@ spec:
         - openid
         - profile
         - email
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: whoami-oidc
+  namespace: whoami
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: vault-kubernetes
+    kind: SecretStore
+  target:
+    name: whoami-oidc
+    creationPolicy: Owner
+  data:
+    - secretKey: ENCRYPTION_SECRET
+      remoteRef:
+        key: testing/whoami
+        property: oidc_encryption_secret
+    - secretKey: CLIENT_ID
+      remoteRef:
+        key: testing/whoami
+        property: oidc_client_id
+    - secretKey: CLIENT_SECRET
+      remoteRef:
+        key: testing/whoami
+        property: oidc_client_secret
