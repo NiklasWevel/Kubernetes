@@ -9,8 +9,7 @@ data:
     port = 7474
     baseUrlModeLegacy = true
     checkForUpdates = false
-    logLevel = "TRACE"
-    checkForUpdates = true
+    logLevel = "INFO"
     sessionSecret = "{{ .sessionSecret }}"
     metricsEnabled = false
     databaseType = "postgres"
@@ -21,3 +20,9 @@ data:
     postgresPass = "{{ .postgresPass }}"
     postgresSSLMode = "disable"
     postgresExtraParams = ""
+    oidcEnabled = true
+    oidcIssuer = "https://pocketid.wevelsiep.com"
+    oidcClientId = {{ .oidc_client_id }}"
+    oidcClientSecret = {{ .oidc_client_secret }}"
+    oidcRedirectUrl = "https://autobrr.wevelsiep.com/api/auth/oidc/callback"
+    oidcDisableBuiltInLogin = false
