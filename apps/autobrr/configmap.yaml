@@ -8,6 +8,7 @@ data:
     host = "0.0.0.0"
     port = 7474
     baseUrlModeLegacy = true
+    checkForUpdates = false
     logLevel = "TRACE"
     checkForUpdates = true
     sessionSecret = "{{ .sessionSecret }}"
