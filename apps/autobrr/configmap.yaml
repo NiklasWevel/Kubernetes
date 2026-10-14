@@ -22,7 +22,7 @@ data:
     postgresExtraParams = ""
     oidcEnabled = true
     oidcIssuer = "https://pocketid.wevelsiep.com"
-    oidcClientId = {{ .oidc_client_id }}"
-    oidcClientSecret = {{ .oidc_client_secret }}"
+    oidcClientId = "{{ .oidc_client_id }}"
+    oidcClientSecret = "{{ .oidc_client_secret }}"
     oidcRedirectUrl = "https://autobrr.wevelsiep.com/api/auth/oidc/callback"
     oidcDisableBuiltInLogin = false
