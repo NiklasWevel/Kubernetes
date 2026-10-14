@@ -33,6 +33,15 @@ spec:
             - port: "5055"
               protocol: TCP
 
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: qui
+            app: qui
+      toPorts:
+        - ports:
+            - port: "7476"
+              protocol: TCP
+
     - toCIDR:
         - 192.168.10.104/32
       toPorts:
