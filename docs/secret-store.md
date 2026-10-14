@@ -147,7 +147,7 @@ What happens on each sync:
 # Access as code
 
 The rules ("which namespace may read which paths") are not clicked into Vault by
-hand. They live in a separate `vault-terraform` repo on my selfhosted gitea instance outside the cluster.
+hand. They live in a separate `terraform-vault` repo on my selfhosted gitea instance outside the cluster.
 
 ```hcl
 namespace_paths = {
@@ -182,7 +182,7 @@ applied.
 
 # Onboarding a namespace
 
-1. vault-terraform → add the namespace to `namespaces.auto.tfvars`:
+1. terraform-vault → add the namespace to `namespaces.auto.tfvars`:
    ```hcl
    radarr = ["apps/radarr", "database/radarr"]
    ```
