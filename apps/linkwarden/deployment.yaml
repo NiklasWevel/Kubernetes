@@ -35,11 +35,24 @@ spec:
         - name: linkwarden
           image: ghcr.io/linkwarden/linkwarden:v2.16.3
           imagePullPolicy: IfNotPresent
+          env:
+            - name: NEXT_PUBLIC_DISABLE_REGISTRATION
+              value: "true"
+            - name: NEXT_PUBLIC_CREDENTIALS_ENABLED
+              value: "false"
+            - name: NEXT_PUBLIC_OIDC_ENABLED
+              value: "true"
+            - name: OIDC_CUSTOM_NAME
+              value: "PocketID"
+            - name: OIDC_WELLKNOWN_URL
+              value: "https://pocketid.wevelsiep.com/.well-known/openid-configuration"
           envFrom:
             - secretRef:
                 name: linkwarden-db-secret
             - secretRef:
                 name: linkwarden-env-secret
+            - secretRef:
+                name: linkwarden-oidc-secret
           ports:
             - containerPort: 3000
           resources:
