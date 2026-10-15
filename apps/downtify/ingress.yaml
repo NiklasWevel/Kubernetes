@@ -9,6 +9,9 @@ spec:
   routes:
     - match: Host(`downtify.wevelsiep.com`)
       kind: Rule
+      priority: 1
       services:
         - name: downtify
           port: 80
+      middlewares:
+        - name: oidc-auth
