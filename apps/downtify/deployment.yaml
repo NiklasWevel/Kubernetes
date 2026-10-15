@@ -29,8 +29,11 @@ spec:
 
       containers:
         - name: downtify
-          image: ghcr.io/henriquesebastiao/downtify:3.4.0
+          image: ghcr.io/henriquesebastiao/downtify:3.5.0
           imagePullPolicy: IfNotPresent
+          env:
+            - name: DOWNTIFY_DISABLE_AUTH
+              value: "true"
           ports:
             - containerPort: 8000
           resources:
@@ -51,13 +54,13 @@ spec:
                 - ALL
           readinessProbe:
             httpGet:
-              path: /
+              path: /api/health
               port: 8000
             initialDelaySeconds: 20
             periodSeconds: 10
           livenessProbe:
             httpGet:
-              path: /
+              path: /api/health
               port: 8000
             initialDelaySeconds: 60
             periodSeconds: 10
