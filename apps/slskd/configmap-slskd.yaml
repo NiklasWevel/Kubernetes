@@ -65,7 +65,7 @@ data:
         logging: false
     web:
       authentication:
-        disabled: false
+        disabled: true
         username: {{ .slskd_username }}
         password: {{ .slskd_password }}
         jwt:

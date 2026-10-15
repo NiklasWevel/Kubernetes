@@ -5,6 +5,7 @@ resources:
   - configmap-slskd.yaml
   - deployment.yaml
   - ingress.yaml
+  - middleware.yaml
   - namespace.yaml
   - secret-gluetun.yaml
   - secret-slskd.yaml
