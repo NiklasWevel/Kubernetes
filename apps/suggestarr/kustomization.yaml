@@ -4,6 +4,8 @@ resources:
   - cnp-ingress.yaml
   - deployment.yaml
   - ingress.yaml
+  - middleware.yaml
   - namespace.yaml
+  - secretstore.yaml
   - service.yaml
   - storage.yaml

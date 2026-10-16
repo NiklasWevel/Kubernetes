@@ -1,0 +1,45 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: oidc-auth
+  namespace: suggestarr
+spec:
+  plugin:
+    traefik-oidc-auth:
+      secret: urn:k8s:secret:suggestarr-oidc:ENCRYPTION_SECRET
+      provider:
+        url: https://pocketid.wevelsiep.com/
+        clientId: urn:k8s:secret:suggestarr-oidc:CLIENT_ID
+        clientSecret: urn:k8s:secret:suggestarr-oidc:CLIENT_SECRET
+        usePkce: true
+      scopes:
+        - openid
+        - profile
+        - email
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: suggestarr-oidc
+  namespace: suggestarr
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: vault-kubernetes
+    kind: SecretStore
+  target:
+    name: suggestarr-oidc
+    creationPolicy: Owner
+  data:
+    - secretKey: ENCRYPTION_SECRET
+      remoteRef:
+        key: apps/suggestarr
+        property: oidc_encryption_secret
+    - secretKey: CLIENT_ID
+      remoteRef:
+        key: apps/suggestarr
+        property: oidc_client_id
+    - secretKey: CLIENT_SECRET
+      remoteRef:
+        key: apps/suggestarr
+        property: oidc_client_secret
