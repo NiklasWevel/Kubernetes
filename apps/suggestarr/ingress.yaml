@@ -9,6 +9,25 @@ spec:
   routes:
     - match: Host(`suggestarr.wevelsiep.com`)
       kind: Rule
+      priority: 1
+      services:
+        - name: suggestarr
+          port: 80
+      middlewares:
+        - name: oidc-auth
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: suggestarr-lan-health
+  namespace: suggestarr
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`suggestarr.wevelsiep.com`) && Path(`/api/health/live`)
+      kind: Rule
+      priority: 1000
       services:
         - name: suggestarr
           port: 80
