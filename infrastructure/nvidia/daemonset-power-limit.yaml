@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: gpu-power-limit
+  namespace: gpu-operator
+spec:
+  selector:
+    matchLabels:
+      app: gpu-power-limit
+  template:
+    metadata:
+      labels:
+        app: gpu-power-limit
+    spec:
+      runtimeClassName: nvidia
+      priorityClassName: system-node-critical
+      nodeSelector:
+        nvidia.com/gpu.present: "true"
+      containers:
+        - name: tune
+          image: ubuntu:24.04
+          securityContext:
+            privileged: true
+          env:
+            - name: NVIDIA_VISIBLE_DEVICES
+              value: all
+            - name: NVIDIA_DRIVER_CAPABILITIES
+              value: utility
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              trap 'exit 0' TERM
+              while true; do
+                nvidia-smi -pm 1 >/dev/null
+                nvidia-smi -lgc 210,900 >/dev/null
+                nvidia-smi -pl 55 >/dev/null
+                sleep 300 & wait $!
+              done
+          resources:
+            requests:
+              cpu: 1m
+              memory: 16Mi

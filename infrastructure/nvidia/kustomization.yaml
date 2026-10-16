@@ -4,5 +4,6 @@ resources:
   - configmap.yaml
   - helmrelease.yaml
   - runtimeclass.yaml
+  - daemonset-power-limit.yaml
   - helmrepository.yaml
   - namespace.yaml
