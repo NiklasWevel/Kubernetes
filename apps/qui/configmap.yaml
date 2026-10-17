@@ -18,3 +18,9 @@ data:
     databaseUser = "{{ .postgresUser }}"
     databasePassword = "{{ .postgresPass }}"
     databaseSSLMode = "disable"
+    oidcEnabled = true
+    oidcIssuer = "https://pocketid.wevelsiep.com"
+    oidcClientId = "{{ .oidc_client_id }}"
+    oidcClientSecret = "{{ .oidc_client_secret }}"
+    oidcRedirectUrl = "https://qui.wevelsiep.com/api/auth/oidc/callback"
+    oidcDisableBuiltInLogin = false
