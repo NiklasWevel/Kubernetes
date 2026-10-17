@@ -18,7 +18,7 @@ spec:
         nvidia.com/gpu.present: "true"
       containers:
         - name: tune
-          image: ubuntu:24.04
+          image: ubuntu:26.04
           securityContext:
             privileged: true
           env:
