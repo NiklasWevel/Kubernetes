@@ -6,6 +6,7 @@ metadata:
 spec:
   schedule: "0 6 * * *"
   timeZone: "Europe/Berlin"
+  suspend: true
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 5
   failedJobsHistoryLimit: 5
@@ -56,11 +57,13 @@ spec:
                   mountPath: /downloads/comics
                 - name: dl-comics-tmp
                   mountPath: /downloads/comics-tmp
+                - name: archive
+                  mountPath: /archive
 
           volumes:
             - name: gallery-dl-script
-              secret:
-                secretName: gallery-dl-script-secret
+              configMap:
+                name: gallery-dl-script
                 defaultMode: 0755
             - name: gallery-dl-config
               secret:
@@ -80,3 +83,6 @@ spec:
                 claimName: gallery-dl-comics-pvc
             - name: dl-comics-tmp
               emptyDir: {}
+            - name: archive
+              persistentVolumeClaim:
+                claimName: gallery-dl-archive-pvc

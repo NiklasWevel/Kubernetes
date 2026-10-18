@@ -53,3 +53,20 @@ spec:
       storage: 10Gi
   storageClassName: "share"
   volumeName: gallery-dl-comics-pv
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gallery-dl-archive-pvc
+  namespace: gallery-dl
+  labels:
+    app.kubernetes.io/name: gallery-dl-archive-pvc
+    recurring-job.longhorn.io/source: enabled
+    recurring-job-group.longhorn.io/garage-s3: enabled
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: longhorn-retain
