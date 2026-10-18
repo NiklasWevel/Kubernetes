@@ -29,7 +29,7 @@ spec:
 
       containers:
         - name: homepage
-          image: gethomepage/homepage:v2.5.0
+          image: gethomepage/homepage:v2.6.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
