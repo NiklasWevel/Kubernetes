@@ -17,7 +17,7 @@ data:
     run_gallery_dl \
       --config /config/config.json \
       --input-file /input/niklas-input.txt \
-      --download-archive "postgresql://{{ .postgresUser }}:{{ .postgresPassword }}@gallery-dl-postgres-cluster-rw.gallery-dl-db.svc.cluster.local:5432/gallery-dl-db" \
+      --download-archive /archive/gallery-dl.sqlite3 \
       --option "lang=en" \
       --cbz \
       --verbose \
@@ -26,7 +26,7 @@ data:
     run_gallery_dl \
       --config /config/config.json \
       --input-file /input/chiara-input.txt \
-      --download-archive "postgresql://{{ .postgresUser }}:{{ .postgresPassword }}@gallery-dl-postgres-cluster-rw.gallery-dl-db.svc.cluster.local:5432/gallery-dl-db" \
+      --download-archive /archive/gallery-dl.sqlite3 \
       --option "lang=en" \
       --cbz \
       --verbose \
@@ -35,7 +35,7 @@ data:
     run_gallery_dl \
       --config /config/config.json \
       --input-file /input/comics-input.txt \
-      --download-archive "postgresql://{{ .postgresUser }}:{{ .postgresPassword }}@gallery-dl-postgres-cluster-rw.gallery-dl-db.svc.cluster.local:5432/gallery-dl-db" \
+      --download-archive /archive/gallery-dl.sqlite3 \
       --option "lang=en" \
       --verbose \
       --destination "/downloads/comics-tmp"
