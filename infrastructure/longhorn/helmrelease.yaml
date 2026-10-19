@@ -21,5 +21,6 @@ spec:
     defaultSettings:
       guaranteedInstanceManagerCPU: 5
       concurrentAutomaticEngineUpgradePerNodeLimit: 1
+      allowRecurringJobWhileVolumeDetached: true
     csi:
       allowControllerSecretAccess: false
