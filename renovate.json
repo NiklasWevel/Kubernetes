@@ -15,6 +15,12 @@
   "timezone": "Europe/Berlin",
   "prHourlyLimit": 0,
   "commitMessageAction": "update",
+  "minimumReleaseAge": "5 days",
+  "internalChecksFilter": "strict",
+  "pinDigests": true,
+  "vulnerabilityAlerts": {
+    "minimumReleaseAge": null
+  },
   "packageRules": [
     {
       "matchDatasources": ["docker"],
@@ -43,6 +49,25 @@
     {
       "description": "kubelet must match the running control plane: merge only after talosctl upgrade-k8s, together with --kubernetes-version",
       "matchPackageNames": ["ghcr.io/siderolabs/kubelet"],
+      "automerge": false
+    },
+    {
+      "matchUpdateTypes": ["pin", "pinDigest"],
+      "groupName": "pin digests",
+      "minimumReleaseAge": null
+    },
+    {
+      "matchPackageNames": ["registry.wevelsiep.com/**"],
+      "pinDigests": false,
+      "minimumReleaseAge": null
+    },
+    {
+      "matchFileNames": ["talos/**"],
+      "pinDigests": false
+    },
+    {
+      "matchDatasources": ["helm"],
+      "matchPackageNames": ["cilium", "longhorn", "external-secrets", "gpu-operator"],
       "automerge": false
     }
   ],
