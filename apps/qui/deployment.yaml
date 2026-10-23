@@ -29,7 +29,7 @@ spec:
 
       containers:
         - name: qui
-          image: ghcr.io/autobrr/qui:v1.33.1
+          image: ghcr.io/autobrr/qui:v1.33.1@sha256:c83ce0370ab372c931ccb3f0ddd0eb1bc850026ce9eafc13ce94443f6f2a2cd3
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 7476

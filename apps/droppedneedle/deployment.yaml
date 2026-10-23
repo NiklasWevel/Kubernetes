@@ -27,7 +27,7 @@ spec:
 
       containers:
         - name: needle
-          image: ghcr.io/droppedneedle/droppedneedle:v2.15.0
+          image: ghcr.io/droppedneedle/droppedneedle:v2.15.0@sha256:6d58d829cc5aa29e5de95933ba1ce46f249ccf7ef3ed437c643231b771d711c5
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:

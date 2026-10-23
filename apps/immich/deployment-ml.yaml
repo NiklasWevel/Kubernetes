@@ -34,7 +34,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: immich-machine-learning
-          image: ghcr.io/immich-app/immich-machine-learning:v3.2.2-cuda
+          image: ghcr.io/immich-app/immich-machine-learning:v3.2.2-cuda@sha256:38001e84ce46206e9e019d8ee7f567bf55914f019dff8f6a70d02fd93bb14073
           imagePullPolicy: IfNotPresent
           env:
             - name: HF_HOME
