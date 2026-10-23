@@ -29,7 +29,7 @@ spec:
 
       containers:
         - name: autobrr
-          image: ghcr.io/autobrr/autobrr:v1.89
+          image: ghcr.io/autobrr/autobrr:v1.89@sha256:60efc357e1852f1cd337b8c26d65c5299feadbb4f364c89299b1eede5d159ce4
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 7474

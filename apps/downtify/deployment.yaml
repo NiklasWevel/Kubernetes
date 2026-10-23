@@ -29,7 +29,7 @@ spec:
 
       containers:
         - name: downtify
-          image: ghcr.io/henriquesebastiao/downtify:3.7.0
+          image: ghcr.io/henriquesebastiao/downtify:3.7.0@sha256:8675ff546a00fd8c2162e3e31d900ecd23640d25716e48313dcb57e4781b4174
           imagePullPolicy: IfNotPresent
           env:
             - name: DOWNTIFY_DISABLE_AUTH

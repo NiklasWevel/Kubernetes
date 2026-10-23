@@ -31,7 +31,7 @@ spec:
 
       containers:
         - name: lidarr
-          image: ghcr.io/home-operations/lidarr:3.1.6
+          image: ghcr.io/home-operations/lidarr:3.1.6@sha256:24dacfbfa34ab6d99d6f0f2060fd8e97d1a8c5e82ff3d85f0e5a4c46bd9a3b2b
           imagePullPolicy: IfNotPresent
           envFrom:
             - secretRef:

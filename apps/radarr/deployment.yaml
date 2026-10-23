@@ -30,7 +30,7 @@ spec:
 
       containers:
         - name: radarr
-          image: ghcr.io/home-operations/radarr:6.4.4
+          image: ghcr.io/home-operations/radarr:6.4.4@sha256:1902ad2c08e9bac276ff9a1429af2eaa2f3c635a51f138f1b3eb734995171537
           imagePullPolicy: IfNotPresent
           envFrom:
             - secretRef:
