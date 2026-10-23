@@ -26,7 +26,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: immich-server
-          image: ghcr.io/immich-app/immich-server:release
+          image: ghcr.io/immich-app/immich-server:v3.2.2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 2283
