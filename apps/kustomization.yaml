@@ -25,6 +25,7 @@ resources:
   - seerr
   - slskd
   - sonarr
+  - speedtest-tracker
   - suggestarr
   - unpackerr
   - whisper

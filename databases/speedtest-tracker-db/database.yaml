@@ -1,0 +1,10 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: speedtest-tracker-db
+  namespace: speedtest-tracker-db
+spec:
+  name: speedtest-tracker-db
+  owner: speedtest-tracker-user
+  cluster:
+    name: speedtest-tracker-postgres-cluster

@@ -1,0 +1,33 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: speedtest-tracker-lan
+  namespace: speedtest-tracker
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`speedtest.wevelsiep.com`)
+      kind: Rule
+      priority: 1
+      services:
+        - name: speedtest-tracker
+          port: 80
+      middlewares:
+        - name: oidc-auth
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: speedtest-tracker-lan-health
+  namespace: speedtest-tracker
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`speedtest.wevelsiep.com`) && Path(`/api/healthcheck`)
+      kind: Rule
+      priority: 1000
+      services:
+        - name: speedtest-tracker
+          port: 80

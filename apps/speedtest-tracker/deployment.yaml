@@ -1,0 +1,108 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: speedtest-tracker
+  namespace: speedtest-tracker
+  labels:
+    app: speedtest-tracker
+  annotations:
+    ignore-check.kube-linter.io/run-as-non-root: "linuxserver/speedtest-tracker requires root (s6-overlay, PUID/PGID)"
+    ignore-check.kube-linter.io/no-read-only-root-fs: "linuxserver/speedtest-tracker requires writable filesystem"
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: speedtest-tracker
+  template:
+    metadata:
+      labels:
+        app: speedtest-tracker
+    spec:
+      enableServiceLinks: false
+      automountServiceAccountToken: false
+
+      containers:
+        - name: speedtest-tracker
+          image: ghcr.io/linuxserver/speedtest-tracker:v1.15.1-ls177@sha256:14b7850d1a0c06cc49e14546717f93996ad44e90127bb01418af293ae2d98fc7
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: speedtest-tracker-config-secret
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: Europe/Berlin
+            - name: APP_URL
+              value: https://speedtest.wevelsiep.com
+            - name: ASSET_URL
+              value: https://speedtest.wevelsiep.com
+            - name: DISPLAY_TIMEZONE
+              value: Europe/Berlin
+            - name: DB_CONNECTION
+              value: pgsql
+            - name: DB_HOST
+              value: speedtest-tracker-postgres-cluster-rw.speedtest-tracker-db.svc.cluster.local
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_DATABASE
+              value: speedtest-tracker-db
+            - name: SPEEDTEST_SCHEDULE
+              value: "6 */6 * * *"
+            - name: PUBLIC_DASHBOARD
+              value: "true"
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "2"
+              memory: "1Gi"
+          securityContext:
+            runAsNonRoot: false
+            allowPrivilegeEscalation: false
+            seccompProfile:
+              type: RuntimeDefault
+            capabilities:
+              drop:
+                - ALL
+              add:
+                - CHOWN
+                - DAC_OVERRIDE
+                - FOWNER
+                - KILL
+                - NET_BIND_SERVICE
+                - SETGID
+                - SETUID
+          startupProbe:
+            httpGet:
+              path: /api/healthcheck
+              port: 80
+            periodSeconds: 10
+            failureThreshold: 30
+          readinessProbe:
+            httpGet:
+              path: /api/healthcheck
+              port: 80
+            periodSeconds: 10
+            timeoutSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /api/healthcheck
+              port: 80
+            periodSeconds: 10
+            failureThreshold: 3
+          volumeMounts:
+            - name: config
+              mountPath: /config
+
+      volumes:
+        - name: config
+          emptyDir:
+            sizeLimit: 512Mi

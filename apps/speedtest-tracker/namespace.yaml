@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: speedtest-tracker
+  labels:
+    network-egress-dns: "true"
+    network-egress-ntfy: "true"
+    network-egress-world: "true"
+    network-ingress-homepage: "true"

@@ -12,5 +12,6 @@ resources:
   - radarr-db
   - seerr-db
   - sonarr-db
+  - speedtest-tracker-db
   - suggestarr-db
   - wikijs-db

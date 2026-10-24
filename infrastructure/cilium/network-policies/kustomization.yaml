@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - egress-allow-apiserver.yaml
   - egress-allow-dns.yaml
+  - egress-allow-ntfy.yaml
   - egress-allow-s3.yaml
   - egress-allow-world.yaml
   - egress-deny-all.yaml
