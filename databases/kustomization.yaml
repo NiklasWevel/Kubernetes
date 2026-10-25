@@ -14,4 +14,3 @@ resources:
   - sonarr-db
   - speedtest-tracker-db
   - suggestarr-db
-  - wikijs-db
