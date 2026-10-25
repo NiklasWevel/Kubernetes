@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: radicale
+  namespace: radicale
+  labels:
+    app: radicale
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: radicale
+  template:
+    metadata:
+      labels:
+        app: radicale
+    spec:
+      enableServiceLinks: false
+      automountServiceAccountToken: false
+      securityContext:
+        runAsUser: 2999
+        runAsGroup: 2999
+        fsGroup: 2999
+
+      containers:
+        - name: radicale
+          image: tomsquest/docker-radicale:3.8.3.0@sha256:a3b1b452f4bc3d1aee43015b85bc2d9ee5de0ff7e96d5d2b47f1d889aa682409
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5232
+          resources:
+            requests:
+              cpu: "20m"
+              memory: "64Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            seccompProfile:
+              type: "RuntimeDefault"
+            capabilities:
+              drop:
+                - ALL
+          readinessProbe:
+            httpGet:
+              path: /.web/
+              port: 5232
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /.web/
+              port: 5232
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            failureThreshold: 3
+
+          volumeMounts:
+            - name: radicale-data
+              mountPath: /data
+            - name: radicale-config
+              mountPath: /config
+              readOnly: true
+            - name: radicale-users
+              mountPath: /secrets
+              readOnly: true
+            - name: tmp
+              mountPath: /tmp
+
+      volumes:
+        - name: radicale-data
+          persistentVolumeClaim:
+            claimName: radicale-data-pvc
+        - name: radicale-config
+          configMap:
+            name: radicale-config
+        - name: radicale-users
+          secret:
+            secretName: radicale-users
+        - name: tmp
+          emptyDir:
+            sizeLimit: 64Mi

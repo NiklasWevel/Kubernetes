@@ -1,0 +1,14 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: radicale-lan
+  namespace: radicale
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`radicale.wevelsiep.com`)
+      kind: Rule
+      services:
+        - name: radicale
+          port: 80

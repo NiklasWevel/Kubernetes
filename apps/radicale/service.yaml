@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: radicale
+  namespace: radicale
+spec:
+  selector:
+    app: radicale
+  ports:
+    - port: 80
+      targetPort: 5232
