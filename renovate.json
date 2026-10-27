@@ -69,6 +69,11 @@
       "pinDigests": false
     },
     {
+      "matchPackageNames": ["ghcr.io/controlplaneio-fluxcd/charts/flux-operator"],
+      "pinDigests": false,
+      "automerge": false
+    },
+    {
       "matchDatasources": ["docker"],
       "matchPackageNames": ["factory.talos.dev/**"],
       "enabled": false
