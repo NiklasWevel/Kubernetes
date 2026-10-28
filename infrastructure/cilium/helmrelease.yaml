@@ -59,6 +59,9 @@ spec:
         enabled: true
       ui:
         enabled: true
+      metrics:
+        enabled:
+          - "drop:sourceContext=workload|reserved-identity;destinationContext=workload|reserved-identity"
       tls:
         auto:
           enabled: true
