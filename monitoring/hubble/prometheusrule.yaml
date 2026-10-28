@@ -1,0 +1,25 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: hubble-drops
+  namespace: monitoring
+spec:
+  groups:
+    - name: hubble-drops
+      rules:
+        - alert: HubblePolicyDenied
+          expr: sum by (source, destination, protocol) (increase(hubble_drop_total{reason="POLICY_DENIED"}[10m])) > 0
+          for: 1m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Cilium policy drop: {{ $labels.source }} -> {{ $labels.destination }}"
+            description: "{{ $value | humanize }} {{ $labels.protocol }} packets from {{ $labels.source }} to {{ $labels.destination }} denied by network policy in the last 10m."
+        - alert: HubbleDropsHigh
+          expr: sum by (reason, node) (rate(hubble_drop_total{reason!="POLICY_DENIED"}[5m])) > 1
+          for: 15m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Cilium drops on {{ $labels.node }}: {{ $labels.reason }}"
+            description: "{{ $value | humanize }} packets/s dropped on {{ $labels.node }} with reason {{ $labels.reason }} for 15m."
