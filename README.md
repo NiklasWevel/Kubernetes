@@ -130,14 +130,21 @@ helm template cilium cilium/cilium --version 1.20.2 --namespace kube-system \
 
 ### Bootstrap FluxCD
 
+Flux is managed by the [Flux Operator](https://fluxoperator.dev/) through a
+[FluxInstance](infrastructure/flux-operator/instance/fluxinstance.yaml).
+Install the operator once, then apply the FluxInstance. Flux syncs `./cluster`
+and adopts both the operator HelmRelease and the FluxInstance on first reconcile.
+
 ```bash
-kubectl create namespace flux-system
-flux bootstrap github \
-  --token-auth \
-  --owner=NiklasWevel \
-  --repository=Kubernetes \
-  --branch=main \
-  --path=cluster \
-  --personal
+helm install flux-operator oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator \
+  --version "$(awk '/version:/ {print $2; exit}' infrastructure/flux-operator/helmrelease.yaml)" \
+  --namespace flux-system \
+  --create-namespace
+
+kubectl -n flux-system create secret generic flux-system \
+  --from-literal=username=git \
+  --from-literal=password="$GITHUB_TOKEN_READ_ONLY"
+
+kubectl apply -f infrastructure/flux-operator/instance/fluxinstance.yaml
 ```
 
