@@ -3,5 +3,6 @@ kind: Kustomization
 
 resources:
   - deployment-instance.yaml
+  - deployment-web.yaml
   - helmrelease.yaml
   - helmrepository.yaml
