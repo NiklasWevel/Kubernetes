@@ -20,7 +20,10 @@ spec:
   values:
     installCRDs: true
     web:
-      enabled: false
+      enabled: true
+      configSecretName: flux-web-config
+      networkPolicy:
+        create: false
   upgrade:
     remediation:
       retries: 3
