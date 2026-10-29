@@ -10,7 +10,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: smb-csi
-      version: "1.20.3"
+      version: "1.20.4"
   interval: 1h0m0s
   timeout: 10m
   releaseName: csi-driver-smb
