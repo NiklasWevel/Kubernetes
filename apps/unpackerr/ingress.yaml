@@ -1,0 +1,14 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: unpackerr-lan
+  namespace: unpackerr
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`unpackerr.wevelsiep.com`)
+      kind: Rule
+      services:
+        - name: unpackerr
+          port: 80
