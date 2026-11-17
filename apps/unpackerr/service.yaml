@@ -9,6 +9,6 @@ spec:
   selector:
     app: unpackerr
   ports:
-    - name: metrics
+    - name: http
       port: 80
       targetPort: 5656
