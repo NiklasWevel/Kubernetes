@@ -3,4 +3,6 @@ kind: Namespace
 metadata:
   name: unpackerr
   labels:
+    network-egress-dns: "true"
+    network-egress-ntfy: "true"
     network-ingress-deny-all: "true"
