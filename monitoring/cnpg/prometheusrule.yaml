@@ -1,0 +1,33 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: cnpg-clusters
+  namespace: monitoring
+spec:
+  groups:
+    - name: cnpg-clusters
+      rules:
+        - alert: CNPGContinuousArchivingFailing
+          expr: cnpg_cluster_condition{type="ContinuousArchiving"} == 0
+          for: 30m
+          labels:
+            severity: warning
+          annotations:
+            summary: "CNPG WAL archiving failing: {{ $labels.namespace }}/{{ $labels.name }}"
+            description: "WAL archiving of {{ $labels.namespace }}/{{ $labels.name }} has been failing for 30m ({{ $labels.reason }}). WAL accumulates in pg_wal until archiving recovers."
+        - alert: CNPGLastBackupFailed
+          expr: cnpg_cluster_condition{type="LastBackupSucceeded"} == 0
+          for: 1h
+          labels:
+            severity: warning
+          annotations:
+            summary: "CNPG backup failed: {{ $labels.namespace }}/{{ $labels.name }}"
+            description: "The last backup of {{ $labels.namespace }}/{{ $labels.name }} failed ({{ $labels.reason }})."
+        - alert: CNPGClusterNotReady
+          expr: cnpg_cluster_condition{type="Ready"} == 0
+          for: 15m
+          labels:
+            severity: warning
+          annotations:
+            summary: "CNPG cluster not ready: {{ $labels.namespace }}/{{ $labels.name }}"
+            description: "{{ $labels.namespace }}/{{ $labels.name }} has not been ready for 15m ({{ $labels.reason }})."
