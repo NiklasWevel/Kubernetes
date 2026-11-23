@@ -78,3 +78,6 @@ spec:
     k8sClientRateLimit:
       qps: 50
       burst: 200
+
+    envoy:
+      xdsMode: ads
