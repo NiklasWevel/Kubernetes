@@ -29,7 +29,7 @@ spec:
 
       containers:
         - name: bentopdf
-          image: bentopdfteam/bentopdf-simple:2.8.11@sha256:3bbab98791694b77bc70ab03bf1b2ea89e568a75ef172c27d95cbdbdf810038f
+          image: bentopdfteam/bentopdf-simple:2.8.11@sha256:4a501ea221007bc938f231d12b63261a2a9cdd8d6747b236fd709ef30e5fe7bc
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
